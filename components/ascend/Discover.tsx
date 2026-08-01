@@ -100,109 +100,90 @@ export function Discover({
         </div>
       </header>
 
-      {/* ── Three-column body ───────────────────────────────────── */}
-      <div className="mx-auto grid w-full max-w-screen-xl flex-1 grid-cols-1 gap-0 px-5 sm:px-8 lg:grid-cols-[260px_1fr_280px] xl:grid-cols-[280px_1fr_300px]">
-
-        {/* LEFT sidebar — identity, trajectory, pivot */}
-        <aside className="hidden py-8 pr-6 lg:flex lg:flex-col xl:pr-8">
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: EASE }}
-            className="sticky top-24 flex flex-col gap-5"
-          >
-            <div>
-              <div className="text-micro text-muted-foreground">Becoming</div>
-              <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight xl:text-3xl">
-                {profile.aspiration}
-              </h1>
-            </div>
-            <TrajectoryStrip state={state} profile={profile} />
-            <PivotBanner ccs={ccs} />
-          </motion.div>
-        </aside>
-
-        {/* CENTRE — card stack fills its column */}
-        <main className="flex flex-col items-center py-8">
-          {/* Mobile identity row */}
-          <div className="mb-5 w-full lg:hidden">
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, ease: EASE }}
-            >
-              <div className="text-micro text-muted-foreground">Becoming</div>
-              <h1 className="mt-0.5 font-display text-2xl font-medium leading-tight tracking-tight">
-                {profile.aspiration}
-              </h1>
-            </motion.div>
-            <div className="mt-3 flex flex-wrap gap-3">
-              <TrajectoryStrip state={state} profile={profile} />
-              <PivotBanner ccs={ccs} />
-            </div>
-          </div>
-
-          {/* Card container — full column width, tall enough to show image + content */}
-          <div className="relative w-full" style={{ height: "min(75vh, 660px)" }}>
-            <CardStack
-              state={state}
-              profile={profile}
-              ccs={ccs}
-              onSwipe={onSwipe}
-              showHints={showHints}
-            />
-          </div>
-
-          {/* Space for the action buttons that hang -bottom-16 off the card container */}
-          <div className="h-20" />
-
-          {/* Mobile taste-profile accordion */}
-          <div className="mt-4 w-full lg:hidden">
-            <button
-              onClick={() => setRailOpen((v) => !v)}
-              aria-expanded={railOpen}
-              className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
-            >
-              Taste Profile &amp; Wellbeing
-              <ChevronDown
-                className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-            <AnimatePresence>
-              {railOpen && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3, ease: EASE }}
-                  className="overflow-hidden"
-                >
-                  <div className="mt-3">
-                    <TasteProfileRail
-                      state={state}
-                      profile={profile}
-                      prevWeights={prevWeights}
-                      ccs={ccs}
-                    />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </main>
-
-        {/* RIGHT sidebar — taste profile + wellbeing */}
-        <aside className="hidden py-8 pl-6 lg:block xl:pl-8">
-          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-4 pr-1">
-            <TasteProfileRail
-              state={state}
-              profile={profile}
-              prevWeights={prevWeights}
-              ccs={ccs}
-            />
-          </div>
-        </aside>
+      {/* ── Becoming banner + trajectory/pivot row ──────────────── */}
+      <div className="mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: EASE }}
+        >
+          <div className="text-micro text-muted-foreground">Becoming</div>
+          <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+            {profile.aspiration}
+          </h1>
+        </motion.div>
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <TrajectoryStrip state={state} profile={profile} />
+          <PivotBanner ccs={ccs} />
+        </div>
       </div>
+
+      {/* ── Two-column body — wide card, fixed-width rail ───────── */}
+      <main className="mx-auto w-full max-w-7xl flex-1 px-5 py-8 sm:px-8">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_340px]">
+          {/* Card stack column */}
+          <div className="flex flex-col items-center">
+            <div className="relative w-full max-w-md" style={{ height: "min(75vh, 660px)" }}>
+              <CardStack
+                state={state}
+                profile={profile}
+                ccs={ccs}
+                onSwipe={onSwipe}
+                showHints={showHints}
+              />
+            </div>
+
+            {/* Space for the action buttons that hang -bottom-16 off the card container */}
+            <div className="h-20" />
+
+            {/* Mobile taste-profile accordion */}
+            <div className="w-full max-w-md lg:hidden">
+              <button
+                onClick={() => setRailOpen((v) => !v)}
+                aria-expanded={railOpen}
+                className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
+              >
+                Taste Profile &amp; Wellbeing
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              <AnimatePresence>
+                {railOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease: EASE }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-3">
+                      <TasteProfileRail
+                        state={state}
+                        profile={profile}
+                        prevWeights={prevWeights}
+                        ccs={ccs}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Taste profile rail — desktop */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-4 pr-1">
+              <TasteProfileRail
+                state={state}
+                profile={profile}
+                prevWeights={prevWeights}
+                ccs={ccs}
+              />
+            </div>
+          </aside>
+        </div>
+      </main>
 
       {/* Drawers + overlays */}
       <QuestsShelf open={questsOpen} onClose={() => setQuestsOpen(false)} state={state} mode="accepted" />

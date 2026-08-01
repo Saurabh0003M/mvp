@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { type EngineState, type UserProfile, topWeights } from "@/lib/engine";
+import { type CompressedCognitiveState } from "@/lib/cognitive";
+import { WellbeingRadar } from "./WellbeingRadar";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -9,12 +11,14 @@ interface Props {
   state: EngineState;
   profile: UserProfile;
   prevWeights: { label: string; value: number }[];
+  ccs: CompressedCognitiveState | null;
 }
 
-export function TasteProfileRail({ state, profile, prevWeights }: Props) {
+export function TasteProfileRail({ state, profile, prevWeights, ccs }: Props) {
   const bars = topWeights(state, profile);
 
   return (
+    <div className="space-y-4">
     <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
       <div className="flex items-center justify-between">
         <div>
@@ -58,6 +62,9 @@ export function TasteProfileRail({ state, profile, prevWeights }: Props) {
           <span>{state.accepted.length} accepted · {state.later.length} saved</span>
         </div>
       </div>
+    </div>
+
+    {ccs && <WellbeingRadar ccs={ccs} />}
     </div>
   );
 }

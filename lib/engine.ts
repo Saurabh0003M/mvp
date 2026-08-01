@@ -2,60 +2,39 @@
 // swap the local corpus for Supabase and the templated "why" strings for a real
 // LLM later without the UI needing to change.
 
-// Types. These roughly mirror the tables we'll want in the DB eventually.
+// ---------------------------------------------------------------------------
+// The shared vocabulary (types, category/format constants, corpus taxonomy)
+// now lives in ./taxonomy. We re-export it wholesale so every existing
+// `import { ... } from "@/lib/engine"` in the UI keeps resolving unchanged, and
+// separately import the symbols this module needs internally.
+// ---------------------------------------------------------------------------
 
-export type Category =
-  | "AI/ML"
-  | "Cybersecurity"
-  | "Web Dev"
-  | "Basketball"
-  | "Design"
-  | "Business"
-  | "Data Science"
-  | "Creative Writing";
+export * from "./taxonomy";
 
-export type Format = "project" | "read" | "video" | "bite";
-export type Difficulty = "Beginner" | "Intermediate" | "Advanced";
-export type LearningStyle = "project" | "read" | "video" | "bite";
+import {
+  ALL_CATEGORIES,
+  ALL_FORMATS,
+  FORMAT_LABELS,
+  CATEGORY_ACCENTS,
+  type Category,
+  type Format,
+  type Recommendation,
+  type UserProfile,
+  type SwipeDirection,
+  type Interaction,
+  type Weights,
+  type Counters,
+} from "./taxonomy";
 
-export interface Recommendation {
-  id: string;
-  title: string;
-  description: string;
-  category: Category;
-  format: Format;
-  difficulty: Difficulty;
-  duration: number; // minutes
-  tags: string[];
-}
+import {
+  compressCognitiveState,
+  eudaimonicBonus,
+  contentAxes,
+  AXIS_ORDER,
+  type CompressedCognitiveState,
+} from "./cognitive";
 
-export interface UserProfile {
-  aspiration: string;
-  interests: Category[];
-  experience: Difficulty;
-  learningStyle: LearningStyle;
-  dailyTime: 15 | 30 | 60;
-}
-
-export type SwipeDirection = "accept" | "skip" | "later";
-
-export interface Interaction {
-  recommendationId: string;
-  category: Category;
-  format: Format;
-  direction: SwipeDirection;
-  timestamp: number;
-}
-
-export interface Weights {
-  categories: Record<Category, number>;
-  formats: Record<Format, number>;
-}
-
-export interface Counters {
-  categories: Record<Category, { accept: number; skip: number; later: number }>;
-  formats: Record<Format, { accept: number; skip: number; later: number }>;
-}
+import { greedyMapDpp, type DppItem } from "./dpp";
 
 export interface EngineState {
   weights: Weights;
@@ -79,36 +58,8 @@ export interface Insight {
   delta?: number;
 }
 
-export const ALL_CATEGORIES: Category[] = [
-  "AI/ML",
-  "Cybersecurity",
-  "Web Dev",
-  "Basketball",
-  "Design",
-  "Business",
-  "Data Science",
-  "Creative Writing",
-];
-
-export const ALL_FORMATS: Format[] = ["project", "read", "video", "bite"];
-
-export const FORMAT_LABELS: Record<Format, string> = {
-  project: "Project-based",
-  read: "Reading",
-  video: "Video",
-  bite: "Bite-sized",
-};
-
-export const CATEGORY_ACCENTS: Record<Category, string> = {
-  "AI/ML": "hsl(168, 70%, 42%)",
-  Cybersecurity: "hsl(200, 70%, 52%)",
-  "Web Dev": "hsl(262, 60%, 60%)",
-  Basketball: "hsl(28, 80%, 56%)",
-  Design: "hsl(330, 70%, 58%)",
-  Business: "hsl(142, 60%, 46%)",
-  "Data Science": "hsl(190, 65%, 48%)",
-  "Creative Writing": "hsl(0, 70%, 56%)",
-};
+// ALL_CATEGORIES, ALL_FORMATS, FORMAT_LABELS, and CATEGORY_ACCENTS now live in
+// ./taxonomy and are re-exported above.
 
 // Starter corpus, ~28 items. Hardcoded for now until we have a real DB.
 
@@ -175,7 +126,7 @@ function emptyCounters(): Counters {
 export function createEngine(profile: UserProfile): EngineState {
   const weights = initialWeights(profile);
   const seen = new Set<string>();
-  const queue = sortedQueue(RECOMMENDATIONS.slice(), weights, profile, seen);
+  const queue = sortedQueue(RECOMMENDATIONS.slice(), weights, profile, seen, []);
   return {
     weights,
     counters: emptyCounters(),
@@ -206,24 +157,80 @@ function initialWeights(profile: UserProfile): Weights {
 export function scoreCard(
   card: Recommendation,
   weights: Weights,
-  seen: Set<string>
+  seen: Set<string>,
+  ccs?: CompressedCognitiveState | null,
+  profile?: UserProfile
 ): number {
   const cat = weights.categories[card.category] ?? 0;
   const fmt = weights.formats[card.format] ?? 0;
   const repetition = seen.has(card.id) ? 25 : 0;
-  return cat * 0.6 + fmt * 0.4 - repetition;
+  const base = cat * 0.6 + fmt * 0.4 - repetition;
+  // The eudaimonic layer tilts ranking toward the neglected wellbeing axis and
+  // the active corrective pivot. Small by design — revealed taste still leads.
+  const eudaimonic = ccs && profile ? eudaimonicBonus(card, ccs, profile) : 0;
+  return base + eudaimonic;
 }
 
 function sortedQueue(
   cards: Recommendation[],
   weights: Weights,
   profile: UserProfile,
-  seen: Set<string>
+  seen: Set<string>,
+  history: Interaction[]
 ): Recommendation[] {
-  return cards
-    .map((c) => ({ card: c, score: scoreCard(c, weights, seen) }))
-    .sort((a, b) => b.score - a.score)
-    .map((x) => x.card);
+  const ccs = compressCognitiveState(history, profile, RECOMMENDATIONS);
+  const scored = cards.map((c) => ({
+    card: c,
+    score: scoreCard(c, weights, seen, ccs, profile),
+  }));
+  // Relevance-first order — both the sensible fallback and the quality signal
+  // the DPP consumes.
+  scored.sort((a, b) => b.score - a.score);
+  return diversify(scored, profile);
+}
+
+// ---------------------------------------------------------------------------
+// Diversity re-rank — a Determinantal Point Process over (category, format,
+// wellbeing) features stops the feed from collapsing onto a single theme. The
+// linear algebra lives in ./dpp; here we just build the features and quality.
+// ---------------------------------------------------------------------------
+
+function featureVector(card: Recommendation, profile: UserProfile): number[] {
+  const cat = ALL_CATEGORIES.map((c) => (c === card.category ? 1 : 0));
+  const fmt = ALL_FORMATS.map((f) => (f === card.format ? 1 : 0));
+  const axes = contentAxes(card, profile);
+  const wellbeing = AXIS_ORDER.map((a) => axes[a]);
+  return [...cat, ...fmt, ...wellbeing];
+}
+
+function diversify(
+  scored: { card: Recommendation; score: number }[],
+  profile: UserProfile
+): Recommendation[] {
+  if (scored.length <= 2) return scored.map((s) => s.card);
+
+  // Map raw scores (which can go negative) into [0,1] quality for the kernel.
+  const scores = scored.map((s) => s.score);
+  const min = Math.min(...scores);
+  const max = Math.max(...scores);
+  const span = max - min || 1;
+
+  const items: DppItem[] = scored.map((s) => ({
+    id: s.card.id,
+    features: featureVector(s.card, profile),
+    quality: (s.score - min) / span,
+  }));
+
+  const order = greedyMapDpp(items, items.length);
+  const byId = new Map(scored.map((s) => [s.card.id, s.card]));
+  const picked = new Set(order);
+  const result = order.map((id) => byId.get(id)!).filter(Boolean);
+  // Items the DPP stopped short of (judged redundant) trail in score order,
+  // so nothing is ever dropped from the queue.
+  for (const s of scored) {
+    if (!picked.has(s.card.id)) result.push(s.card);
+  }
+  return result;
 }
 
 // This is where the learning happens: a swipe nudges the weights and requeues.
@@ -281,7 +288,8 @@ export function applySwipe(
   const later =
     direction === "later" ? [card, ...state.later] : state.later;
 
-  const queue = sortedQueue(remaining, norm, profile, seen);
+  const history = [...state.history, interaction];
+  const queue = sortedQueue(remaining, norm, profile, seen, history);
 
   return {
     ...state,
@@ -290,7 +298,7 @@ export function applySwipe(
     queue,
     accepted,
     later,
-    history: [...state.history, interaction],
+    history,
     seen,
   };
 }
@@ -301,7 +309,7 @@ export function reSurface(state: EngineState, cardId: string, profile: UserProfi
   return {
     ...state,
     later: state.later.filter((c) => c.id !== cardId),
-    queue: sortedQueue([card, ...state.queue], state.weights, profile, state.seen),
+    queue: sortedQueue([card, ...state.queue], state.weights, profile, state.seen, state.history),
   };
 }
 
@@ -323,7 +331,7 @@ export function applyInsight(
     );
   }
   const norm = normalize({ categories, formats });
-  const queue = sortedQueue(state.queue, norm, profile, state.seen);
+  const queue = sortedQueue(state.queue, norm, profile, state.seen, state.history);
   return {
     ...state,
     weights: norm,

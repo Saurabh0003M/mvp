@@ -30,6 +30,7 @@ export default function Home() {
           <Discover
             state={engine.state}
             profile={engine.profile}
+            ccs={engine.ccs}
             onSwipe={engine.swipe}
             onResurface={engine.resurface}
             activeInsight={engine.activeInsight}

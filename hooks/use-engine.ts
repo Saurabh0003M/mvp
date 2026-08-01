@@ -1,18 +1,20 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import {
   type EngineState,
   type UserProfile,
   type SwipeDirection,
   type Insight,
   type Recommendation,
+  RECOMMENDATIONS,
   createEngine,
   applySwipe,
   applyInsight,
   detectInsight,
   reSurface,
 } from "@/lib/engine";
+import { compressCognitiveState } from "@/lib/cognitive";
 
 const INSIGHT_COOLDOWN_MS = 4000;
 
@@ -22,6 +24,14 @@ export function useEngine() {
   const [activeInsight, setActiveInsight] = useState<Insight | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const lastInsightAt = useRef(0);
+
+  // Compressed Cognitive State — rebuilt from scratch each turn (never
+  // appended), so it stays O(1) in session length. Drives the wellbeing radar
+  // and the corrective-pivot banner.
+  const ccs = useMemo(
+    () => (state && profile ? compressCognitiveState(state.history, profile, RECOMMENDATIONS) : null),
+    [state, profile]
+  );
 
   const start = useCallback((p: UserProfile) => {
     setProfile(p);
@@ -74,6 +84,7 @@ export function useEngine() {
   return {
     profile,
     state,
+    ccs,
     activeInsight,
     toast,
     start,

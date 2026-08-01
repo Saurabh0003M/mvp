@@ -3,11 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { type EngineState, type UserProfile, topWeights, type Recommendation, type SwipeDirection } from "@/lib/engine";
+import { type CompressedCognitiveState } from "@/lib/cognitive";
 import { CardStack } from "./CardStack";
 import { TasteProfileRail } from "./TasteProfileRail";
 import { TrajectoryStrip } from "./TrajectoryStrip";
 import { QuestsShelf } from "./QuestsShelf";
 import { InsightSheet } from "./InsightSheet";
+import { PivotBanner } from "./PivotBanner";
 import { Toast } from "./Toast";
 import { Check, Bookmark, ChevronDown } from "lucide-react";
 
@@ -16,6 +18,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 interface Props {
   state: EngineState;
   profile: UserProfile;
+  ccs: CompressedCognitiveState | null;
   onSwipe: (card: Recommendation, dir: SwipeDirection) => void;
   onResurface: (id: string) => void;
   activeInsight: import("@/lib/engine").Insight | null;
@@ -27,6 +30,7 @@ interface Props {
 export function Discover({
   state,
   profile,
+  ccs,
   onSwipe,
   onResurface,
   activeInsight,
@@ -97,6 +101,7 @@ export function Discover({
           <div className="text-micro text-muted-foreground">Becoming</div>
           <h1 className="text-balance text-display mt-1">{profile.aspiration}</h1>
         </motion.div>
+        <PivotBanner ccs={ccs} />
       </div>
 
       {/* Main layout */}
@@ -122,7 +127,7 @@ export function Discover({
           {/* Taste profile rail — desktop */}
           <aside className="hidden lg:block">
             <div className="sticky top-24">
-              <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} />
+              <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} ccs={ccs} />
             </div>
           </aside>
         </div>
@@ -147,7 +152,7 @@ export function Discover({
               className="overflow-hidden px-5"
             >
               <div className="mt-4">
-                <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} />
+                <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} ccs={ccs} />
               </div>
             </motion.div>
           )}

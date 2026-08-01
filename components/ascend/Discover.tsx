@@ -16,6 +16,7 @@ import { CardStack } from "./CardStack";
 import { TasteProfileRail } from "./TasteProfileRail";
 import { TrajectoryStrip } from "./TrajectoryStrip";
 import { QuestsShelf } from "./QuestsShelf";
+import { ProfileSheet } from "./ProfileSheet";
 import { InsightSheet } from "./InsightSheet";
 import { PivotBanner } from "./PivotBanner";
 import { VoiceCoach } from "./VoiceCoach";
@@ -55,6 +56,7 @@ export function Discover({
 }: Props) {
   const [questsOpen, setQuestsOpen] = useState(false);
   const [laterOpen, setLaterOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [showHints, setShowHints] = useState(true);
   const [railOpen, setRailOpen] = useState(false);
   const [prevWeights, setPrevWeights] = useState(() =>
@@ -77,12 +79,16 @@ export function Discover({
       {/* ── Header ─────────────────────────────────────────────── */}
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-screen-xl items-center justify-between px-5 py-3.5 sm:px-8">
-          <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => setProfileOpen(true)}
+            className="flex items-center gap-2.5 rounded-lg transition-opacity hover:opacity-80"
+            aria-label="Open profile"
+          >
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground text-background">
               <span className="text-caption font-semibold">A</span>
             </div>
             <span className="text-subtitle font-semibold tracking-tight">Ascend</span>
-          </div>
+          </button>
           <div className="flex items-center gap-2">
             <CounterChip
               label="Today's Quests"
@@ -143,7 +149,7 @@ export function Discover({
                 aria-expanded={railOpen}
                 className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
               >
-                Taste Profile &amp; Wellbeing
+                Taste Profile
                 <ChevronDown
                   className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`}
                 />
@@ -162,7 +168,6 @@ export function Discover({
                         state={state}
                         profile={profile}
                         prevWeights={prevWeights}
-                        ccs={ccs}
                       />
                     </div>
                   </motion.div>
@@ -178,7 +183,6 @@ export function Discover({
                 state={state}
                 profile={profile}
                 prevWeights={prevWeights}
-                ccs={ccs}
               />
             </div>
           </aside>
@@ -188,6 +192,7 @@ export function Discover({
       {/* Drawers + overlays */}
       <QuestsShelf open={questsOpen} onClose={() => setQuestsOpen(false)} state={state} mode="accepted" />
       <QuestsShelf open={laterOpen} onClose={() => setLaterOpen(false)} state={state} onResurface={onResurface} mode="later" />
+      <ProfileSheet open={profileOpen} onClose={() => setProfileOpen(false)} profile={profile} ccs={ccs} />
       <InsightSheet insight={activeInsight} onApply={onApplyInsight} onDismiss={onDismissInsight} />
       <VoiceCoach messages={messages} reading={reading} onConverse={onConverse} />
       <Toast message={toast} />

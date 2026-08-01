@@ -4,12 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { type EngineState, type UserProfile, topWeights, type Recommendation, type SwipeDirection } from "@/lib/engine";
 import { type CompressedCognitiveState } from "@/lib/cognitive";
+import { type VoiceReading } from "@/lib/voice";
+import { type CoachMessage } from "@/hooks/use-engine";
 import { CardStack } from "./CardStack";
 import { TasteProfileRail } from "./TasteProfileRail";
 import { TrajectoryStrip } from "./TrajectoryStrip";
 import { QuestsShelf } from "./QuestsShelf";
 import { InsightSheet } from "./InsightSheet";
 import { PivotBanner } from "./PivotBanner";
+import { VoiceCoach } from "./VoiceCoach";
 import { Toast } from "./Toast";
 import { Check, Bookmark, ChevronDown } from "lucide-react";
 
@@ -19,8 +22,11 @@ interface Props {
   state: EngineState;
   profile: UserProfile;
   ccs: CompressedCognitiveState | null;
+  messages: CoachMessage[];
+  reading: VoiceReading | null;
   onSwipe: (card: Recommendation, dir: SwipeDirection) => void;
   onResurface: (id: string) => void;
+  onConverse: (text: string) => void;
   activeInsight: import("@/lib/engine").Insight | null;
   onApplyInsight: () => void;
   onDismissInsight: () => void;
@@ -31,8 +37,11 @@ export function Discover({
   state,
   profile,
   ccs,
+  messages,
+  reading,
   onSwipe,
   onResurface,
+  onConverse,
   activeInsight,
   onApplyInsight,
   onDismissInsight,
@@ -165,6 +174,9 @@ export function Discover({
 
       {/* Insight sheet */}
       <InsightSheet insight={activeInsight} onApply={onApplyInsight} onDismiss={onDismissInsight} />
+
+      {/* Push-to-talk conversational coach */}
+      <VoiceCoach messages={messages} reading={reading} onConverse={onConverse} />
 
       {/* Toast */}
       <Toast message={toast} />

@@ -36,6 +36,8 @@ import {
 
 import { greedyMapDpp, type DppItem } from "./dpp";
 
+import { extractIntent, type VoiceReading } from "./voice";
+
 export interface EngineState {
   weights: Weights;
   counters: Counters;
@@ -46,6 +48,8 @@ export interface EngineState {
   seen: Set<string>;
   dismissedInsights: Set<string>;
   appliedInsights: Set<string>;
+  /** The most recent voice reading, surfaced by the conversational coach. */
+  lastReading: VoiceReading | null;
 }
 
 export interface Insight {
@@ -137,6 +141,7 @@ export function createEngine(profile: UserProfile): EngineState {
     seen,
     dismissedInsights: new Set(),
     appliedInsights: new Set(),
+    lastReading: null,
   };
 }
 
@@ -340,7 +345,68 @@ export function applyInsight(
   };
 }
 
-// Rescale raw weights to 0-100 so the taste bars have something clean to show.
+// ---------------------------------------------------------------------------
+// Voice intent — the conversational coach's channel into the engine. A spoken
+// transcript is parsed into a VoiceReading, which nudges real category/format
+// weights; the queue then re-ranks through the same cognitive + DPP scoring as
+// a swipe. Nothing here is mocked — the Taste Profile bars move because the
+// weights genuinely changed.
+// ---------------------------------------------------------------------------
+
+const VOICE_CATEGORY_BOOST = 16;
+const VOICE_FORMAT_BOOST = 14;
+
+export function applyVoiceIntent(
+  state: EngineState,
+  transcript: string,
+  profile: UserProfile
+): { state: EngineState; reading: VoiceReading } {
+  const reading = extractIntent(transcript, profile);
+
+  const categories = { ...state.weights.categories };
+  const formats = { ...state.weights.formats };
+
+  for (const cat of reading.categories) {
+    categories[cat] = clamp01(categories[cat] + VOICE_CATEGORY_BOOST);
+  }
+
+  // Mode reshapes the format mix. Restore pulls decisively away from heavy
+  // project work toward lighter video/bite; execute does the reverse (they
+  // have the input, they need output); focus leans into depth.
+  switch (reading.mode) {
+    case "restore":
+      formats.bite = clamp01(formats.bite + 18);
+      formats.video = clamp01(formats.video + 16);
+      formats.project = clamp01(formats.project - 24);
+      break;
+    case "execute":
+      formats.project = clamp01(formats.project + 22);
+      formats.video = clamp01(formats.video - 14);
+      formats.bite = clamp01(formats.bite - 6);
+      break;
+    case "focus":
+      formats.project = clamp01(formats.project + VOICE_FORMAT_BOOST);
+      formats.read = clamp01(formats.read + 8);
+      break;
+    case "neutral":
+      break;
+  }
+  if (reading.formatFocus) {
+    formats[reading.formatFocus] = clamp01(formats[reading.formatFocus] + VOICE_FORMAT_BOOST);
+  }
+
+  const norm = normalize({ categories, formats });
+  const queue = sortedQueue(state.queue, norm, profile, state.seen, state.history);
+
+  return {
+    state: { ...state, weights: norm, queue, lastReading: reading },
+    reading,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Normalization — map raw weights to 0–100% for the taste bars.
+// ---------------------------------------------------------------------------
 
 function clamp01(v: number): number {
   return Math.max(0, Math.min(100, v));

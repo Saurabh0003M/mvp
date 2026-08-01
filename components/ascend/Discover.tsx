@@ -100,34 +100,32 @@ export function Discover({
         </div>
       </header>
 
-      {/* ── Body ───────────────────────────────────────────────── */}
-      <div className="mx-auto flex w-full max-w-screen-xl flex-1 gap-0 px-5 sm:px-8">
+      {/* ── Three-column body ───────────────────────────────────── */}
+      <div className="mx-auto grid w-full max-w-screen-xl flex-1 grid-cols-1 gap-0 px-5 sm:px-8 lg:grid-cols-[260px_1fr_280px] xl:grid-cols-[280px_1fr_300px]">
 
-        {/* LEFT: identity + trajectory, hidden below lg */}
-        <aside className="hidden w-56 shrink-0 py-8 pr-6 lg:flex lg:flex-col xl:w-64 xl:pr-8">
+        {/* LEFT sidebar — identity, trajectory, pivot */}
+        <aside className="hidden py-8 pr-6 lg:flex lg:flex-col xl:pr-8">
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="sticky top-24"
+            className="sticky top-24 flex flex-col gap-5"
           >
-            <div className="text-micro text-muted-foreground">Becoming</div>
-            <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight xl:text-3xl">
-              {profile.aspiration}
-            </h1>
-            <div className="mt-6">
-              <PivotBanner ccs={ccs} />
+            <div>
+              <div className="text-micro text-muted-foreground">Becoming</div>
+              <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight xl:text-3xl">
+                {profile.aspiration}
+              </h1>
             </div>
-            <div className="mt-6">
-              <TrajectoryStrip state={state} profile={profile} />
-            </div>
+            <TrajectoryStrip state={state} profile={profile} />
+            <PivotBanner ccs={ccs} />
           </motion.div>
         </aside>
 
-        {/* CENTRE: card stack — fills the available space, capped at a comfortable card width */}
-        <main className="flex flex-1 flex-col items-center py-8">
+        {/* CENTRE — card stack fills its column */}
+        <main className="flex flex-col items-center py-8">
           {/* Mobile identity row */}
-          <div className="mb-6 w-full lg:hidden">
+          <div className="mb-5 w-full lg:hidden">
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -138,41 +136,34 @@ export function Discover({
                 {profile.aspiration}
               </h1>
             </motion.div>
-            <div className="mt-3">
+            <div className="mt-3 flex flex-wrap gap-3">
+              <TrajectoryStrip state={state} profile={profile} />
               <PivotBanner ccs={ccs} />
             </div>
           </div>
 
-          {/* Card area — tall enough to show the full card with thumbnail */}
-          <div className="relative w-full" style={{ maxWidth: 480 }}>
-            <div className="relative" style={{ height: "min(72vh, 640px)" }}>
-              <CardStack
-                state={state}
-                profile={profile}
-                ccs={ccs}
-                onSwipe={onSwipe}
-                showHints={showHints}
-              />
-            </div>
-
-            {/* Action buttons row — sits 16px below the card container */}
-            {/* (CardStack renders buttons at -bottom-16; this spacer absorbs that) */}
-            <div className="h-16" />
-
-            {/* Trajectory — mobile only (desktop shows it in the left aside) */}
-            <div className="mt-4 flex justify-center lg:hidden">
-              <TrajectoryStrip state={state} profile={profile} />
-            </div>
+          {/* Card container — full column width, tall enough to show image + content */}
+          <div className="relative w-full" style={{ height: "min(75vh, 660px)" }}>
+            <CardStack
+              state={state}
+              profile={profile}
+              ccs={ccs}
+              onSwipe={onSwipe}
+              showHints={showHints}
+            />
           </div>
 
+          {/* Space for the action buttons that hang -bottom-16 off the card container */}
+          <div className="h-20" />
+
           {/* Mobile taste-profile accordion */}
-          <div className="mt-8 w-full lg:hidden" style={{ maxWidth: 480 }}>
+          <div className="mt-4 w-full lg:hidden">
             <button
               onClick={() => setRailOpen((v) => !v)}
               aria-expanded={railOpen}
               className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
             >
-              Taste Profile & Wellbeing
+              Taste Profile &amp; Wellbeing
               <ChevronDown
                 className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`}
               />
@@ -200,8 +191,8 @@ export function Discover({
           </div>
         </main>
 
-        {/* RIGHT: taste profile + wellbeing, hidden below lg */}
-        <aside className="hidden w-64 shrink-0 py-8 pl-6 lg:block xl:w-72 xl:pl-8">
+        {/* RIGHT sidebar — taste profile + wellbeing */}
+        <aside className="hidden py-8 pl-6 lg:block xl:pl-8">
           <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-4 pr-1">
             <TasteProfileRail
               state={state}
@@ -213,10 +204,9 @@ export function Discover({
         </aside>
       </div>
 
-      {/* Drawers */}
+      {/* Drawers + overlays */}
       <QuestsShelf open={questsOpen} onClose={() => setQuestsOpen(false)} state={state} mode="accepted" />
       <QuestsShelf open={laterOpen} onClose={() => setLaterOpen(false)} state={state} onResurface={onResurface} mode="later" />
-
       <InsightSheet insight={activeInsight} onApply={onApplyInsight} onDismiss={onDismissInsight} />
       <VoiceCoach messages={messages} reading={reading} onConverse={onConverse} />
       <Toast message={toast} />

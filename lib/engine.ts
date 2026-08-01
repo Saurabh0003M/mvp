@@ -38,6 +38,14 @@ import { greedyMapDpp, type DppItem } from "./dpp";
 
 import { extractIntent, type VoiceReading } from "./voice";
 
+import {
+  detectFriction,
+  applyFrictionRerank,
+  isFrictionSkip,
+  contentTier,
+  FRICTION_THRESHOLD,
+} from "./friction";
+
 export interface EngineState {
   weights: Weights;
   counters: Counters;
@@ -54,7 +62,7 @@ export interface EngineState {
 
 export interface Insight {
   id: string;
-  kind: "consistency" | "contradiction" | "emergence";
+  kind: "consistency" | "contradiction" | "emergence" | "friction";
   headline: string;
   body: string;
   receipts: string;
@@ -191,7 +199,15 @@ function sortedQueue(
   // Relevance-first order — both the sensible fallback and the quality signal
   // the DPP consumes.
   scored.sort((a, b) => b.score - a.score);
-  return diversify(scored, profile);
+  const diversified = diversify(scored, profile);
+
+  // Friction layer — the FINAL ordering pass. If the user is skipping hard
+  // ("stretch") items inside a goal they chose, bring easier same-topic items
+  // forward so difficulty drops while the topic holds. This never injects
+  // off-goal content and never lets a non-goal item outrank a goal item, so
+  // the "narrow the friction, not the topic" rule is enforced structurally.
+  const friction = detectFriction(history, profile, RECOMMENDATIONS);
+  return applyFrictionRerank(diversified, friction, profile);
 }
 
 // ---------------------------------------------------------------------------
@@ -269,7 +285,17 @@ export function applySwipe(
 
   const categories = { ...state.weights.categories };
   const formats = { ...state.weights.formats };
-  categories[card.category] = clamp01(categories[card.category] + mag * LEARN);
+
+  // Friction-aware skip attribution. Skipping a HARD ("stretch") item inside a
+  // goal the user chose is friction/fatigue, not disinterest — so it must NOT
+  // erode that topic's category weight (otherwise repeated hard-skips would let
+  // an off-goal category drift to the top, exactly what the product forbids).
+  // The FORMAT weight still updates, so the engine learns they want the topic
+  // in a lighter format. Every other swipe behaves exactly as before.
+  const frictionSkip = isFrictionSkip(card, direction, profile);
+  if (!frictionSkip) {
+    categories[card.category] = clamp01(categories[card.category] + mag * LEARN);
+  }
   formats[card.format] = clamp01(formats[card.format] + mag * LEARN);
 
   // Normalize so the top weight maps to 100 and others scale relatively.
@@ -497,6 +523,31 @@ const INSIGHT_THRESHOLDS = {
 };
 
 export function detectInsight(state: EngineState, profile: UserProfile): Insight | null {
+  // Friction comes FIRST. If the user is stalling on hard content inside a goal
+  // they chose, the honest reading is fatigue, not a change of heart — and the
+  // fix is a lighter on-ramp in the same topic. Surfacing this before the
+  // "contradiction" check is what stops the app from ever suggesting a topic
+  // switch when the real problem is difficulty.
+  const friction = detectFriction(state.history, profile, RECOMMENDATIONS);
+  if (friction.active) {
+    for (const topic of friction.topics) {
+      const id = `friction-${topic}`;
+      if (state.dismissedInsights.has(id) || state.appliedInsights.has(id)) continue;
+      const run = friction.runByTopic[topic] ?? FRICTION_THRESHOLD;
+      return {
+        id,
+        kind: "friction",
+        headline: `${topic} isn't losing you — the difficulty is`,
+        body: `You've passed on ${run} demanding ${topic} quests in a row. That reads as friction, not a change of direction, so I'm keeping the goal and lowering the effort: shorter, lighter ${topic} content first. I can bias your queue that way now.`,
+        receipts: frictionReceipts(state, topic, run),
+        // Target the LIGHTEST format, never the topic. The goal is preserved by
+        // construction — there is no category delta here to move it.
+        target: { type: "format", value: "bite" },
+        delta: 16,
+      };
+    }
+  }
+
   // Consistency: a format reaches >=3 accepts and dominates other formats.
   const fmtAccepts = ALL_FORMATS.map((f) => ({
     f,
@@ -522,11 +573,18 @@ export function detectInsight(state: EngineState, profile: UserProfile): Insight
   }
 
   // Contradiction: an onboarding interest is skipped >=3 and skipped > accepted.
+  //
+  // HARD RULE GUARD: this insight proposes moving weight AWAY from a stated goal
+  // and toward a different topic. That is only legitimate when the skips are
+  // genuine disinterest. If the skips in this category were mostly hard
+  // ("stretch") items, the user is experiencing friction and the friction
+  // insight above owns the response — we must not suggest switching topics.
   for (const cat of profile.interests) {
     const c = state.counters.categories[cat];
     if (
       c.skip >= INSIGHT_THRESHOLDS.contradiction &&
       c.skip > c.accept &&
+      !isFrictionDrivenCategory(state, profile, cat) &&
       !state.dismissedInsights.has(`contradiction-${cat}`) &&
       !state.appliedInsights.has(`contradiction-${cat}`)
     ) {
@@ -565,6 +623,35 @@ export function detectInsight(state: EngineState, profile: UserProfile): Insight
   }
 
   return null;
+}
+
+/**
+ * Were this category's skips mostly HARD content? If so the user is hitting
+ * friction, not losing interest, and any insight that would move weight away
+ * from the topic must stand down. Majority rule over skipped items in-topic.
+ */
+function isFrictionDrivenCategory(
+  state: EngineState,
+  profile: UserProfile,
+  cat: Category
+): boolean {
+  let skipped = 0;
+  let stretchSkipped = 0;
+  const byId = new Map(RECOMMENDATIONS.map((c) => [c.id, c]));
+  for (const it of state.history) {
+    if (it.category !== cat || it.direction !== "skip") continue;
+    skipped++;
+    const card = byId.get(it.recommendationId);
+    if (card && contentTier(card, profile) === "stretch") stretchSkipped++;
+  }
+  if (skipped === 0) return false;
+  return stretchSkipped * 2 >= skipped; // at least half were stretch items
+}
+
+/** Receipts for the friction insight — real counts from the session. */
+function frictionReceipts(state: EngineState, cat: Category, run: number): string {
+  const c = state.counters.categories[cat];
+  return `${cat}: ${run} hard quests skipped in a row · ${c.accept} accepted · ${c.skip} skipped · ${c.later} saved · goal unchanged`;
 }
 
 function findRisingCategory(state: EngineState, exclude: Category[]): Category | null {

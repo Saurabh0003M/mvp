@@ -109,6 +109,30 @@ export function Discover({
 
   const hasNotifications = Boolean(activeInsight) || Boolean(ccs && ccs.pivot);
 
+  // Right-rail context — always shows the aspiration + trajectory + pivot,
+  // even on the Explore/Taste tabs, so identity stays anchored.
+  const rightRail = (
+    <div className="space-y-4">
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: EASE }}
+        className="rounded-2xl border border-border bg-card p-5 shadow-soft"
+      >
+        <div className="text-micro text-muted-foreground">Becoming</div>
+        <div className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight">
+          {profile.aspiration}
+        </div>
+        <div className="mt-3">
+          <TrajectoryStrip state={state} profile={profile} />
+        </div>
+        <div className="mt-2">
+          <PivotBanner ccs={ccs} />
+        </div>
+      </motion.div>
+    </div>
+  );
+
   return (
     <AppShell
       tab={tab}
@@ -117,27 +141,12 @@ export function Discover({
       onNotifications={() => setNotificationsOpen(true)}
       onSearch={() => setSearchOpen(true)}
       notificationsDot={hasNotifications}
+      right={rightRail}
     >
       {/* ── HOME ── */}
       {tab === "home" && (
-        <div className="mx-auto flex w-full max-w-md flex-col items-center px-4 pt-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: EASE }}
-            className="w-full"
-          >
-            <div className="text-micro text-muted-foreground">Becoming</div>
-            <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
-              {profile.aspiration}
-            </h1>
-          </motion.div>
-          <div className="mt-3 flex w-full flex-wrap items-center gap-2">
-            <TrajectoryStrip state={state} profile={profile} />
-            <PivotBanner ccs={ccs} />
-          </div>
-
-          <div className="relative mt-6 w-full" style={{ height: "min(72vh, 640px)" }}>
+        <div className="mx-auto flex w-full max-w-[640px] flex-col items-center px-6 py-6">
+          <div className="relative w-full" style={{ height: "min(78vh, 680px)" }}>
             <CardStack
               state={state}
               profile={profile}
@@ -146,13 +155,12 @@ export function Discover({
               showHints={showHints}
             />
           </div>
-          <div className="h-20" />
         </div>
       )}
 
       {/* ── EXPLORE — shuffled random flashcards ── */}
       {tab === "explore" && (
-        <div className="mx-auto flex w-full max-w-md flex-col items-center px-4 pt-4 sm:px-6">
+        <div className="mx-auto flex w-full max-w-[640px] flex-col items-center px-6 py-6">
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -160,15 +168,15 @@ export function Discover({
             className="w-full"
           >
             <div className="text-micro text-muted-foreground">Explore</div>
-            <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+            <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight">
               Something you weren&apos;t looking for
             </h1>
             <p className="mt-1 text-caption text-muted-foreground">
-              A shuffled deck outside your usual pattern. Swipe still teaches the engine.
+              A shuffled deck outside your usual pattern. Swipes still teach the engine.
             </p>
           </motion.div>
 
-          <div className="relative mt-6 w-full" style={{ height: "min(72vh, 640px)" }}>
+          <div className="relative mt-5 w-full" style={{ height: "min(72vh, 640px)" }}>
             {exploreState.queue.length > 0 ? (
               <CardStack
                 state={exploreState}
@@ -186,13 +194,12 @@ export function Discover({
               </div>
             )}
           </div>
-          <div className="h-20" />
         </div>
       )}
 
       {/* ── TASTE — profile weights + Ryff wellbeing ── */}
       {tab === "taste" && (
-        <div className="mx-auto w-full max-w-2xl px-4 pt-4 sm:px-6">
+        <div className="mx-auto w-full max-w-[640px] px-6 py-6">
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -200,7 +207,7 @@ export function Discover({
             className="mb-4"
           >
             <div className="text-micro text-muted-foreground">You, from your swipes</div>
-            <h1 className="mt-1 font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+            <h1 className="mt-1 font-display text-2xl font-medium leading-tight tracking-tight">
               Taste &amp; Wellbeing
             </h1>
           </motion.div>

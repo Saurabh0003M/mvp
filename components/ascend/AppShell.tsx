@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { User, Bell, Search, Home, Compass, Sparkles } from "lucide-react";
+import { Home, Compass, Search, Bell, Sparkles, User } from "lucide-react";
 
 export type Tab = "home" | "explore" | "taste";
 
@@ -12,6 +12,7 @@ interface Props {
   onNotifications: () => void;
   onSearch: () => void;
   notificationsDot?: boolean;
+  right?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -22,103 +23,113 @@ export function AppShell({
   onNotifications,
   onSearch,
   notificationsDot,
+  right,
   children,
 }: Props) {
   return (
-    <div className="flex min-h-screen flex-col bg-sunfade bg-grain">
-      {/* ── Top bar — profile-left, bell, wide gap, search-right ─── */}
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3 sm:px-6">
-          <div className="flex items-center gap-2">
-            <IconBtn onClick={onProfile} label="Open profile">
-              <User className="h-5 w-5" />
-            </IconBtn>
-            <IconBtn onClick={onNotifications} label="Notifications">
-              <div className="relative">
-                <Bell className="h-5 w-5" />
-                {notificationsDot && (
-                  <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-foreground" />
-                )}
-              </div>
-            </IconBtn>
+    <div className="min-h-screen bg-sunfade bg-grain">
+      <div className="mx-auto grid min-h-screen w-full max-w-[1360px] grid-cols-[72px_1fr] gap-0 lg:grid-cols-[240px_1fr] xl:grid-cols-[240px_1fr_340px]">
+        {/* ── LEFT RAIL — Twitter/Reddit-style persistent nav ─── */}
+        <aside className="sticky top-0 flex h-screen flex-col border-r border-border/60 bg-background/60 px-3 py-6 backdrop-blur-xl lg:px-5">
+          {/* Brand */}
+          <div className="mb-6 flex items-center gap-2.5 px-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-foreground text-background">
+              <span className="text-subtitle font-semibold">A</span>
+            </div>
+            <span className="hidden text-subtitle font-semibold tracking-tight lg:inline">Ascend</span>
           </div>
 
-          <IconBtn onClick={onSearch} label="Search">
-            <Search className="h-5 w-5" />
-          </IconBtn>
-        </div>
-      </header>
+          {/* Nav */}
+          <nav className="flex flex-col gap-1" aria-label="Primary">
+            <NavItem
+              active={tab === "home"}
+              onClick={() => onTab("home")}
+              icon={<Home className="h-5 w-5" />}
+              label="Home"
+            />
+            <NavItem
+              active={tab === "explore"}
+              onClick={() => onTab("explore")}
+              icon={<Compass className="h-5 w-5" />}
+              label="Explore"
+            />
+            <NavItem
+              active={false}
+              onClick={onSearch}
+              icon={<Search className="h-5 w-5" />}
+              label="Search"
+            />
+            <NavItem
+              active={false}
+              onClick={onNotifications}
+              icon={
+                <div className="relative">
+                  <Bell className="h-5 w-5" />
+                  {notificationsDot && (
+                    <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-foreground" />
+                  )}
+                </div>
+              }
+              label="Notifications"
+            />
+            <NavItem
+              active={tab === "taste"}
+              onClick={() => onTab("taste")}
+              icon={<Sparkles className="h-5 w-5" />}
+              label="Taste"
+            />
+          </nav>
 
-      {/* Content — leave space for the bottom bar */}
-      <main className="flex-1 pb-24">{children}</main>
+          <div className="flex-1" />
 
-      {/* ── Bottom tab bar — home / explore / taste ─────────────── */}
-      <nav
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-border/60 bg-background/85 backdrop-blur-xl"
-        aria-label="Primary"
-      >
-        <div className="mx-auto flex max-w-md items-center justify-around px-4 py-2 sm:px-6">
-          <TabBtn active={tab === "home"} onClick={() => onTab("home")} label="Home">
-            <Home className="h-5 w-5" />
-          </TabBtn>
-          <TabBtn active={tab === "explore"} onClick={() => onTab("explore")} label="Explore">
-            <Compass className="h-5 w-5" />
-          </TabBtn>
-          <TabBtn active={tab === "taste"} onClick={() => onTab("taste")} label="Taste">
-            <Sparkles className="h-5 w-5" />
-          </TabBtn>
-        </div>
-      </nav>
+          {/* Profile — pinned at bottom (Instagram pattern) */}
+          <NavItem
+            active={false}
+            onClick={onProfile}
+            icon={<User className="h-5 w-5" />}
+            label="Profile"
+          />
+        </aside>
+
+        {/* ── CENTER — the feed ─────────────────────────────── */}
+        <main className="min-w-0 border-r border-border/60 xl:border-r">{children}</main>
+
+        {/* ── RIGHT RAIL — Twitter's "What's happening" pattern ─ */}
+        <aside className="sticky top-0 hidden h-screen flex-col overflow-y-auto px-5 py-6 xl:flex">
+          {right}
+        </aside>
+      </div>
     </div>
   );
 }
 
-function IconBtn({
-  onClick,
-  label,
-  children,
-}: {
-  onClick: () => void;
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      aria-label={label}
-      className="flex h-10 w-10 items-center justify-center rounded-full text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
-    >
-      {children}
-    </button>
-  );
-}
-
-function TabBtn({
+function NavItem({
   active,
   onClick,
+  icon,
   label,
-  children,
 }: {
   active: boolean;
   onClick: () => void;
+  icon: React.ReactNode;
   label: string;
-  children: React.ReactNode;
 }) {
   return (
     <button
       onClick={onClick}
-      aria-label={label}
       aria-current={active ? "page" : undefined}
-      className="relative flex flex-1 flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-foreground/70 transition-colors hover:text-foreground"
+      className={`group flex items-center gap-4 rounded-full px-3 py-2.5 text-left transition-colors ${
+        active
+          ? "bg-accent text-foreground"
+          : "text-foreground/80 hover:bg-accent/60 hover:text-foreground"
+      }`}
     >
-      <span className={active ? "text-foreground" : ""}>{children}</span>
-      <span className={`text-[10px] leading-none ${active ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
-        {label}
-      </span>
+      <span className="flex h-6 w-6 items-center justify-center">{icon}</span>
+      <span className={`hidden text-body lg:inline ${active ? "font-semibold" : ""}`}>{label}</span>
       {active && (
         <motion.span
-          layoutId="tab-underline"
-          className="absolute -top-[1px] left-4 right-4 h-0.5 rounded-full bg-foreground"
+          layoutId="nav-active"
+          className="ml-auto hidden h-1.5 w-1.5 rounded-full bg-foreground lg:block"
           transition={{ type: "spring", stiffness: 350, damping: 30 }}
         />
       )}

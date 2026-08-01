@@ -48,7 +48,7 @@ export interface UserProfile {
   interests: Category[];
   experience: Difficulty;
   learningStyle: LearningStyle;
-  dailyTime: 15 | 30 | 60;
+  dailyTime: 15 | 30 | 45 | 60;
 }
 
 export type SwipeDirection = "accept" | "skip" | "later";

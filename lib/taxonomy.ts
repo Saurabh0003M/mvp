@@ -99,6 +99,12 @@ export interface Recommendation {
   goalTopic?: string;
   /** An optional lightweight post-content knowledge check (quiz) exists. */
   hasCheck?: boolean;
+  // Optional presentational fields — the corpus in engine.ts doesn't set these,
+  // so the UI falls back to a category-accent gradient and an "IABTM" source.
+  thumbnail?: string;
+  url?: string;
+  source?: string;
+  tier?: string;
 }
 
 export interface UserProfile {
@@ -106,7 +112,7 @@ export interface UserProfile {
   interests: Category[];
   experience: Difficulty;
   learningStyle: LearningStyle;
-  dailyTime: 15 | 30 | 60;
+  dailyTime: 15 | 30 | 45 | 60;
 }
 
 export type SwipeDirection = "accept" | "skip" | "later";

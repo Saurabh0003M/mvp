@@ -19,7 +19,7 @@ export function TrajectoryStrip({ state, profile }: Props) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: EASE }}
-      className="flex items-center gap-2.5 rounded-full border border-border bg-card/60 px-4 py-2.5 backdrop-blur"
+      className="flex items-center gap-2.5 rounded-full border border-border bg-sunfade px-4 py-2.5 shadow-soft"
     >
       <Compass className="h-4 w-4 text-muted-foreground" />
       <span className="text-caption text-foreground/80">{text}</span>

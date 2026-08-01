@@ -20,7 +20,6 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-// Short labels so the six axes fit around a small radar.
 const SHORT: Record<RyffAxis, string> = {
   autonomy: "Autonomy",
   environmentalMastery: "Mastery",

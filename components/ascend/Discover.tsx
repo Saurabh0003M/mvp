@@ -2,7 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { type EngineState, type UserProfile, topWeights, type Recommendation, type SwipeDirection } from "@/lib/engine";
+import {
+  type EngineState,
+  type UserProfile,
+  topWeights,
+  type Recommendation,
+  type SwipeDirection,
+} from "@/lib/engine";
 import { type CompressedCognitiveState } from "@/lib/cognitive";
 import { type VoiceReading } from "@/lib/voice";
 import { type CoachMessage } from "@/hooks/use-engine";
@@ -56,34 +62,28 @@ export function Discover({
   );
   const firstRender = useRef(true);
 
-  // Track weight changes for count-up direction indicators
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
+    if (firstRender.current) { firstRender.current = false; return; }
     const current = topWeights(state, profile);
     setPrevWeights(current.map((w) => ({ label: w.label, value: w.value })));
   }, [state.weights]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Hide hints after first swipe
   useEffect(() => {
     if (state.history.length > 0) setShowHints(false);
   }, [state.history.length]);
 
   return (
-    <div className="min-h-screen bg-background bg-grain">
-      {/* Header */}
+    <div className="flex min-h-screen flex-col bg-sunfade bg-grain">
+      {/* ── Header ─────────────────────────────────────────────── */}
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-foreground text-background">
-              <span className="text-subtitle font-semibold">A</span>
+        <div className="mx-auto flex max-w-screen-xl items-center justify-between px-5 py-3.5 sm:px-8">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground text-background">
+              <span className="text-caption font-semibold">A</span>
             </div>
             <span className="text-subtitle font-semibold tracking-tight">Ascend</span>
           </div>
-
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2">
             <CounterChip
               label="Today's Quests"
               count={state.accepted.length}
@@ -100,89 +100,115 @@ export function Discover({
         </div>
       </header>
 
-      {/* Becoming banner */}
-      <div className="mx-auto max-w-7xl px-5 pt-8 sm:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: EASE }}
-        >
-          <div className="text-micro text-muted-foreground">Becoming</div>
-          <h1 className="text-balance text-display mt-1">{profile.aspiration}</h1>
-        </motion.div>
-        <PivotBanner ccs={ccs} />
-      </div>
+      {/* ── Three-column body ───────────────────────────────────── */}
+      <div className="mx-auto grid w-full max-w-screen-xl flex-1 grid-cols-1 gap-0 px-5 sm:px-8 lg:grid-cols-[260px_1fr_280px] xl:grid-cols-[280px_1fr_300px]">
 
-      {/* Main layout */}
-      <main className="mx-auto max-w-7xl px-5 pb-12 pt-8 sm:px-8 lg:pb-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
-          {/* Card stack column */}
-          <div className="flex flex-col items-center">
-            <div className="relative h-[460px] w-full max-w-md sm:h-[520px]">
-              <CardStack
-                state={state}
-                profile={profile}
-                onSwipe={onSwipe}
-                showHints={showHints}
-              />
+        {/* LEFT sidebar — identity, trajectory, pivot */}
+        <aside className="hidden py-8 pr-6 lg:flex lg:flex-col xl:pr-8">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: EASE }}
+            className="sticky top-24 flex flex-col gap-5"
+          >
+            <div>
+              <div className="text-micro text-muted-foreground">Becoming</div>
+              <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight xl:text-3xl">
+                {profile.aspiration}
+              </h1>
             </div>
+            <TrajectoryStrip state={state} profile={profile} />
+            <PivotBanner ccs={ccs} />
+          </motion.div>
+        </aside>
 
-            {/* Trajectory — clears the action-button row that sits below the card */}
-            <div className="mt-24 w-full max-w-md text-center">
+        {/* CENTRE — card stack fills its column */}
+        <main className="flex flex-col items-center py-8">
+          {/* Mobile identity row */}
+          <div className="mb-5 w-full lg:hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: EASE }}
+            >
+              <div className="text-micro text-muted-foreground">Becoming</div>
+              <h1 className="mt-0.5 font-display text-2xl font-medium leading-tight tracking-tight">
+                {profile.aspiration}
+              </h1>
+            </motion.div>
+            <div className="mt-3 flex flex-wrap gap-3">
               <TrajectoryStrip state={state} profile={profile} />
+              <PivotBanner ccs={ccs} />
             </div>
           </div>
 
-          {/* Taste profile rail — desktop. Capped and internally scrollable so a
-              tall rail (weights + wellbeing radar) can't run past the viewport
-              and leave the radar unreachable, and can't sit under the coach button. */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-24 max-h-[calc(100vh-9rem)] overflow-y-auto pb-2 pr-1">
-              <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} ccs={ccs} />
-            </div>
-          </aside>
-        </div>
-      </main>
+          {/* Card container — full column width, tall enough to show image + content */}
+          <div className="relative w-full" style={{ height: "min(75vh, 660px)" }}>
+            <CardStack
+              state={state}
+              profile={profile}
+              ccs={ccs}
+              onSwipe={onSwipe}
+              showHints={showHints}
+            />
+          </div>
 
-      {/* Mobile taste profile toggle. Bottom padding keeps it clear of the
-          floating coach button, which is docked bottom-right. */}
-      <div className="px-5 pb-28 lg:hidden">
-        <button
-          onClick={() => setRailOpen((v) => !v)}
-          aria-expanded={railOpen}
-          className="mx-auto flex w-full max-w-md items-center justify-center gap-2 rounded-full border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
-        >
-          Taste Profile
-          <ChevronDown className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`} />
-        </button>
-        <AnimatePresence>
-          {railOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: EASE }}
-              className="overflow-hidden px-5"
+          {/* Space for the action buttons that hang -bottom-16 off the card container */}
+          <div className="h-20" />
+
+          {/* Mobile taste-profile accordion */}
+          <div className="mt-4 w-full lg:hidden">
+            <button
+              onClick={() => setRailOpen((v) => !v)}
+              aria-expanded={railOpen}
+              className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
             >
-              <div className="mt-4">
-                <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} ccs={ccs} />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              Taste Profile &amp; Wellbeing
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+            <AnimatePresence>
+              {railOpen && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: EASE }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-3">
+                    <TasteProfileRail
+                      state={state}
+                      profile={profile}
+                      prevWeights={prevWeights}
+                      ccs={ccs}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </main>
+
+        {/* RIGHT sidebar — taste profile + wellbeing */}
+        <aside className="hidden py-8 pl-6 lg:block xl:pl-8">
+          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-4 pr-1">
+            <TasteProfileRail
+              state={state}
+              profile={profile}
+              prevWeights={prevWeights}
+              ccs={ccs}
+            />
+          </div>
+        </aside>
       </div>
 
-      {/* Drawers */}
+      {/* Drawers + overlays */}
       <QuestsShelf open={questsOpen} onClose={() => setQuestsOpen(false)} state={state} mode="accepted" />
       <QuestsShelf open={laterOpen} onClose={() => setLaterOpen(false)} state={state} onResurface={onResurface} mode="later" />
-
-      {/* Insight sheet */}
       <InsightSheet insight={activeInsight} onApply={onApplyInsight} onDismiss={onDismissInsight} />
-
-      {/* Push-to-talk conversational coach */}
       <VoiceCoach messages={messages} reading={reading} onConverse={onConverse} />
-
-      {/* Toast */}
       <Toast message={toast} />
     </div>
   );

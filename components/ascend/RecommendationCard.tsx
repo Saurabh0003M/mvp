@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import {
   type Recommendation,
   type EngineState,
@@ -25,6 +24,17 @@ interface Props {
   onExpandWhy: () => void;
 }
 
+const SOURCE_ICONS: Record<string, string> = {
+  YouTube: "▶",
+  Podcast: "◉",
+  Article: "▤",
+  IABTM: "✦",
+};
+
+function accentGradient(accent: string): string {
+  return `linear-gradient(150deg, ${accent} 0%, hsl(from ${accent} h s calc(l * 0.65)) 100%)`;
+}
+
 export function RecommendationCard({
   card,
   state,
@@ -35,7 +45,10 @@ export function RecommendationCard({
   onExpandWhy,
 }: Props) {
   const [whyOpen, setWhyOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const accent = CATEGORY_ACCENTS[card.category];
+  const source = card.source ?? "IABTM";
+  const showImage = card.thumbnail && !imgError;
 
   const horizontalDrag = Math.abs(dragX) > Math.abs(dragY);
   const isRight = dragX > 40;
@@ -49,7 +62,6 @@ export function RecommendationCard({
 
   return (
     <div className="relative h-full w-full select-none">
-      {/* Direction accent glow */}
       {isTop && (
         <motion.div
           className="pointer-events-none absolute inset-0 rounded-[1.75rem]"
@@ -68,14 +80,46 @@ export function RecommendationCard({
       )}
 
       <div className="flex h-full w-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-card">
-        {/* Accent top line */}
-        <div className="h-1.5 w-full" style={{ background: accent }} />
+        {/* Thumbnail / gradient fallback — fixed aspect ratio */}
+        <div className="relative aspect-[16/10] w-full overflow-hidden">
+          {showImage ? (
+            <img
+              src={card.thumbnail}
+              alt=""
+              loading="lazy"
+              onError={() => setImgError(true)}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div
+              className="h-full w-full"
+              style={{ background: accentGradient(accent) }}
+            />
+          )}
+          {/* Subtle warm wash over the image for editorial cohesion */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent 40%, hsl(40 44% 99% / 0.55) 100%)",
+            }}
+          />
+          {/* Source badge */}
+          <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-background/85 px-2.5 py-1 backdrop-blur-sm">
+            <span className="text-[11px]" style={{ color: accent }}>
+              {SOURCE_ICONS[source] ?? "✦"}
+            </span>
+            <span className="text-micro text-foreground/80">{source}</span>
+          </div>
+          {/* Category accent line at bottom of image */}
+          <div className="absolute bottom-0 left-0 h-1 w-full" style={{ background: accent }} />
+        </div>
 
-        <div className="flex flex-1 flex-col p-7 sm:p-8">
+        <div className="flex flex-1 flex-col p-6 sm:p-7">
           {/* Meta row */}
           <div className="flex items-center justify-between">
             <span
-              className="rounded-full px-3 py-1 text-micro"
+              className="rounded-full px-2.5 py-0.5 text-micro"
               style={{ background: `hsl(from ${accent} h s l / 0.1)`, color: accent }}
             >
               {card.category}
@@ -83,7 +127,7 @@ export function RecommendationCard({
             <div className="flex items-center gap-3 text-caption text-muted-foreground">
               <span className="flex items-center gap-1">
                 <Clock className="h-3.5 w-3.5" />
-                {card.duration} min
+                {card.duration}m
               </span>
               <span className="flex items-center gap-1">
                 <Signal className="h-3.5 w-3.5" />
@@ -93,17 +137,17 @@ export function RecommendationCard({
           </div>
 
           {/* Title */}
-          <h2 className="mt-6 text-balance text-title leading-tight sm:text-headline">
+          <h2 className="mt-4 text-balance text-title leading-tight">
             {card.title}
           </h2>
 
           {/* Description */}
-          <p className="mt-3 text-body text-muted-foreground">
+          <p className="mt-2.5 text-body text-muted-foreground">
             {card.description}
           </p>
 
           {/* Format + tags */}
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div className="mt-4 flex flex-wrap items-center gap-2">
             <span className="rounded-lg bg-secondary px-2.5 py-1 text-caption text-secondary-foreground">
               {FORMAT_LABELS[card.format]}
             </span>
@@ -114,11 +158,10 @@ export function RecommendationCard({
             ))}
           </div>
 
-          {/* Spacer */}
           <div className="flex-1" />
 
           {/* Why this */}
-          <div className="mt-6 border-t border-border pt-4">
+          <div className="mt-5 border-t border-border pt-3.5">
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -147,7 +190,6 @@ export function RecommendationCard({
           </div>
         </div>
       </div>
-
     </div>
   );
 }

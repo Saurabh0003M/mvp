@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { UserProfile, Category, Difficulty, LearningStyle } from "@/lib/engine";
@@ -86,6 +86,24 @@ export function OnboardingFlow({ onComplete }: Props) {
       }, 1600);
     }
   };
+
+  // Enter advances from ANY step. Previously only step 0's input handled it,
+  // so choosing a suggestion chip (which moves focus off the input) or landing
+  // on steps 2-4 left Enter dead and forced a mouse click on Continue.
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || e.defaultPrevented || calibrating) return;
+      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+      const el = document.activeElement as HTMLElement | null;
+      // Let a focused button do its own thing (e.g. toggling a chip).
+      if (el && (el.tagName === "BUTTON" || el.tagName === "TEXTAREA")) return;
+      if (!canProceed()) return;
+      e.preventDefault();
+      handleNext();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  });
 
   const toggleInterest = (cat: Category) => {
     setInterests((prev) =>

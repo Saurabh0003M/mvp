@@ -1,18 +1,27 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import {
   type EngineState,
   type UserProfile,
   type SwipeDirection,
   type Insight,
   type Recommendation,
+  RECOMMENDATIONS,
   createEngine,
   applySwipe,
   applyInsight,
+  applyVoiceIntent,
   detectInsight,
   reSurface,
 } from "@/lib/engine";
+import { compressCognitiveState } from "@/lib/cognitive";
+import { type VoiceReading } from "@/lib/voice";
+
+export interface CoachMessage {
+  role: "user" | "coach";
+  text: string;
+}
 
 const INSIGHT_COOLDOWN_MS = 4000;
 
@@ -21,7 +30,17 @@ export function useEngine() {
   const [state, setState] = useState<EngineState | null>(null);
   const [activeInsight, setActiveInsight] = useState<Insight | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [messages, setMessages] = useState<CoachMessage[]>([]);
+  const [reading, setReading] = useState<VoiceReading | null>(null);
   const lastInsightAt = useRef(0);
+
+  // Compressed Cognitive State — rebuilt from scratch each turn (never
+  // appended), so it stays O(1) in session length. Drives the wellbeing radar
+  // and the corrective-pivot banner.
+  const ccs = useMemo(
+    () => (state && profile ? compressCognitiveState(state.history, profile, RECOMMENDATIONS) : null),
+    [state, profile]
+  );
 
   const start = useCallback((p: UserProfile) => {
     setProfile(p);
@@ -62,6 +81,22 @@ export function useEngine() {
     setTimeout(() => setToast(null), 2200);
   }, [state, profile, activeInsight]);
 
+  // The conversational coach: a spoken/typed transcript is extracted into a
+  // VoiceReading that visibly re-weights the engine, and the coach replies with
+  // a curiosity-inducing question grounded in that reading.
+  const converse = useCallback(
+    (transcript: string) => {
+      if (!state || !profile || !transcript.trim()) return;
+      const text = transcript.trim();
+      setMessages((m) => [...m, { role: "user", text }]);
+      const { state: next, reading: r } = applyVoiceIntent(state, text, profile);
+      setState(next);
+      setReading(r);
+      setMessages((m) => [...m, { role: "coach", text: r.coachReply }]);
+    },
+    [state, profile]
+  );
+
   const dismissInsight = useCallback(() => {
     if (!state || !activeInsight) return;
     setState({
@@ -74,11 +109,15 @@ export function useEngine() {
   return {
     profile,
     state,
+    ccs,
     activeInsight,
     toast,
+    messages,
+    reading,
     start,
     swipe,
     resurface,
+    converse,
     applyActiveInsight,
     dismissInsight,
   };

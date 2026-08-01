@@ -107,7 +107,7 @@ function ShelfCard({
             <span className="flex items-center gap-1"><Signal className="h-3 w-3" />{card.difficulty}</span>
           </div>
         </div>
-        <h3 className="mt-3 text-subtitle leading-tight">{card.title}</h3>
+        <h3 className="mt-3 text-title leading-tight">{card.title}</h3>
         <p className="mt-1.5 text-caption text-muted-foreground line-clamp-2">{card.description}</p>
         <div className="mt-3 flex items-center justify-between">
           <span className="text-caption text-muted-foreground">{FORMAT_LABELS[card.format]}</span>

@@ -35,6 +35,12 @@ export interface Recommendation {
   difficulty: Difficulty;
   duration: number; // minutes
   tags: string[];
+  // Optional presentational fields — the corpus in engine.ts doesn't set these,
+  // so the UI falls back to a category-accent gradient and an "IABTM" source.
+  thumbnail?: string;
+  url?: string;
+  source?: string;
+  tier?: string;
 }
 
 export interface UserProfile {

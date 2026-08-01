@@ -72,7 +72,7 @@ export function Discover({
   }, [state.history.length]);
 
   return (
-    <div className="min-h-screen bg-background bg-grain">
+    <div className="min-h-screen bg-sunfade bg-grain">
       {/* Header */}
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
@@ -122,6 +122,7 @@ export function Discover({
               <CardStack
                 state={state}
                 profile={profile}
+                ccs={ccs}
                 onSwipe={onSwipe}
                 showHints={showHints}
               />

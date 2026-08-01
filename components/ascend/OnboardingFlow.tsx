@@ -87,15 +87,11 @@ export function OnboardingFlow({ onComplete }: Props) {
     }
   };
 
-  // Enter advances from ANY step. Previously only step 0's input handled it,
-  // so choosing a suggestion chip (which moves focus off the input) or landing
-  // on steps 2-4 left Enter dead and forced a mouse click on Continue.
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key !== "Enter" || e.defaultPrevented || calibrating) return;
       if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
       const el = document.activeElement as HTMLElement | null;
-      // Let a focused button do its own thing (e.g. toggling a chip).
       if (el && (el.tagName === "BUTTON" || el.tagName === "TEXTAREA")) return;
       if (!canProceed()) return;
       e.preventDefault();
@@ -113,7 +109,7 @@ export function OnboardingFlow({ onComplete }: Props) {
 
   if (calibrating) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background">
+      <div className="fixed inset-0 flex items-center justify-center bg-sunfade bg-grain">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -143,7 +139,15 @@ export function OnboardingFlow({ onComplete }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 flex flex-col bg-background bg-grain">
+    <div className="fixed inset-0 flex flex-col bg-sunfade bg-grain">
+      {/* Brand mark */}
+      <div className="flex items-center gap-2.5 px-6 pt-6 sm:px-10">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground text-background">
+          <span className="text-caption font-semibold">A</span>
+        </div>
+        <span className="text-subtitle font-semibold tracking-tight">Ascend</span>
+      </div>
+
       {/* Progress bar */}
       <div className="flex items-center gap-2 px-6 pt-6 sm:px-10">
         {Array.from({ length: totalSteps }).map((_, i) => (
@@ -168,12 +172,11 @@ export function OnboardingFlow({ onComplete }: Props) {
               exit={{ opacity: 0, x: -16 }}
               transition={{ duration: 0.3, ease: EASE }}
             >
-              {/* Step 1: Aspiration */}
               {step === 0 && (
-                <div className="space-y-8">
+                <div className="space-y-7">
                   <div className="space-y-3">
                     <div className="text-micro text-muted-foreground">Step 1 of 4 — Aspiration</div>
-                    <h1 className="text-headline">Who do you want to become?</h1>
+                    <h1 className="text-balance text-display">Who do you want to become?</h1>
                     <p className="text-body text-muted-foreground">
                       Name the person you&apos;re growing toward. This anchors every recommendation.
                     </p>
@@ -208,12 +211,11 @@ export function OnboardingFlow({ onComplete }: Props) {
                 </div>
               )}
 
-              {/* Step 2: Interests */}
               {step === 1 && (
-                <div className="space-y-8">
+                <div className="space-y-7">
                   <div className="space-y-3">
                     <div className="text-micro text-muted-foreground">Step 2 of 4 — Interests</div>
-                    <h1 className="text-headline">What captures your curiosity?</h1>
+                    <h1 className="text-balance text-headline">What captures your curiosity?</h1>
                     <p className="text-body text-muted-foreground">
                       Select a few areas. The engine starts here and evolves with every swipe.
                     </p>
@@ -244,12 +246,11 @@ export function OnboardingFlow({ onComplete }: Props) {
                 </div>
               )}
 
-              {/* Step 3: Experience + Learning style */}
               {step === 2 && (
-                <div className="space-y-8">
+                <div className="space-y-7">
                   <div className="space-y-3">
                     <div className="text-micro text-muted-foreground">Step 3 of 4 — Experience & Style</div>
-                    <h1 className="text-headline">How do you learn best?</h1>
+                    <h1 className="text-balance text-headline">How do you learn best?</h1>
                   </div>
                   <div className="space-y-4">
                     <div className="text-caption text-muted-foreground">Experience level</div>
@@ -298,12 +299,11 @@ export function OnboardingFlow({ onComplete }: Props) {
                 </div>
               )}
 
-              {/* Step 4: Daily time */}
               {step === 3 && (
-                <div className="space-y-8">
+                <div className="space-y-7">
                   <div className="space-y-3">
                     <div className="text-micro text-muted-foreground">Step 4 of 4 — Daily time</div>
-                    <h1 className="text-headline">How much time per day?</h1>
+                    <h1 className="text-balance text-headline">How much time per day?</h1>
                     <p className="text-body text-muted-foreground">
                       Quests are filtered to fit this window. You can adjust later.
                     </p>
@@ -332,7 +332,6 @@ export function OnboardingFlow({ onComplete }: Props) {
             </motion.div>
           </AnimatePresence>
 
-          {/* Controls */}
           <div className="mt-10 flex items-center justify-between">
             <button
               onClick={() => setStep((s) => Math.max(0, s - 1))}

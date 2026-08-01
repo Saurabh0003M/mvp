@@ -49,7 +49,7 @@ export function InsightSheet({ insight, onApply, onDismiss }: Props) {
                 </button>
               </div>
 
-              <h3 className="mt-5 text-balance text-title leading-snug">
+              <h3 className="mt-5 text-balance text-headline leading-snug">
                 {insight.headline}
               </h3>
               <p className="mt-2.5 text-body text-muted-foreground">{insight.body}</p>

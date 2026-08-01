@@ -19,51 +19,51 @@ export function TasteProfileRail({ state, profile, prevWeights, ccs }: Props) {
 
   return (
     <div className="space-y-4">
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="text-micro text-muted-foreground">Taste Profile</div>
-          <div className="text-subtitle mt-0.5">Live weights</div>
+      <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-micro text-muted-foreground">Taste Profile</div>
+            <div className="text-subtitle mt-0.5">Live weights</div>
+          </div>
+          <div className="flex shrink-0 items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-foreground/40 animate-pulse" />
+            <span className="text-caption whitespace-nowrap text-muted-foreground">Updating</span>
+          </div>
         </div>
-        <div className="flex shrink-0 items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-foreground/40 animate-pulse" />
-          <span className="text-caption whitespace-nowrap text-muted-foreground">Updating</span>
+
+        <div className="mt-6 space-y-5">
+          {bars.map((bar) => {
+            const prev = prevWeights.find((p) => p.label === bar.label)?.value ?? bar.value;
+            const rising = bar.value > prev;
+            const falling = bar.value < prev;
+            return (
+              <div key={bar.label}>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-caption truncate text-foreground/80">{bar.label}</span>
+                  <CountUpValue value={bar.value} rising={rising} falling={falling} accent={bar.accent} />
+                </div>
+                <div className="mt-2 h-2 overflow-hidden rounded-full bg-muted">
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: bar.accent }}
+                    initial={false}
+                    animate={{ width: `${bar.value}%` }}
+                    transition={{ duration: 0.45, ease: EASE }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-6 grid grid-cols-3 gap-2 border-t border-border pt-4 text-center">
+          <Stat value={state.history.length} label="Swipes" />
+          <Stat value={state.accepted.length} label="Accepted" />
+          <Stat value={state.later.length} label="Saved" />
         </div>
       </div>
 
-      <div className="mt-6 space-y-5">
-        {bars.map((bar) => {
-          const prev = prevWeights.find((p) => p.label === bar.label)?.value ?? bar.value;
-          const rising = bar.value > prev;
-          const falling = bar.value < prev;
-          return (
-            <div key={bar.label}>
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-caption truncate text-foreground/80">{bar.label}</span>
-                <CountUpValue value={bar.value} rising={rising} falling={falling} accent={bar.accent} />
-              </div>
-              <div className="mt-2 h-2 overflow-hidden rounded-full bg-muted">
-                <motion.div
-                  className="h-full rounded-full"
-                  style={{ background: bar.accent }}
-                  initial={false}
-                  animate={{ width: `${bar.value}%` }}
-                  transition={{ duration: 0.45, ease: EASE }}
-                />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="mt-6 grid grid-cols-3 gap-2 border-t border-border pt-4 text-center">
-        <Stat value={state.history.length} label="Swipes" />
-        <Stat value={state.accepted.length} label="Accepted" />
-        <Stat value={state.later.length} label="Saved" />
-      </div>
-    </div>
-
-    {ccs && <WellbeingRadar ccs={ccs} />}
+      {ccs && <WellbeingRadar ccs={ccs} />}
     </div>
   );
 }

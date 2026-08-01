@@ -4,78 +4,77 @@
 
 @layer base {
   :root {
-    /* Warm sunfaded neutrals — the "vintage print" substrate */
-    --background: 38 36% 96%;
-    --foreground: 28 14% 16%;
-    --card: 40 44% 99%;
-    --card-foreground: 28 14% 16%;
-    --popover: 40 44% 99%;
-    --popover-foreground: 28 14% 16%;
-    --primary: 28 14% 16%;
-    --primary-foreground: 38 36% 96%;
-    --secondary: 38 24% 90%;
-    --secondary-foreground: 28 14% 16%;
-    --muted: 38 22% 90%;
-    --muted-foreground: 30 10% 44%;
-    --accent: 36 30% 88%;
-    --accent-foreground: 28 14% 16%;
-    --destructive: 4 70% 50%;
+    /* Recolored to match ascend-redesign's indigo/violet palette */
+    --background: 245 50% 98%;
+    --foreground: 240 16% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 16% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 16% 12%;
+    --primary: 240 16% 12%;
+    --primary-foreground: 245 50% 98%;
+    --secondary: 240 20% 96%;
+    --secondary-foreground: 240 16% 12%;
+    --muted: 240 18% 95%;
+    --muted-foreground: 240 10% 48%;
+    --accent: 245 40% 95%;
+    --accent-foreground: 240 16% 12%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 34 20% 84%;
-    --input: 34 20% 84%;
-    --ring: 28 14% 16%;
+    --border: 240 16% 91%;
+    --input: 240 16% 91%;
+    --ring: 245 75% 60%;
     --radius: 0.75rem;
 
-    --success: 152 48% 38%;
-    --success-soft: 152 40% 92%;
-    --warning: 38 82% 48%;
-    --warning-soft: 38 70% 92%;
-    --danger: 4 70% 50%;
-    --danger-soft: 4 50% 94%;
+    --success: 158 75% 38%;
+    --success-soft: 158 70% 95%;
+    --warning: 38 95% 52%;
+    --warning-soft: 38 85% 95%;
+    --danger: 350 85% 58%;
+    --danger-soft: 350 80% 96%;
 
-    /* Category accents — sunfaded, slightly desaturated from the originals */
-    --accent-ai: 168 58% 40%;
-    --accent-sec: 200 58% 48%;
-    --accent-web: 250 48% 56%;
-    --accent-bball: 26 72% 54%;
-    --accent-design: 326 60% 56%;
-    --accent-biz: 142 50% 44%;
-    --accent-ds: 188 56% 46%;
-    --accent-cw: 0 62% 54%;
+    /* Category accents — matched to redesign's saturation/hue */
+    --accent-ai: 168 75% 42%;
+    --accent-sec: 200 75% 50%;
+    --accent-web: 262 70% 62%;
+    --accent-bball: 28 88% 56%;
+    --accent-design: 330 80% 60%;
+    --accent-biz: 142 65% 44%;
+    --accent-ds: 190 75% 46%;
+    --accent-cw: 0 75% 58%;
 
-    /* Warm paper texture overlay */
-    --paper-tint: 32 40% 92%;
+    --paper-tint: 245 40% 95%;
   }
 
   .dark {
-    --background: 28 12% 7%;
-    --foreground: 38 30% 94%;
-    --card: 28 10% 10%;
-    --card-foreground: 38 30% 94%;
-    --popover: 28 10% 10%;
-    --popover-foreground: 38 30% 94%;
-    --primary: 38 30% 94%;
-    --primary-foreground: 28 12% 7%;
-    --secondary: 28 8% 16%;
-    --secondary-foreground: 38 30% 94%;
-    --muted: 28 8% 16%;
-    --muted-foreground: 32 10% 62%;
-    --accent: 28 8% 18%;
-    --accent-foreground: 38 30% 94%;
-    --destructive: 4 70% 54%;
+    --background: 240 18% 6%;
+    --foreground: 245 40% 96%;
+    --card: 240 14% 10%;
+    --card-foreground: 245 40% 96%;
+    --popover: 240 14% 10%;
+    --popover-foreground: 245 40% 96%;
+    --primary: 245 40% 96%;
+    --primary-foreground: 240 16% 12%;
+    --secondary: 240 12% 16%;
+    --secondary-foreground: 245 40% 96%;
+    --muted: 240 12% 16%;
+    --muted-foreground: 240 10% 65%;
+    --accent: 240 12% 18%;
+    --accent-foreground: 245 40% 96%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 28 8% 20%;
-    --input: 28 8% 20%;
-    --ring: 38 30% 94%;
+    --border: 240 12% 20%;
+    --input: 240 12% 20%;
+    --ring: 245 75% 60%;
 
-    --success: 152 48% 50%;
-    --success-soft: 152 30% 16%;
-    --warning: 38 82% 56%;
-    --warning-soft: 38 40% 16%;
-    --danger: 4 70% 58%;
-    --danger-soft: 4 30% 16%;
+    --success: 158 75% 48%;
+    --success-soft: 158 50% 16%;
+    --warning: 38 95% 60%;
+    --warning-soft: 38 60% 16%;
+    --danger: 350 85% 64%;
+    --danger-soft: 350 50% 16%;
 
-    --paper-tint: 28 20% 14%;
+    --paper-tint: 240 12% 18%;
   }
 }
 
@@ -167,39 +166,37 @@
   }
 
   .shadow-soft {
-    box-shadow: 0 1px 2px hsl(28 14% 16% / 0.04),
-      0 8px 24px hsl(28 14% 16% / 0.06),
-      0 24px 48px hsl(28 14% 16% / 0.04);
+    box-shadow: 0 1px 3px rgba(99, 102, 241, 0.03),
+      0 10px 30px rgba(99, 102, 241, 0.05);
   }
   .shadow-card {
-    box-shadow: 0 1px 2px hsl(28 14% 16% / 0.05),
-      0 12px 32px hsl(28 14% 16% / 0.08),
-      0 32px 64px hsl(28 14% 16% / 0.05);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04),
+      0 16px 40px rgba(99, 102, 241, 0.08),
+      0 32px 72px rgba(15, 23, 42, 0.04);
   }
   .shadow-lifted {
-    box-shadow: 0 2px 4px hsl(28 14% 16% / 0.06),
-      0 20px 48px hsl(28 14% 16% / 0.12),
-      0 48px 96px hsl(28 14% 16% / 0.08);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06),
+      0 24px 64px rgba(99, 102, 241, 0.14),
+      0 60px 120px rgba(15, 23, 42, 0.08);
   }
   .shadow-inset-hairline {
     box-shadow: inset 0 0 0 1px hsl(var(--border));
   }
 
-  /* Warm paper grain — the "vintage print" texture */
+  /* Grain texture, recolored to the indigo palette */
   .bg-grain {
     background-image:
-      radial-gradient(circle at 1px 1px, hsl(28 14% 16% / 0.022) 1px, transparent 0),
-      radial-gradient(circle at 3px 5px, hsl(28 14% 16% / 0.015) 1px, transparent 0);
-    background-size: 24px 24px, 40px 40px;
+      radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.05) 1px, transparent 0);
+    background-size: 24px 24px;
   }
 
-  /* Sunfaded gradient — warm, desaturated, never violet */
+  /* Sunfaded gradient, recolored to indigo/violet */
   .bg-sunfade {
     background: linear-gradient(
       160deg,
-      hsl(38 44% 98%) 0%,
-      hsl(34 36% 94%) 45%,
-      hsl(28 28% 90%) 100%
+      hsl(245 50% 99%) 0%,
+      hsl(245 40% 96%) 45%,
+      hsl(245 30% 93%) 100%
     );
   }
 

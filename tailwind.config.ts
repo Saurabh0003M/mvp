@@ -50,6 +50,22 @@ const config: Config = {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
+        indigo: {
+          DEFAULT: '#6366f1',
+          soft: 'rgba(99, 102, 241, 0.12)',
+        },
+        purple: {
+          DEFAULT: '#8b5cf6',
+          soft: 'rgba(139, 92, 246, 0.12)',
+        },
+        cyan: {
+          DEFAULT: '#06b6d4',
+          soft: 'rgba(6, 182, 212, 0.12)',
+        },
+        electric: {
+          DEFAULT: '#3b82f6',
+          soft: 'rgba(59, 130, 246, 0.12)',
+        },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',

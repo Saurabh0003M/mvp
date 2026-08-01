@@ -30,6 +30,9 @@ export function InsightSheet({ insight, onApply, onDismiss }: Props) {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.38, ease: EASE }}
+            data-overlay-open
+            role="dialog"
+            aria-modal="true"
             className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-lg rounded-t-[1.75rem] border-t border-border bg-card shadow-lifted"
           >
             <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-border" />

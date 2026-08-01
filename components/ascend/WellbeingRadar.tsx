@@ -48,12 +48,12 @@ export function WellbeingRadar({ ccs }: { ccs: CompressedCognitiveState }) {
       transition={{ duration: 0.4, ease: EASE }}
       className="rounded-2xl border border-border bg-card p-5 shadow-soft"
     >
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex items-center justify-between gap-2">
+        <div className="min-w-0">
           <div className="text-micro text-muted-foreground">Wellbeing</div>
-          <div className="text-subtitle mt-0.5">What&apos;s growing</div>
+          <div className="text-subtitle mt-0.5 whitespace-nowrap">What&apos;s growing</div>
         </div>
-        <span className="text-caption text-muted-foreground tabular-nums">
+        <span className="text-caption shrink-0 whitespace-nowrap tabular-nums text-muted-foreground">
           {ccs.turn} {ccs.turn === 1 ? "choice" : "choices"}
         </span>
       </div>
@@ -85,13 +85,13 @@ export function WellbeingRadar({ ccs }: { ccs: CompressedCognitiveState }) {
       </div>
 
       <div className="mt-1 space-y-1.5">
-        <div className="flex items-center justify-between text-caption">
-          <span className="text-muted-foreground">Strongest</span>
-          <span className="text-foreground/80">{AXIS_LABELS[ccs.strongestAxis]}</span>
+        <div className="flex items-center justify-between gap-3 text-caption">
+          <span className="shrink-0 text-muted-foreground">Strongest</span>
+          <span className="truncate text-right text-foreground/80">{AXIS_LABELS[ccs.strongestAxis]}</span>
         </div>
-        <div className="flex items-center justify-between text-caption">
-          <span className="text-muted-foreground">Growth frontier</span>
-          <span className="text-foreground/80">{AXIS_LABELS[ccs.weakestAxis]}</span>
+        <div className="flex items-center justify-between gap-3 text-caption">
+          <span className="shrink-0 whitespace-nowrap text-muted-foreground">Growth frontier</span>
+          <span className="truncate text-right text-foreground/80">{AXIS_LABELS[ccs.weakestAxis]}</span>
         </div>
       </div>
 

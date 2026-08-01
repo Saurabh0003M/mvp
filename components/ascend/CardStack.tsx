@@ -24,6 +24,9 @@ export function CardStack({ state, profile, onSwipe, showHints }: Props) {
   const rotate = useTransform(x, [-200, 200], [-12, 12]);
   const [dragProgress, setDragProgress] = useState({ x: 0, y: 0 });
   const [, setIsDragging] = useState(false);
+  // Mirrored in state so the `drag` prop re-evaluates: a ref alone never
+  // triggers a re-render, which could leave the card permanently undraggable.
+  const [isAnimating, setIsAnimating] = useState(false);
   const animatingRef = useRef(false);
   const controlsRef = useRef<{ cancel: () => void } | null>(null);
 
@@ -31,6 +34,7 @@ export function CardStack({ state, profile, onSwipe, showHints }: Props) {
     (dir: SwipeDirection) => {
       if (animatingRef.current || !topCard) return;
       animatingRef.current = true;
+      setIsAnimating(true);
 
       const offsets: Record<SwipeDirection, { x: number; y: number; r: number }> = {
         accept: { x: FLY_DISTANCE, y: 40, r: 18 },
@@ -52,14 +56,27 @@ export function CardStack({ state, profile, onSwipe, showHints }: Props) {
         y.set(0);
         setDragProgress({ x: 0, y: 0 });
         animatingRef.current = false;
+        setIsAnimating(false);
       }, 340);
     },
     [topCard, onSwipe, x, y]
   );
 
-  // Keyboard support
+  // Keyboard support. Ignored while the user is typing (the voice coach) or
+  // while a modal/drawer is open, so arrow keys never swipe the card behind an
+  // overlay or hijack cursor movement in a text field.
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const el = document.activeElement as HTMLElement | null;
+      if (el) {
+        const tag = el.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable) return;
+      }
+      // Any open overlay (coach, drawer, insight sheet) owns the keyboard.
+      if (document.querySelector("[data-overlay-open]")) return;
+
       if (e.key === "ArrowRight") { e.preventDefault(); triggerSwipe("accept"); }
       else if (e.key === "ArrowLeft") { e.preventDefault(); triggerSwipe("skip"); }
       else if (e.key === "ArrowDown") { e.preventDefault(); triggerSwipe("later"); }
@@ -129,7 +146,7 @@ export function CardStack({ state, profile, onSwipe, showHints }: Props) {
         key={topCard.id}
         className="absolute inset-0 cursor-grab"
         style={{ x, y, rotate, zIndex: 20 }}
-        drag={!animatingRef.current}
+        drag={!isAnimating}
         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
         dragElastic={0.7}
         onDragStart={() => setIsDragging(true)}
@@ -144,16 +161,16 @@ export function CardStack({ state, profile, onSwipe, showHints }: Props) {
           dragX={dragProgress.x}
           dragY={dragProgress.y}
           isTop
-          showHints={showHints}
           onExpandWhy={() => {}}
         />
       </motion.div>
 
-      {/* On-card action buttons */}
-      <div className="absolute -bottom-20 inset-x-0 flex items-center justify-center gap-3">
-        <ActionButton label="Skip" onClick={() => triggerSwipe("skip")} color="danger" />
-        <ActionButton label="Later" onClick={() => triggerSwipe("later")} color="warning" />
-        <ActionButton label="Accept" onClick={() => triggerSwipe("accept")} color="success" />
+      {/* Action buttons — the ONLY control row. The keyboard hint lives inside
+          each button on the first card, so hints can never overlap the row. */}
+      <div className="absolute -bottom-16 inset-x-0 flex items-center justify-center gap-2.5 sm:gap-3">
+        <ActionButton label="Skip" arrow="←" showArrow={showHints} onClick={() => triggerSwipe("skip")} color="danger" />
+        <ActionButton label="Later" arrow="↓" showArrow={showHints} onClick={() => triggerSwipe("later")} color="warning" />
+        <ActionButton label="Accept" arrow="→" showArrow={showHints} onClick={() => triggerSwipe("accept")} color="success" />
       </div>
     </div>
   );
@@ -161,10 +178,14 @@ export function CardStack({ state, profile, onSwipe, showHints }: Props) {
 
 function ActionButton({
   label,
+  arrow,
+  showArrow,
   onClick,
   color,
 }: {
   label: string;
+  arrow: string;
+  showArrow: boolean;
   onClick: () => void;
   color: "success" | "warning" | "danger";
 }) {
@@ -177,8 +198,11 @@ function ActionButton({
     <motion.button
       whileTap={{ scale: 0.94 }}
       onClick={onClick}
-      className={`rounded-full border bg-card px-5 py-2.5 text-caption font-medium shadow-soft transition-all ${styles[color]}`}
+      aria-label={`${label} this recommendation`}
+      aria-keyshortcuts={arrow === "←" ? "ArrowLeft" : arrow === "→" ? "ArrowRight" : "ArrowDown"}
+      className={`flex items-center gap-1.5 rounded-full border bg-card px-4 py-2.5 text-caption font-medium shadow-soft transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-5 ${styles[color]}`}
     >
+      {showArrow && <span aria-hidden className="opacity-60">{arrow}</span>}
       {label}
     </motion.button>
   );

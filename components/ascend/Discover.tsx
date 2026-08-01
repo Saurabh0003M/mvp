@@ -114,7 +114,7 @@ export function Discover({
       </div>
 
       {/* Main layout */}
-      <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8">
+      <main className="mx-auto max-w-7xl px-5 pb-12 pt-8 sm:px-8 lg:pb-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
           {/* Card stack column */}
           <div className="flex flex-col items-center">
@@ -127,29 +127,33 @@ export function Discover({
               />
             </div>
 
-            {/* Trajectory */}
-            <div className="mt-24">
+            {/* Trajectory — clears the action-button row that sits below the card */}
+            <div className="mt-24 w-full max-w-md text-center">
               <TrajectoryStrip state={state} profile={profile} />
             </div>
           </div>
 
-          {/* Taste profile rail — desktop */}
+          {/* Taste profile rail — desktop. Capped and internally scrollable so a
+              tall rail (weights + wellbeing radar) can't run past the viewport
+              and leave the radar unreachable, and can't sit under the coach button. */}
           <aside className="hidden lg:block">
-            <div className="sticky top-24">
+            <div className="sticky top-24 max-h-[calc(100vh-9rem)] overflow-y-auto pb-2 pr-1">
               <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} ccs={ccs} />
             </div>
           </aside>
         </div>
       </main>
 
-      {/* Mobile taste profile toggle */}
-      <div className="lg:hidden">
+      {/* Mobile taste profile toggle. Bottom padding keeps it clear of the
+          floating coach button, which is docked bottom-right. */}
+      <div className="px-5 pb-28 lg:hidden">
         <button
           onClick={() => setRailOpen((v) => !v)}
+          aria-expanded={railOpen}
           className="mx-auto flex w-full max-w-md items-center justify-center gap-2 rounded-full border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
         >
           Taste Profile
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`} />
         </button>
         <AnimatePresence>
           {railOpen && (

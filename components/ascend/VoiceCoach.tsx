@@ -43,6 +43,19 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
     threadRef.current?.scrollTo({ top: threadRef.current.scrollHeight, behavior: "smooth" });
   }, [messages.length, extracting]);
 
+  // Escape closes the coach.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setListening(false);
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   function startListening() {
     setListening(true);
     requestAnimationFrame(() => inputRef.current?.focus());
@@ -80,7 +93,8 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.35, ease: EASE }}
             onClick={() => setOpen(true)}
-            className="group fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2.5 rounded-full border border-border bg-card/90 py-3 pl-3 pr-5 shadow-soft backdrop-blur-xl transition-colors hover:border-foreground/30"
+            aria-label="Open the coach and think out loud"
+            className="group fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full border border-border bg-card/90 py-3 pl-3 pr-5 shadow-soft backdrop-blur-xl transition-colors hover:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:bottom-6 sm:right-6"
           >
             <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-background">
               <Mic className="h-4 w-4" />
@@ -99,6 +113,10 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
       <AnimatePresence>
         {open && (
           <motion.div
+            data-overlay-open
+            role="dialog"
+            aria-modal="true"
+            aria-label="Coach"
             className="fixed inset-0 z-50 flex items-end justify-center sm:items-center"
             initial="hidden"
             animate="visible"
@@ -150,7 +168,7 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
               <div ref={threadRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
                 {messages.length === 0 && (
                   <div className="mt-2">
-                    <p className="text-sm leading-relaxed text-foreground/80">
+                    <p className="text-body text-foreground/80">
                       What&apos;s on your mind right now? Hold the mic and just talk — no need to
                       know what you want. I&apos;ll listen for how you&apos;re feeling and quietly
                       re-tune your recommendations.

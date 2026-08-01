@@ -520,8 +520,14 @@ export function eudaimonicBonus(
   const axes = contentAxes(card, profile);
   let bonus = 0;
 
-  // Always give a nudge toward the weakest axis — that's the growth frontier.
-  bonus += axes[ccs.weakestAxis] * 10;
+  // Nudge toward the weakest axis — the growth frontier — but scaled by how
+  // much evidence actually backs that axis. With an empty history every axis
+  // sits at the neutral prior, so "weakest" is just arbitrary tie-breaking;
+  // applying a full nudge there would override the user's stated interests and
+  // make the very first card look off-target. Confidence starts at 0 and grows,
+  // so early recommendations follow stated intent and the wellbeing tilt earns
+  // its influence as the session provides real signal.
+  bonus += axes[ccs.weakestAxis] * 10 * ccs.confidence[ccs.weakestAxis];
 
   switch (ccs.pivot) {
     case "self-compassion":

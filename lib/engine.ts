@@ -214,6 +214,18 @@ function diversify(
 ): Recommendation[] {
   if (scored.length <= 2) return scored.map((s) => s.card);
 
+  // The single best-scoring card is pinned to the front. Diversity matters
+  // across the *deck*, but the card a user actually sees first should be the
+  // most relevant one — otherwise the opening impression reads as off-target.
+  const [lead, ...rest] = scored;
+  if (rest.length <= 2) return scored.map((s) => s.card);
+  return [lead.card, ...diversifyFrom(rest, profile)];
+}
+
+function diversifyFrom(
+  scored: { card: Recommendation; score: number }[],
+  profile: UserProfile
+): Recommendation[] {
   // Map raw scores (which can go negative) into [0,1] quality for the kernel.
   const scores = scored.map((s) => s.score);
   const min = Math.min(...scores);

@@ -22,7 +22,6 @@ interface Props {
   dragX: number;
   dragY: number;
   isTop: boolean;
-  showHints: boolean;
   onExpandWhy: () => void;
 }
 
@@ -33,14 +32,12 @@ export function RecommendationCard({
   dragX,
   dragY,
   isTop,
-  showHints,
   onExpandWhy,
 }: Props) {
   const [whyOpen, setWhyOpen] = useState(false);
   const accent = CATEGORY_ACCENTS[card.category];
 
   const horizontalDrag = Math.abs(dragX) > Math.abs(dragY);
-  const swipeProgress = Math.min(Math.abs(dragX) / 140, 1);
   const isRight = dragX > 40;
   const isLeft = dragX < -40;
   const isDown = dragY > 40 && !horizontalDrag;
@@ -151,31 +148,6 @@ export function RecommendationCard({
         </div>
       </div>
 
-      {/* Gesture hints (first card only) */}
-      {isTop && showHints && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: swipeProgress > 0.15 ? 0 : 1 }}
-          transition={{ duration: 0.2 }}
-          className="pointer-events-none absolute inset-x-0 -bottom-16 flex justify-center"
-        >
-          <div className="flex items-center gap-6 rounded-full bg-card/80 px-5 py-2.5 shadow-soft backdrop-blur">
-            <Hint label="Accept" dir="right" />
-            <Hint label="Later" dir="down" />
-            <Hint label="Skip" dir="left" />
-          </div>
-        </motion.div>
-      )}
-    </div>
-  );
-}
-
-function Hint({ label, dir }: { label: string; dir: "right" | "left" | "down" }) {
-  const arrows: Record<string, string> = { right: "→", left: "←", down: "↓" };
-  return (
-    <div className="flex items-center gap-1.5 text-caption text-muted-foreground">
-      <span className="text-foreground/70">{arrows[dir]}</span>
-      {label}
     </div>
   );
 }

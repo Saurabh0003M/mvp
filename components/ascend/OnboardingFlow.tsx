@@ -20,6 +20,15 @@ const ASPIRATION_SUGGESTIONS = [
   "Founder",
 ];
 
+const MORE_ASPIRATION_SUGGESTIONS = [
+  "ML Researcher",
+  "Mobile Engineer",
+  "Solutions Architect",
+  "Growth Marketer",
+  "QA Engineer",
+  "Content Strategist",
+];
+
 const INTEREST_OPTIONS: { label: Category; hint: string }[] = [
   { label: "AI/ML", hint: "Models & ML" },
   { label: "Cybersecurity", hint: "Offense & defense" },
@@ -63,6 +72,7 @@ export function OnboardingFlow({ onComplete }: Props) {
   const [learningStyle, setLearningStyle] = useState<LearningStyle | null>(null);
   const [dailyTime, setDailyTime] = useState<15 | 30 | 45 | 60 | null>(null);
   const [calibrating, setCalibrating] = useState(false);
+  const [showMoreAspirations, setShowMoreAspirations] = useState(false);
 
   const totalSteps = 4;
   const advancingRef = useRef(false);
@@ -176,7 +186,7 @@ export function OnboardingFlow({ onComplete }: Props) {
       {/* Scrollable content area — keeps the nav bar always visible */}
       <div className="flex flex-1 flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto px-6 sm:px-10">
-          <div className="mx-auto flex min-h-full w-full max-w-xl flex-col justify-center py-6">
+          <div className="mx-auto flex min-h-[80%] w-full max-w-xl flex-col justify-center py-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
@@ -218,6 +228,29 @@ export function OnboardingFlow({ onComplete }: Props) {
                             {s}
                           </button>
                         ))}
+                        {showMoreAspirations
+                          ? MORE_ASPIRATION_SUGGESTIONS.map((s) => (
+                              <button
+                                key={s}
+                                onClick={() => setAspiration(s)}
+                                className={cn(
+                                  "rounded-full border px-4 py-2 text-caption transition-all",
+                                  aspiration === s
+                                    ? "border-foreground bg-foreground text-background"
+                                    : "border-border bg-card text-foreground hover:border-foreground/40 hover:bg-accent"
+                                )}
+                              >
+                                {s}
+                              </button>
+                            ))
+                          : (
+                              <button
+                                onClick={() => setShowMoreAspirations(true)}
+                                className="rounded-full border border-dashed border-border px-4 py-2 text-caption text-muted-foreground transition-all hover:border-foreground/40 hover:text-foreground"
+                              >
+                                More…
+                              </button>
+                            )}
                       </div>
                     </div>
                   </div>

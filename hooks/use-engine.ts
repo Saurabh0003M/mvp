@@ -17,6 +17,7 @@ import {
 } from "@/lib/engine";
 import { compressCognitiveState } from "@/lib/cognitive";
 import { type VoiceReading } from "@/lib/voice";
+import { useEnginePersistence } from "@/hooks/use-engine-persistence";
 
 export interface CoachMessage {
   role: "user" | "coach";
@@ -34,6 +35,10 @@ export function useEngine() {
   const [reading, setReading] = useState<VoiceReading | null>(null);
   const lastInsightAt = useRef(0);
 
+  // Optional Supabase mirror. When unconfigured every method is a no-op, so the
+  // engine below behaves exactly as it did before persistence existed.
+  const persistence = useEnginePersistence();
+
   // Compressed Cognitive State — rebuilt from scratch each turn (never
   // appended), so it stays O(1) in session length. Drives the wellbeing radar
   // and the corrective-pivot banner.
@@ -45,13 +50,17 @@ export function useEngine() {
   const start = useCallback((p: UserProfile) => {
     setProfile(p);
     setState(createEngine(p));
-  }, []);
+    // Mirror the profile to Supabase (no-op when unconfigured).
+    persistence.persistProfile(p);
+  }, [persistence]);
 
   const swipe = useCallback(
     (card: Recommendation, direction: SwipeDirection) => {
       if (!state || !profile) return;
       const next = applySwipe(state, card, direction, profile);
       setState(next);
+      // Mirror the swipe to the interactions timeline (no-op when unconfigured).
+      persistence.persistSwipe(card, direction, profile);
 
       const now = Date.now();
       if (now - lastInsightAt.current > INSIGHT_COOLDOWN_MS) {
@@ -62,7 +71,7 @@ export function useEngine() {
         }
       }
     },
-    [state, profile]
+    [state, profile, persistence]
   );
 
   const resurface = useCallback(
@@ -106,6 +115,17 @@ export function useEngine() {
     setActiveInsight(null);
   }, [state, activeInsight]);
 
+  // Record that accepted content was actually finished — the strongest signal.
+  // Optional: the UI can call this from the content viewer's "done" action. It
+  // is a pure persistence side-effect and does not touch in-memory engine state.
+  const recordContentCompletion = useCallback(
+    (card: Recommendation, completionTimeMs?: number) => {
+      if (!profile) return;
+      persistence.persistCompletion(card, profile, completionTimeMs);
+    },
+    [profile, persistence]
+  );
+
   return {
     profile,
     state,
@@ -120,5 +140,9 @@ export function useEngine() {
     converse,
     applyActiveInsight,
     dismissInsight,
+    // Persistence surface (harmless when Supabase is unconfigured).
+    recordContentCompletion,
+    persistenceEnabled: persistence.enabled,
+    persistenceReady: persistence.ready,
   };
 }

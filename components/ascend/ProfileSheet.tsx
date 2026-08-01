@@ -1,19 +1,19 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { type UserProfile, CATEGORY_ACCENTS } from "@/lib/engine";
-import { type CompressedCognitiveState } from "@/lib/cognitive";
-import { WellbeingRadar } from "./WellbeingRadar";
-import { X } from "lucide-react";
+import { type UserProfile, type EngineState, CATEGORY_ACCENTS } from "@/lib/engine";
+import { X, Check, Bookmark, ChevronRight } from "lucide-react";
 
 interface Props {
   open: boolean;
   onClose: () => void;
   profile: UserProfile;
-  ccs: CompressedCognitiveState | null;
+  state: EngineState;
+  onOpenQuests: () => void;
+  onOpenLater: () => void;
 }
 
-export function ProfileSheet({ open, onClose, profile, ccs }: Props) {
+export function ProfileSheet({ open, onClose, profile, state, onOpenQuests, onOpenLater }: Props) {
   return (
     <AnimatePresence>
       {open && (
@@ -27,14 +27,14 @@ export function ProfileSheet({ open, onClose, profile, ccs }: Props) {
             className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm"
           />
           <motion.div
-            initial={{ x: "100%" }}
+            initial={{ x: "-100%" }}
             animate={{ x: 0 }}
-            exit={{ x: "100%" }}
+            exit={{ x: "-100%" }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             data-overlay-open
             role="dialog"
             aria-modal="true"
-            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-border bg-card shadow-lifted"
+            className="fixed left-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-r border-border bg-card shadow-lifted"
           >
             <div className="flex items-center justify-between border-b border-border px-6 py-5">
               <div>
@@ -73,7 +73,39 @@ export function ProfileSheet({ open, onClose, profile, ccs }: Props) {
                 </div>
               </div>
 
-              {ccs && <WellbeingRadar ccs={ccs} />}
+              <div className="space-y-2 border-t border-border pt-5">
+                <button
+                  onClick={() => { onClose(); onOpenQuests(); }}
+                  className="flex w-full items-center justify-between rounded-2xl border border-border bg-background p-4 text-left transition-colors hover:bg-accent"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-muted">
+                      <Check className="h-4 w-4 text-foreground/70" />
+                    </div>
+                    <div>
+                      <div className="text-subtitle leading-tight">Today&apos;s Quests</div>
+                      <div className="text-caption text-muted-foreground">{state.accepted.length} accepted</div>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                </button>
+
+                <button
+                  onClick={() => { onClose(); onOpenLater(); }}
+                  className="flex w-full items-center justify-between rounded-2xl border border-border bg-background p-4 text-left transition-colors hover:bg-accent"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-muted">
+                      <Bookmark className="h-4 w-4 text-foreground/70" />
+                    </div>
+                    <div>
+                      <div className="text-subtitle leading-tight">Maybe Later</div>
+                      <div className="text-caption text-muted-foreground">{state.later.length} saved</div>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                </button>
+              </div>
             </div>
           </motion.div>
         </>

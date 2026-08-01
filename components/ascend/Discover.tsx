@@ -1,27 +1,31 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { motion } from "framer-motion";
 import {
   type EngineState,
   type UserProfile,
   topWeights,
   type Recommendation,
   type SwipeDirection,
+  RECOMMENDATIONS,
 } from "@/lib/engine";
 import { type CompressedCognitiveState } from "@/lib/cognitive";
 import { type VoiceReading } from "@/lib/voice";
 import { type CoachMessage } from "@/hooks/use-engine";
+import { AppShell, type Tab } from "./AppShell";
 import { CardStack } from "./CardStack";
 import { TasteProfileRail } from "./TasteProfileRail";
+import { WellbeingRadar } from "./WellbeingRadar";
 import { TrajectoryStrip } from "./TrajectoryStrip";
+import { PivotBanner } from "./PivotBanner";
 import { QuestsShelf } from "./QuestsShelf";
 import { ProfileSheet } from "./ProfileSheet";
+import { NotificationsSheet } from "./NotificationsSheet";
+import { SearchSheet } from "./SearchSheet";
 import { InsightSheet } from "./InsightSheet";
-import { PivotBanner } from "./PivotBanner";
 import { VoiceCoach } from "./VoiceCoach";
 import { Toast } from "./Toast";
-import { Check, Bookmark, ChevronDown } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -54,11 +58,13 @@ export function Discover({
   onDismissInsight,
   toast,
 }: Props) {
+  const [tab, setTab] = useState<Tab>("home");
   const [questsOpen, setQuestsOpen] = useState(false);
   const [laterOpen, setLaterOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [showHints, setShowHints] = useState(true);
-  const [railOpen, setRailOpen] = useState(false);
   const [prevWeights, setPrevWeights] = useState(() =>
     topWeights(state, profile).map((w) => ({ label: w.label, value: w.value }))
   );
@@ -74,153 +80,160 @@ export function Discover({
     if (state.history.length > 0) setShowHints(false);
   }, [state.history.length]);
 
+  // Global search shortcut (⌘K / Ctrl+K)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Explore mode = a shuffled shim over state.queue. Same swipe path, same
+  // engine learning — just surfaces cards in a non-relevance order to invite
+  // discovery of things the ranker wouldn't have led with.
+  const exploreState = useMemo<EngineState>(() => {
+    // Fisher–Yates over the unseen corpus, filtered against state.seen.
+    const pool = RECOMMENDATIONS.filter((c) => !state.seen.has(c.id));
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return { ...state, queue: pool };
+    // Re-shuffle whenever the seen set grows (i.e. after a swipe), not on
+    // every render — otherwise the deck would reshuffle mid-drag.
+  }, [state, state.seen.size]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const hasNotifications = Boolean(activeInsight) || Boolean(ccs && ccs.pivot);
+
   return (
-    <div className="flex min-h-screen flex-col bg-sunfade bg-grain">
-      {/* ── Header ─────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-screen-xl items-center justify-between px-5 py-3.5 sm:px-8">
-          <button
-            onClick={() => setProfileOpen(true)}
-            className="flex items-center gap-2.5 rounded-lg transition-opacity hover:opacity-80"
-            aria-label="Open profile"
+    <AppShell
+      tab={tab}
+      onTab={setTab}
+      onProfile={() => setProfileOpen(true)}
+      onNotifications={() => setNotificationsOpen(true)}
+      onSearch={() => setSearchOpen(true)}
+      notificationsDot={hasNotifications}
+    >
+      {/* ── HOME ── */}
+      {tab === "home" && (
+        <div className="mx-auto flex w-full max-w-md flex-col items-center px-4 pt-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            className="w-full"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground text-background">
-              <span className="text-caption font-semibold">A</span>
-            </div>
-            <span className="text-subtitle font-semibold tracking-tight">Ascend</span>
-          </button>
-          <div className="flex items-center gap-2">
-            <CounterChip
-              label="Today's Quests"
-              count={state.accepted.length}
-              icon={<Check className="h-3.5 w-3.5" />}
-              onClick={() => setQuestsOpen(true)}
-            />
-            <CounterChip
-              label="Maybe Later"
-              count={state.later.length}
-              icon={<Bookmark className="h-3.5 w-3.5" />}
-              onClick={() => setLaterOpen(true)}
+            <div className="text-micro text-muted-foreground">Becoming</div>
+            <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+              {profile.aspiration}
+            </h1>
+          </motion.div>
+          <div className="mt-3 flex w-full flex-wrap items-center gap-2">
+            <TrajectoryStrip state={state} profile={profile} />
+            <PivotBanner ccs={ccs} />
+          </div>
+
+          <div className="relative mt-6 w-full" style={{ height: "min(72vh, 640px)" }}>
+            <CardStack
+              state={state}
+              profile={profile}
+              ccs={ccs}
+              onSwipe={onSwipe}
+              showHints={showHints}
             />
           </div>
+          <div className="h-20" />
         </div>
-      </header>
+      )}
 
-      {/* ── Becoming banner + trajectory/pivot row ──────────────── */}
-      <div className="mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: EASE }}
-        >
-          <div className="text-micro text-muted-foreground">Becoming</div>
-          <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
-            {profile.aspiration}
-          </h1>
-        </motion.div>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <TrajectoryStrip state={state} profile={profile} />
-          <PivotBanner ccs={ccs} />
-        </div>
-      </div>
+      {/* ── EXPLORE — shuffled random flashcards ── */}
+      {tab === "explore" && (
+        <div className="mx-auto flex w-full max-w-md flex-col items-center px-4 pt-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            className="w-full"
+          >
+            <div className="text-micro text-muted-foreground">Explore</div>
+            <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+              Something you weren&apos;t looking for
+            </h1>
+            <p className="mt-1 text-caption text-muted-foreground">
+              A shuffled deck outside your usual pattern. Swipe still teaches the engine.
+            </p>
+          </motion.div>
 
-      {/* ── Two-column body — wide card, fixed-width rail ───────── */}
-      <main className="mx-auto w-full max-w-7xl flex-1 px-5 py-8 sm:px-8">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_340px]">
-          {/* Card stack column */}
-          <div className="flex flex-col items-center">
-            <div className="relative w-full max-w-md" style={{ height: "min(75vh, 660px)" }}>
+          <div className="relative mt-6 w-full" style={{ height: "min(72vh, 640px)" }}>
+            {exploreState.queue.length > 0 ? (
               <CardStack
-                state={state}
+                state={exploreState}
                 profile={profile}
                 ccs={ccs}
                 onSwipe={onSwipe}
-                showHints={showHints}
+                showHints={false}
               />
-            </div>
-
-            {/* Space for the action buttons that hang -bottom-16 off the card container */}
-            <div className="h-20" />
-
-            {/* Mobile taste-profile accordion */}
-            <div className="w-full max-w-md lg:hidden">
-              <button
-                onClick={() => setRailOpen((v) => !v)}
-                aria-expanded={railOpen}
-                className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-4 py-3 text-caption text-foreground/80 shadow-soft"
-              >
-                Taste Profile
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${railOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-              <AnimatePresence>
-                {railOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3, ease: EASE }}
-                    className="overflow-hidden"
-                  >
-                    <div className="mt-3">
-                      <TasteProfileRail
-                        state={state}
-                        profile={profile}
-                        prevWeights={prevWeights}
-                      />
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center rounded-3xl border border-dashed border-border p-8 text-center">
+                <div className="text-title">You&apos;ve seen the deck.</div>
+                <p className="mt-2 text-caption text-muted-foreground">
+                  Come back after new content is ingested.
+                </p>
+              </div>
+            )}
           </div>
-
-          {/* Taste profile rail — desktop */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-4 pr-1">
-              <TasteProfileRail
-                state={state}
-                profile={profile}
-                prevWeights={prevWeights}
-              />
-            </div>
-          </aside>
+          <div className="h-20" />
         </div>
-      </main>
+      )}
+
+      {/* ── TASTE — profile weights + Ryff wellbeing ── */}
+      {tab === "taste" && (
+        <div className="mx-auto w-full max-w-2xl px-4 pt-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            className="mb-4"
+          >
+            <div className="text-micro text-muted-foreground">You, from your swipes</div>
+            <h1 className="mt-1 font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+              Taste &amp; Wellbeing
+            </h1>
+          </motion.div>
+          <div className="space-y-4 pb-6">
+            <TasteProfileRail state={state} profile={profile} prevWeights={prevWeights} />
+            {ccs && <WellbeingRadar ccs={ccs} />}
+          </div>
+        </div>
+      )}
 
       {/* Drawers + overlays */}
+      <ProfileSheet
+        open={profileOpen}
+        onClose={() => setProfileOpen(false)}
+        profile={profile}
+        state={state}
+        onOpenQuests={() => setQuestsOpen(true)}
+        onOpenLater={() => setLaterOpen(true)}
+      />
+      <NotificationsSheet
+        open={notificationsOpen}
+        onClose={() => setNotificationsOpen(false)}
+        state={state}
+        ccs={ccs}
+        activeInsight={activeInsight}
+        onApplyInsight={onApplyInsight}
+      />
+      <SearchSheet open={searchOpen} onClose={() => setSearchOpen(false)} />
       <QuestsShelf open={questsOpen} onClose={() => setQuestsOpen(false)} state={state} mode="accepted" />
       <QuestsShelf open={laterOpen} onClose={() => setLaterOpen(false)} state={state} onResurface={onResurface} mode="later" />
-      <ProfileSheet open={profileOpen} onClose={() => setProfileOpen(false)} profile={profile} ccs={ccs} />
       <InsightSheet insight={activeInsight} onApply={onApplyInsight} onDismiss={onDismissInsight} />
       <VoiceCoach messages={messages} reading={reading} onConverse={onConverse} />
       <Toast message={toast} />
-    </div>
-  );
-}
-
-function CounterChip({
-  label,
-  count,
-  icon,
-  onClick,
-}: {
-  label: string;
-  count: number;
-  icon: React.ReactNode;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-caption text-foreground/80 transition-all hover:border-foreground/30 hover:bg-accent"
-    >
-      <span className="text-muted-foreground">{icon}</span>
-      <span className="hidden sm:inline">{label}</span>
-      <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-foreground px-1.5 text-[11px] font-semibold text-background tabular-nums">
-        {count}
-      </span>
-    </button>
+    </AppShell>
   );
 }

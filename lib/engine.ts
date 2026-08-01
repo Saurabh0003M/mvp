@@ -1,15 +1,8 @@
-// ============================================================================
-// Ascend Recommendation Engine
-// ----------------------------------------------------------------------------
-// The ONLY place recommendation logic lives. Designed so that Supabase (data
-// persistence) and a Groq LLM (explanation generation) can be dropped in later
-// without touching the UI layer. All public functions are pure or clearly
-// marked as stubs.
-// ============================================================================
+// All the recommendation logic lives here. Keeping it in one file means we can
+// swap the local corpus for Supabase and the templated "why" strings for a real
+// LLM later without the UI needing to change.
 
-// ---------------------------------------------------------------------------
-// Types — shaped to map cleanly onto future Supabase tables.
-// ---------------------------------------------------------------------------
+// Types. These roughly mirror the tables we'll want in the DB eventually.
 
 export type Category =
   | "AI/ML"
@@ -117,9 +110,7 @@ export const CATEGORY_ACCENTS: Record<Category, string> = {
   "Creative Writing": "hsl(0, 70%, 56%)",
 };
 
-// ---------------------------------------------------------------------------
-// Placeholder recommendation corpus (~28 items across categories).
-// ---------------------------------------------------------------------------
+// Starter corpus, ~28 items. Hardcoded for now until we have a real DB.
 
 export const RECOMMENDATIONS: Recommendation[] = [
   // AI/ML
@@ -171,9 +162,7 @@ export const RECOMMENDATIONS: Recommendation[] = [
   { id: "cw-3", title: "Watch: The Shape of a Good Sentence", description: "A short study of rhythm, cadence, and sentence-level revision.", category: "Creative Writing", format: "video", difficulty: "Intermediate", duration: 15, tags: ["style", "revision"] },
 ];
 
-// ---------------------------------------------------------------------------
-// Engine initialization
-// ---------------------------------------------------------------------------
+// Set up a fresh engine for a new user.
 
 function emptyCounters(): Counters {
   const categories = {} as Counters["categories"];
@@ -212,9 +201,7 @@ function initialWeights(profile: UserProfile): Weights {
   return { categories, formats };
 }
 
-// ---------------------------------------------------------------------------
-// Scoring & sorting
-// ---------------------------------------------------------------------------
+// Scoring + queue ordering.
 
 export function scoreCard(
   card: Recommendation,
@@ -239,9 +226,7 @@ function sortedQueue(
     .map((x) => x.card);
 }
 
-// ---------------------------------------------------------------------------
-// Swipe handling — the learning loop
-// ---------------------------------------------------------------------------
+// This is where the learning happens: a swipe nudges the weights and requeues.
 
 const SWEEP_MAGNITUDE: Record<SwipeDirection, number> = {
   accept: 1,
@@ -347,9 +332,7 @@ export function applyInsight(
   };
 }
 
-// ---------------------------------------------------------------------------
-// Normalization — map raw weights to 0–100% for the taste bars.
-// ---------------------------------------------------------------------------
+// Rescale raw weights to 0-100 so the taste bars have something clean to show.
 
 function clamp01(v: number): number {
   return Math.max(0, Math.min(100, v));
@@ -371,9 +354,7 @@ function normalize(weights: Weights): Weights {
   return { categories, formats };
 }
 
-// ---------------------------------------------------------------------------
-// "Why this?" — templated from current engine state, never hardcoded per card.
-// ---------------------------------------------------------------------------
+// Builds the "Why this?" blurb from live weights instead of a per-card string.
 
 export function whyThis(
   card: Recommendation,
@@ -407,9 +388,7 @@ export function whyThis(
   return `Because ${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}.`;
 }
 
-// ---------------------------------------------------------------------------
-// Trajectory — the line under the card.
-// ---------------------------------------------------------------------------
+// The little line of copy under the card.
 
 export function trajectory(state: EngineState, profile: UserProfile): string {
   const n = state.accepted.length;
@@ -422,9 +401,8 @@ export function trajectory(state: EngineState, profile: UserProfile): string {
   return `You're building toward ${profile.aspiration} — ${n} accepted quests point here.`;
 }
 
-// ---------------------------------------------------------------------------
-// Insights — threshold-triggered, with real receipts from the session.
-// ---------------------------------------------------------------------------
+// Insights only fire once a pattern crosses a threshold, and each one carries
+// the actual accept/skip counts that triggered it.
 
 const INSIGHT_THRESHOLDS = {
   consistency: 3,
@@ -554,9 +532,7 @@ function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-// ---------------------------------------------------------------------------
-// Top weights — for the Taste Profile rail (4 most relevant bars).
-// ---------------------------------------------------------------------------
+// The 4 bars we actually show in the Taste Profile rail.
 
 export function topWeights(state: EngineState, profile: UserProfile): { label: string; value: number; accent: string }[] {
   const all: { label: string; value: number; accent: string }[] = [];
@@ -584,24 +560,16 @@ export function topWeights(state: EngineState, profile: UserProfile): { label: s
   return all.slice(0, 4);
 }
 
-// ---------------------------------------------------------------------------
-// Stub functions — wired to local/templated data today, TODO: Supabase/Groq.
-// ---------------------------------------------------------------------------
+// These two are async on purpose so swapping in Supabase/Groq later is a
+// drop-in change. For now they just return local data.
 
-/**
- * TODO(supabase): Replace with a Supabase query against a `recommendations`
- * table. Today it returns the local placeholder corpus.
- */
+// TODO: pull from a Supabase `recommendations` table instead of the local list.
 export async function fetchRecommendations(): Promise<Recommendation[]> {
   return RECOMMENDATIONS;
 }
 
-/**
- * TODO(groq): Replace with a call to the Groq API (e.g. llama-3.3-70b-versatile)
- * to generate a natural-language explanation of why this card was recommended,
- * grounded in the user's session state. Today it returns a templated string
- * derived from current engine weights.
- */
+// TODO: hit Groq (llama-3.3-70b) to write a real explanation grounded in the
+// user's session. Returning the templated string for now.
 export async function getGroqExplanation(
   card: Recommendation,
   state: EngineState,

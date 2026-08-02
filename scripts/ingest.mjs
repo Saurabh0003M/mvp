@@ -22,6 +22,7 @@
 // corpus.json as permanent.
 // ============================================================================
 
+import { createHash } from "node:crypto";
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -42,6 +43,7 @@ function loadEnv() {
 }
 const env = { ...loadEnv(), ...process.env };
 const KEY = env.YOUTUBE_API_KEY;
+const WEBZ_KEY = env.WEBZ_API_KEY;
 
 // ---------------------------------------------------------------------------
 // The six IABTM channels, each with searches in the host's register:
@@ -104,7 +106,29 @@ const CHANNELS = [
   },
 ];
 
-// Curiosity hooks, per channel. Deliberately NOT spliced from the title —
+// Written article lane. These are deliberately limited to Editorial and Print,
+// where IABTM's own Curated Media shape is article-first.
+const WEBZ_CHANNELS = [
+  {
+    channel: "Editorial",
+    category: "Business",
+    queries: [
+      `"self improvement culture" OR "identity and behaviour change"`,
+      `"attention economy" OR "digital wellbeing"`,
+      `"burnout recovery" OR "rest and productivity"`,
+    ],
+  },
+  {
+    channel: "Print",
+    category: "Creative Writing",
+    queries: [
+      `"deep reading" OR "reading habit"`,
+      `"writing practice" OR "creative discipline"`,
+    ],
+  },
+];
+
+// Curiosity hooks, per channel. Deliberately NOT spliced from the title:
 // interpolating a headline mid-sentence mangles capitalisation and reads
 // machine-made. These open a loop the title then answers, which is the whole
 // point: the card sells the gap, not the label.
@@ -161,6 +185,91 @@ async function api(path, params) {
   const r = await fetch(url);
   if (!r.ok) throw new Error(`${path} ${r.status}: ${(await r.text()).slice(0, 200)}`);
   return r.json();
+}
+
+async function webzApi(query) {
+  const url = new URL("https://api.webz.io/newsApiLite");
+  url.searchParams.set("token", WEBZ_KEY);
+  url.searchParams.set("q", query);
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`Webz ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  return r.json();
+}
+
+function normalizeSpace(value) {
+  return String(value || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function firstSentence(value) {
+  const text = normalizeSpace(value).replace(/(^|\s)(\.{2,}|…)\s*/g, " ").trim();
+  if (!text) return "";
+  const m = /^(.+?[.!?])(?=\s|$)/.exec(text);
+  const sentence = m && m[1].length >= 80 ? m[1] : text;
+  return sentence.slice(0, 180).trim();
+}
+
+function wordCount(value) {
+  const text = normalizeSpace(value);
+  if (!text) return 0;
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
+function hashId(value) {
+  return createHash("sha1").update(value).digest("hex").slice(0, 12);
+}
+
+function cleanTag(value) {
+  return normalizeSpace(value).toLowerCase().slice(0, 32) || "web";
+}
+
+function isEnglishPost(post) {
+  const raw = normalizeSpace(post.language || post.lang || post.thread?.language || post.thread?.lang);
+  if (!raw) return true;
+  const lang = raw.toLowerCase();
+  return lang === "en" || lang === "english" || lang.startsWith("en-");
+}
+
+function postUrl(post) {
+  return normalizeSpace(post.url || post.thread?.url || post.thread?.site_full);
+}
+
+function postImage(post) {
+  return normalizeSpace(
+    post.thread?.main_image ||
+    post.thread?.image ||
+    post.main_image ||
+    post.mainImage ||
+    post.image ||
+    post.image_url
+  );
+}
+
+function postText(post) {
+  const candidates = [
+    post.text,
+    post.description,
+    post.summary,
+    post.highlightText,
+    post.highlightThreadTitle,
+  ].map(normalizeSpace).filter(Boolean);
+  return candidates.find((candidate) => firstSentence(candidate).length >= 80) || candidates[0] || "";
+}
+
+function postSite(post, url) {
+  const fromPost = normalizeSpace(post.thread?.site || post.site || post.source);
+  if (fromPost) return fromPost;
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "web";
+  }
 }
 
 async function ingestChannel({ channel, category, queries }) {
@@ -230,6 +339,57 @@ async function ingestChannel({ channel, category, queries }) {
   return items.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
 }
 
+async function ingestWebzChannel({ channel, category, queries }, seenUrls) {
+  const items = [];
+  for (const q of queries) {
+    let response;
+    try {
+      response = await webzApi(q);
+    } catch (e) {
+      console.warn(`  ! Webz failed for "${q}": ${e.message}`);
+      continue;
+    }
+
+    for (const post of response.posts || []) {
+      const title = normalizeSpace(post.title);
+      const url = postUrl(post);
+      const image = postImage(post);
+      const text = postText(post);
+      const excerpt = firstSentence(text);
+
+      if (!title || !url) continue;
+      if (seenUrls.has(url)) continue;
+      if (!image) continue;
+      if (!isEnglishPost(post)) continue;
+      if (excerpt.length < 80) continue;
+
+      seenUrls.add(url);
+      const site = postSite(post, url);
+      const pool = HOOKS[channel];
+      const hook = pool[items.length % pool.length];
+
+      items.push({
+        id: `wz-${hashId(url)}`,
+        hook,
+        title,
+        description: excerpt,
+        category,
+        channel,
+        format: "read",
+        difficulty: "Intermediate",
+        duration: Math.max(3, Math.round(wordCount(text) / 200)),
+        tags: [channel.toLowerCase(), cleanTag(site)],
+        mediaKind: "article",
+        embedUrl: url,
+        thumbnail: image,
+        source: "Article",
+        sourceUrl: url,
+      });
+    }
+  }
+  return items;
+}
+
 async function main() {
   if (!KEY) {
     console.error("Missing YOUTUBE_API_KEY (put it in mvp/.env.local).");
@@ -238,11 +398,25 @@ async function main() {
   console.log("Ingesting IABTM channels from YouTube…\n");
 
   const all = [];
+  const seenUrls = new Set();
   for (const c of CHANNELS) {
     process.stdout.write(`  ${c.channel.padEnd(10)} `);
     const items = await ingestChannel(c);
     all.push(...items);
+    for (const item of items) seenUrls.add(item.sourceUrl || item.embedUrl);
     console.log(`${items.length} items`);
+  }
+
+  if (WEBZ_KEY) {
+    console.log("\nIngesting Editorial/Print articles from Webz.io...\n");
+    for (const c of WEBZ_CHANNELS) {
+      process.stdout.write(`  ${c.channel.padEnd(10)} `);
+      const items = await ingestWebzChannel(c, seenUrls);
+      all.push(...items);
+      console.log(`${items.length} articles`);
+    }
+  } else {
+    console.warn("\nSkipping Webz.io article lane: missing WEBZ_API_KEY.");
   }
 
   const byChannel = {};
@@ -251,8 +425,8 @@ async function main() {
   mkdirSync(join(ROOT, "data"), { recursive: true });
   const out = {
     generatedAt: new Date().toISOString(),
-    source: "YouTube Data API v3",
-    note: "Metadata only. Playback uses YouTube's embedded player; nothing is re-hosted.",
+    source: WEBZ_KEY ? "YouTube Data API v3 + Webz.io newsApiLite" : "YouTube Data API v3",
+    note: "Metadata/excerpts only. Playback uses YouTube's embedded player; articles link to the publisher source.",
     counts: byChannel,
     items: all,
   };

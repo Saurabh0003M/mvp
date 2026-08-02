@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-02T01:15:56.949Z",
-  "source": "YouTube Data API v3",
-  "note": "Metadata only. Playback uses YouTube's embedded player; nothing is re-hosted.",
+  "generatedAt": "2026-08-02T04:23:12.917Z",
+  "source": "YouTube Data API v3 + Webz.io newsApiLite",
+  "note": "Metadata/excerpts only. Playback uses YouTube's embedded player; articles link to the publisher source.",
   "counts": {
     "Film": 12,
     "Music": 7,
-    "Art": 12,
+    "Art": 11,
     "Animation": 14,
-    "Editorial": 14,
-    "Print": 11
+    "Editorial": 29,
+    "Print": 25
   },
   "items": [
     {
@@ -32,48 +32,8 @@
       "sourceUrl": "https://www.youtube.com/watch?v=t5Z-Q1bg1tU"
     },
     {
-      "id": "yt-PZ9JCZececc",
-      "hook": "The edit is where the meaning actually gets made.",
-      "title": "How To Make A Video Essay",
-      "description": "How do you make a good video essay? In this video I give my two cents on the topic, as well as start drama and slag off my peers.",
-      "category": "Creative Writing",
-      "channel": "Film",
-      "format": "read",
-      "difficulty": "Intermediate",
-      "duration": 22,
-      "tags": [
-        "film",
-        "the closer look"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/PZ9JCZececc",
-      "thumbnail": "https://i.ytimg.com/vi/PZ9JCZececc/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=PZ9JCZececc"
-    },
-    {
-      "id": "yt-3zJEC91rdto",
-      "hook": "Watch how they hold the shot one beat too long.",
-      "title": "The White Lotus: Crafting a Story World",
-      "description": "Honestly, I’d watch Aubrey Plaza and Michael Imperioli wear nice clothes and stroll around Sicily even if the show were complete garbage…but it’s not! Turns out artistic thought an",
-      "category": "Creative Writing",
-      "channel": "Film",
-      "format": "read",
-      "difficulty": "Advanced",
-      "duration": 44,
-      "tags": [
-        "film",
-        "j.r.r. talkin'"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/3zJEC91rdto",
-      "thumbnail": "https://i.ytimg.com/vi/3zJEC91rdto/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=3zJEC91rdto"
-    },
-    {
       "id": "yt-4PqGPZtyFtw",
-      "hook": "Craft you can steal, in about ten minutes.",
+      "hook": "The edit is where the meaning actually gets made.",
       "title": "I tried Nelson’s 9 Steps for Story Writing (and it's brilliant)",
       "description": "Join my coaching program, BOOKFOX LAB.",
       "category": "Creative Writing",
@@ -93,7 +53,7 @@
     },
     {
       "id": "yt-WYHrDyCMUmg",
-      "hook": "Every story you love uses this. Most people never notice.",
+      "hook": "Watch how they hold the shot one beat too long.",
       "title": "How To Write Any Story - Why Pacing Is Everything",
       "description": "Should you avoid formulas when writing a story? In this video I talk about why I think you should avoid formulas and what you should do instead to construct a good plot.",
       "category": "Creative Writing",
@@ -112,8 +72,28 @@
       "sourceUrl": "https://www.youtube.com/watch?v=WYHrDyCMUmg"
     },
     {
+      "id": "yt-RSoRzTtwgP4",
+      "hook": "Craft you can steal, in about ten minutes.",
+      "title": "How to write descriptively - Nalo Hopkinson",
+      "description": "View full lesson: http://ed.ted.com/lessons/how-to-write-fiction-that-comes-alive-nalo-hopkinson",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 5,
+      "tags": [
+        "film",
+        "ted-ed"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/RSoRzTtwgP4",
+      "thumbnail": "https://i.ytimg.com/vi/RSoRzTtwgP4/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=RSoRzTtwgP4"
+    },
+    {
       "id": "yt-CvLQJReDhic",
-      "hook": "The edit is where the meaning actually gets made.",
+      "hook": "Every story you love uses this. Most people never notice.",
       "title": "Composition In Storytelling",
       "description": "Support The House of Tabula: ",
       "category": "Creative Writing",
@@ -130,6 +110,26 @@
       "thumbnail": "https://i.ytimg.com/vi/CvLQJReDhic/hqdefault.jpg",
       "source": "YouTube",
       "sourceUrl": "https://www.youtube.com/watch?v=CvLQJReDhic"
+    },
+    {
+      "id": "yt--Wq1Ds3gQ80",
+      "hook": "The edit is where the meaning actually gets made.",
+      "title": "Glass Onion, Agatha Christie, and 3 Rules on How to Write Mysteries | Video Essay",
+      "description": "Rian Johnson follows in Agatha Christie's footsteps when writing his own whodunnits. See how Glass Onion and Christie's And Then There Were None follow the 3 rules required to writ",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 9,
+      "tags": [
+        "film",
+        "roughest drafts"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/-Wq1Ds3gQ80",
+      "thumbnail": "https://i.ytimg.com/vi/-Wq1Ds3gQ80/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=-Wq1Ds3gQ80"
     },
     {
       "id": "yt-iWQQgZh9EyE",
@@ -192,28 +192,8 @@
       "sourceUrl": "https://www.youtube.com/watch?v=hUmZldt0DTg"
     },
     {
-      "id": "yt-f-ig5uV-Ylw",
-      "hook": "The edit is where the meaning actually gets made.",
-      "title": "Film Blocking: The SECRET to Visual Storytelling",
-      "description": "Documentary Filmmaking Course: https://www.documentaryfilmmaker.co/",
-      "category": "Creative Writing",
-      "channel": "Film",
-      "format": "video",
-      "difficulty": "Beginner",
-      "duration": 9,
-      "tags": [
-        "film",
-        "alex zarfati"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/f-ig5uV-Ylw",
-      "thumbnail": "https://i.ytimg.com/vi/f-ig5uV-Ylw/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=f-ig5uV-Ylw"
-    },
-    {
       "id": "yt-UFz_qyMOwsA",
-      "hook": "Watch how they hold the shot one beat too long.",
+      "hook": "The edit is where the meaning actually gets made.",
       "title": "This is How You Practice Cinematography (All By Yourself)",
       "description": "Cinematography is the art of creating motion pictures and I want to show you how to practice cinematography to enhance your visual storytelling abilities. If you want more videos l",
       "category": "Creative Writing",
@@ -230,6 +210,26 @@
       "thumbnail": "https://i.ytimg.com/vi/UFz_qyMOwsA/hqdefault.jpg",
       "source": "YouTube",
       "sourceUrl": "https://www.youtube.com/watch?v=UFz_qyMOwsA"
+    },
+    {
+      "id": "yt-f-ig5uV-Ylw",
+      "hook": "Watch how they hold the shot one beat too long.",
+      "title": "Film Blocking: The SECRET to Visual Storytelling",
+      "description": "Documentary Filmmaking Course: https://www.documentaryfilmmaker.co/",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 9,
+      "tags": [
+        "film",
+        "alex zarfati"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/f-ig5uV-Ylw",
+      "thumbnail": "https://i.ytimg.com/vi/f-ig5uV-Ylw/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=f-ig5uV-Ylw"
     },
     {
       "id": "yt-WMcWLFtGnAs",
@@ -432,28 +432,8 @@
       "sourceUrl": "https://www.youtube.com/watch?v=Nu9jTzLcees"
     },
     {
-      "id": "yt-2kupvmR9hyQ",
-      "hook": "The blank page problem, solved by people who face it daily.",
-      "title": "Unintentional ASMR 🧙‍♀️ How Animes are Made in Japan (Relaxing Documentary, Subtitles)",
-      "description": "Full source video: https://youtu.be/7LgHOUTZ8Gc ",
-      "category": "Design",
-      "channel": "Art",
-      "format": "read",
-      "difficulty": "Advanced",
-      "duration": 41,
-      "tags": [
-        "art",
-        "best unintentional asmr"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/2kupvmR9hyQ",
-      "thumbnail": "https://i.ytimg.com/vi/2kupvmR9hyQ/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=2kupvmR9hyQ"
-    },
-    {
       "id": "yt-SLfH9yOGs3o",
-      "hook": "Ten minutes inside somebody else's process.",
+      "hook": "The blank page problem, solved by people who face it daily.",
       "title": "How to find your art style FAST in 3 easy steps (yeah, really)",
       "description": "Your art style is the product of thousands of little decisions you make about your art while going along your journey-- but what if it was possible to deliberately craft it?",
       "category": "Design",
@@ -473,7 +453,7 @@
     },
     {
       "id": "yt-VQxI59BQC9Y",
-      "hook": "Style isn't found. It's the residue of a thousand decisions.",
+      "hook": "Ten minutes inside somebody else's process.",
       "title": "The Link Between Personal Style and Identity | Molly Bingaman | TEDxUMKC",
       "description": "Molly Bingaman has a passion for helping people see their true beauty. She founded Ladybird Styling in 2010 with the bold intent of changing the way people see themselves, their st",
       "category": "Design",
@@ -493,7 +473,7 @@
     },
     {
       "id": "yt-A3kyKh44EbY",
-      "hook": "How the work actually gets made, without the mythology.",
+      "hook": "Style isn't found. It's the residue of a thousand decisions.",
       "title": "How To Develop A Consistent Art Style: 6 Proven Strategies (including examples)",
       "description": "Complete article: https://www.contemporaryartissue.com/how-to-develop-a-consistent-art-style/",
       "category": "Design",
@@ -513,7 +493,7 @@
     },
     {
       "id": "yt-h2CSJfqkSSI",
-      "hook": "The blank page problem, solved by people who face it daily.",
+      "hook": "How the work actually gets made, without the mythology.",
       "title": "How to ACTUALLY Find Your ART STYLE!! 👀🎨",
       "description": "Going to therapy is a sign of strength, not weakness. My paid partner BetterHelp makes therapy simple, with 10% off your first month to help you get started: https://betterhelp.com",
       "category": "Design",
@@ -532,28 +512,28 @@
       "sourceUrl": "https://www.youtube.com/watch?v=h2CSJfqkSSI"
     },
     {
-      "id": "yt-gjKQKYz5ZtM",
-      "hook": "Ten minutes inside somebody else's process.",
-      "title": "How To Find Your Art Style (Using this 1 Exercise & 6 Possible Strategies)",
-      "description": "Watch the video discussing the 6 strategies & 12 case studies here: https://youtu.be/A3kyKh44EbY or find more advice for artists at https://www.contemporaryartissue.com/advice-for-",
+      "id": "yt-RQA_t-H_ZKM",
+      "hook": "The blank page problem, solved by people who face it daily.",
+      "title": "How to find your ART STYLE ! ",
+      "description": "Check out Haven and win some free art from me here: prelaunch.havensocial.org. You can also learn more about Haven by checking out their interview with VildrArt (after you're finis",
       "category": "Design",
       "channel": "Art",
       "format": "video",
       "difficulty": "Intermediate",
-      "duration": 12,
+      "duration": 13,
       "tags": [
         "art",
-        "contemporary art issue"
+        "bluebiscuits"
       ],
       "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/gjKQKYz5ZtM",
-      "thumbnail": "https://i.ytimg.com/vi/gjKQKYz5ZtM/hqdefault.jpg",
+      "embedUrl": "https://www.youtube.com/embed/RQA_t-H_ZKM",
+      "thumbnail": "https://i.ytimg.com/vi/RQA_t-H_ZKM/hqdefault.jpg",
       "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=gjKQKYz5ZtM"
+      "sourceUrl": "https://www.youtube.com/watch?v=RQA_t-H_ZKM"
     },
     {
       "id": "yt-cq3QBKbHUro",
-      "hook": "Style isn't found. It's the residue of a thousand decisions.",
+      "hook": "Ten minutes inside somebody else's process.",
       "title": "How to Overcome Creative Blocks and Fuel Inspiration",
       "description": "How to overcome creative block and fuel inspiration. ",
       "category": "Design",
@@ -573,7 +553,7 @@
     },
     {
       "id": "yt-gTWOgEIV61Q",
-      "hook": "How the work actually gets made, without the mythology.",
+      "hook": "Style isn't found. It's the residue of a thousand decisions.",
       "title": "How To Unlock Your Creativity When You’re Feeling Blocked 🎨🔑",
       "description": "Struggling with creative block? In this video, I’ll share 5 things that could be giving you a creative block and how to overcome creative block for good. Whether you're an artist, ",
       "category": "Design",
@@ -593,7 +573,7 @@
     },
     {
       "id": "yt-squjhcFh7sA",
-      "hook": "The blank page problem, solved by people who face it daily.",
+      "hook": "How the work actually gets made, without the mythology.",
       "title": "How To Overcome Creative Block (Music Producers)",
       "description": "Do you find yourself struggling to produce music because of writer's block? Check out this video for 5 helpful tips on how to overcome writer's block and creative block as a music ",
       "category": "Design",
@@ -613,7 +593,7 @@
     },
     {
       "id": "yt-YjfMgUMDer8",
-      "hook": "Ten minutes inside somebody else's process.",
+      "hook": "The blank page problem, solved by people who face it daily.",
       "title": "I fixed my art block forever",
       "description": "✨ worldofcreatives.com/links",
       "category": "Design",
@@ -672,28 +652,48 @@
       "sourceUrl": "https://www.youtube.com/watch?v=tYc1yUt0IeA"
     },
     {
-      "id": "yt-eaCjdgXQ3nM",
+      "id": "yt-6UXjRCORV44",
       "hook": "Why some motion feels alive and some feels dead.",
-      "title": "12 Principles Of Animation In Hindi || Episode - 04 || Op Animation",
-      "description": "12 Principles Of Animation In Hindi || Episode - 04 || Op Animation",
+      "title": "The #1 Animation Principle (How To In-Between)",
+      "description": "#clipstudiopaint #2danimationtutorial ",
       "category": "Design",
       "channel": "Animation",
       "format": "video",
       "difficulty": "Intermediate",
-      "duration": 12,
+      "duration": 13,
       "tags": [
         "animation",
-        "op animation"
+        "noblefrugal studio"
       ],
       "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/eaCjdgXQ3nM",
-      "thumbnail": "https://i.ytimg.com/vi/eaCjdgXQ3nM/hqdefault.jpg",
+      "embedUrl": "https://www.youtube.com/embed/6UXjRCORV44",
+      "thumbnail": "https://i.ytimg.com/vi/6UXjRCORV44/hqdefault.jpg",
       "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=eaCjdgXQ3nM"
+      "sourceUrl": "https://www.youtube.com/watch?v=6UXjRCORV44"
+    },
+    {
+      "id": "yt-IlSRyPgceAo",
+      "hook": "The craft hiding inside three seconds of screen time.",
+      "title": "A COMPLETE Beginner's Guide to 12 Principles of Animation",
+      "description": "The How to Make an Anime – Masterclass Part 1 is officially LIVE! Get it here - https://rjanimations.gumroad.com/l/wpofi",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 21,
+      "tags": [
+        "animation",
+        "rj animations too"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/IlSRyPgceAo",
+      "thumbnail": "https://i.ytimg.com/vi/IlSRyPgceAo/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=IlSRyPgceAo"
     },
     {
       "id": "yt-AjwnQqINn9Y",
-      "hook": "The craft hiding inside three seconds of screen time.",
+      "hook": "Twelve rules explain almost every frame you've ever loved.",
       "title": "12 Principles of Animation in Hindi ft. @Artwingstudio.",
       "description": "join me :",
       "category": "Design",
@@ -712,8 +712,28 @@
       "sourceUrl": "https://www.youtube.com/watch?v=AjwnQqINn9Y"
     },
     {
+      "id": "yt-f0cZfw3XrG8",
+      "hook": "Movement is timing. Timing is a decision.",
+      "title": "The 12 Principles Of Animation",
+      "description": "Download your 12 Principles of Animation teacher resource pack ➕ try this video with built-in interactive questions FREE ✅ https://clickv.ie/w/6bAw",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 7,
+      "tags": [
+        "animation",
+        "clickview"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/f0cZfw3XrG8",
+      "thumbnail": "https://i.ytimg.com/vi/f0cZfw3XrG8/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=f0cZfw3XrG8"
+    },
+    {
       "id": "yt-2BERE-IytcU",
-      "hook": "Twelve rules explain almost every frame you've ever loved.",
+      "hook": "Why some motion feels alive and some feels dead.",
       "title": "How to make a short film | MAKING OF MISMATCHED",
       "description": "You might have seen the process of making my short animated film 'mismatched' on tiktok. Well, here they are all together so you can see the entire process of creating a short film",
       "category": "Design",
@@ -733,7 +753,7 @@
     },
     {
       "id": "yt-v61KznXXEj4",
-      "hook": "Movement is timing. Timing is a decision.",
+      "hook": "The craft hiding inside three seconds of screen time.",
       "title": "How I wrote, directed & animated a solo feature film",
       "description": "ORDER TICKETS: https://watch.eventive.org/wd/play/68b1ee1e31b6ef52d6501852",
       "category": "Design",
@@ -753,7 +773,7 @@
     },
     {
       "id": "yt-I-zvS2fJTm8",
-      "hook": "Why some motion feels alive and some feels dead.",
+      "hook": "Twelve rules explain almost every frame you've ever loved.",
       "title": "How to Make an Animated Short Film",
       "description": "Learn all the different steps I took when making my latest animated short film.",
       "category": "Design",
@@ -770,46 +790,6 @@
       "thumbnail": "https://i.ytimg.com/vi/I-zvS2fJTm8/hqdefault.jpg",
       "source": "YouTube",
       "sourceUrl": "https://www.youtube.com/watch?v=I-zvS2fJTm8"
-    },
-    {
-      "id": "yt-1a8a_a5qORY",
-      "hook": "The craft hiding inside three seconds of screen time.",
-      "title": "Making A Short Animated Film in 2 Weeks | SPACE DATE",
-      "description": "I vlogged my entire process of making my latest short film, Space Date 3: a lunch date in space! pls enjoy, hope you like it cuz it took forever to make!",
-      "category": "Design",
-      "channel": "Animation",
-      "format": "read",
-      "difficulty": "Intermediate",
-      "duration": 18,
-      "tags": [
-        "animation",
-        "jackie droujko"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/1a8a_a5qORY",
-      "thumbnail": "https://i.ytimg.com/vi/1a8a_a5qORY/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=1a8a_a5qORY"
-    },
-    {
-      "id": "yt-uxgrUx9HkdE",
-      "hook": "Twelve rules explain almost every frame you've ever loved.",
-      "title": "(Step-by-Step) How I Made My Short Film (and how you can make one too)",
-      "description": "After many requests, it's finally been done! Guides, designs, speedpaints, tips and advice, life stories - a full look behind the scenes of my most recent BFA2 short film, Blood Bo",
-      "category": "Design",
-      "channel": "Animation",
-      "format": "read",
-      "difficulty": "Intermediate",
-      "duration": 22,
-      "tags": [
-        "animation",
-        "zaccr.9"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/uxgrUx9HkdE",
-      "thumbnail": "https://i.ytimg.com/vi/uxgrUx9HkdE/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=uxgrUx9HkdE"
     },
     {
       "id": "yt-Cz-GcIITNrs",
@@ -852,28 +832,8 @@
       "sourceUrl": "https://www.youtube.com/watch?v=0N0NHlvMEWs"
     },
     {
-      "id": "yt-N5ABKYrMlT8",
-      "hook": "The craft hiding inside three seconds of screen time.",
-      "title": "Learn Motion Design In After Effects| Day 103 | Learn Video Editing",
-      "description": "From Aevy Video School.",
-      "category": "Design",
-      "channel": "Animation",
-      "format": "video",
-      "difficulty": "Beginner",
-      "duration": 2,
-      "tags": [
-        "animation",
-        "aevy video school"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/N5ABKYrMlT8",
-      "thumbnail": "https://i.ytimg.com/vi/N5ABKYrMlT8/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=N5ABKYrMlT8"
-    },
-    {
       "id": "yt-CF2xAa8Wujg",
-      "hook": "Twelve rules explain almost every frame you've ever loved.",
+      "hook": "The craft hiding inside three seconds of screen time.",
       "title": "IF You ONLY Watch One Motion Design Video, Make It This...",
       "description": "Try The Luma Agents: https://lumalabs.ai/somrat-dutta",
       "category": "Design",
@@ -890,6 +850,26 @@
       "thumbnail": "https://i.ytimg.com/vi/CF2xAa8Wujg/hqdefault.jpg",
       "source": "YouTube",
       "sourceUrl": "https://www.youtube.com/watch?v=CF2xAa8Wujg"
+    },
+    {
+      "id": "yt-N5ABKYrMlT8",
+      "hook": "Twelve rules explain almost every frame you've ever loved.",
+      "title": "Learn Motion Design In After Effects| Day 103 | Learn Video Editing",
+      "description": "From Aevy Video School.",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 2,
+      "tags": [
+        "animation",
+        "aevy video school"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/N5ABKYrMlT8",
+      "thumbnail": "https://i.ytimg.com/vi/N5ABKYrMlT8/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=N5ABKYrMlT8"
     },
     {
       "id": "yt-9DhC0QYij5I",
@@ -932,8 +912,28 @@
       "sourceUrl": "https://www.youtube.com/watch?v=Scwsg9Ai3rg"
     },
     {
-      "id": "yt-DEz7oJy37lI",
+      "id": "yt-mZINKAhAKOQ",
       "hook": "The comfortable version of this story is wrong.",
+      "title": "Self Improvement Is Actually Melting Your Brain.",
+      "description": "Self-improvement is everywhere - on your feed, in your life, in your head.  There’s a point where self-improvement stops being helpful - and starts eating away at who you are.",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 8,
+      "tags": [
+        "editorial",
+        "jack deyzan "
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/mZINKAhAKOQ",
+      "thumbnail": "https://i.ytimg.com/vi/mZINKAhAKOQ/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=mZINKAhAKOQ"
+    },
+    {
+      "id": "yt-DEz7oJy37lI",
+      "hook": "Worth the argument it'll start in your head.",
       "title": "Why self improvement is ruining your life",
       "description": "Get 1 audiobook, 2 Audible originals, and a free 30-day trial by going to: https://www.audible.com/betterideas or text \"betterideas\" to 500 500",
       "category": "Business",
@@ -952,44 +952,24 @@
       "sourceUrl": "https://www.youtube.com/watch?v=DEz7oJy37lI"
     },
     {
-      "id": "yt-U4px3OG3aUU",
-      "hook": "Worth the argument it'll start in your head.",
-      "title": "The Problem With Self Improvement",
-      "description": "Let's be honest, we're all guilty of doing this in our self improvement journey.",
-      "category": "Business",
-      "channel": "Editorial",
-      "format": "video",
-      "difficulty": "Beginner",
-      "duration": 5,
-      "tags": [
-        "editorial",
-        "kenny bender"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/U4px3OG3aUU",
-      "thumbnail": "https://i.ytimg.com/vi/U4px3OG3aUU/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=U4px3OG3aUU"
-    },
-    {
-      "id": "yt-_wVuCGG2qFs",
+      "id": "yt-dCHP7IRwQHs",
       "hook": "Most advice skips the part that actually matters.",
-      "title": "Self Improvement is beautiful and I wish that for you",
-      "description": "Look good, feel good, get girls: https://www.skool.com/library-of-adonis",
+      "title": "The Rise And Fall Of Self-Help Gurus",
+      "description": "Save $50 on an annual subscription to Motion Array by using my link https://bit.ly/motionarray-cole",
       "category": "Business",
       "channel": "Editorial",
-      "format": "video",
-      "difficulty": "Beginner",
-      "duration": 6,
+      "format": "read",
+      "difficulty": "Advanced",
+      "duration": 32,
       "tags": [
         "editorial",
-        "hamza"
+        "cole hastings"
       ],
       "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/_wVuCGG2qFs",
-      "thumbnail": "https://i.ytimg.com/vi/_wVuCGG2qFs/hqdefault.jpg",
+      "embedUrl": "https://www.youtube.com/embed/dCHP7IRwQHs",
+      "thumbnail": "https://i.ytimg.com/vi/dCHP7IRwQHs/hqdefault.jpg",
       "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=_wVuCGG2qFs"
+      "sourceUrl": "https://www.youtube.com/watch?v=dCHP7IRwQHs"
     },
     {
       "id": "yt-cYncTRlVT-A",
@@ -1012,28 +992,8 @@
       "sourceUrl": "https://www.youtube.com/watch?v=cYncTRlVT-A"
     },
     {
-      "id": "yt-mBDULN6Jtn0",
-      "hook": "The comfortable version of this story is wrong.",
-      "title": "Social Identity Theory - Definition + 3 Components",
-      "description": "Learn more about Henri Tajfel's Social Identity Theory: https://practicalpie.com/social-identity-theory/",
-      "category": "Business",
-      "channel": "Editorial",
-      "format": "video",
-      "difficulty": "Beginner",
-      "duration": 7,
-      "tags": [
-        "editorial",
-        "practical psychology"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/mBDULN6Jtn0",
-      "thumbnail": "https://i.ytimg.com/vi/mBDULN6Jtn0/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=mBDULN6Jtn0"
-    },
-    {
       "id": "yt-qYvXk_bqlBk",
-      "hook": "Worth the argument it'll start in your head.",
+      "hook": "The comfortable version of this story is wrong.",
       "title": "Who are you, really? The puzzle of personality | Brian Little | TED",
       "description": "Visit http://TED.com to get our entire library of TED Talks, transcripts, translations, personalized talk recommendations and more.",
       "category": "Business",
@@ -1050,6 +1010,26 @@
       "thumbnail": "https://i.ytimg.com/vi/qYvXk_bqlBk/hqdefault.jpg",
       "source": "YouTube",
       "sourceUrl": "https://www.youtube.com/watch?v=qYvXk_bqlBk"
+    },
+    {
+      "id": "yt-mBDULN6Jtn0",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "Social Identity Theory - Definition + 3 Components",
+      "description": "Learn more about Henri Tajfel's Social Identity Theory: https://practicalpie.com/social-identity-theory/",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 7,
+      "tags": [
+        "editorial",
+        "practical psychology"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/mBDULN6Jtn0",
+      "thumbnail": "https://i.ytimg.com/vi/mBDULN6Jtn0/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=mBDULN6Jtn0"
     },
     {
       "id": "yt-vFhKYIXgxM0",
@@ -1112,28 +1092,8 @@
       "sourceUrl": "https://www.youtube.com/watch?v=sFtemZVFFBw"
     },
     {
-      "id": "yt-ClhyXtoneOc",
-      "hook": "Worth the argument it'll start in your head.",
-      "title": "You didn't lose your attention span. It was stolen.",
-      "description": "We're all worried about declining attention spans, but we forget something important: we didn't lose our attention spans, they were stolen. By looking at the history of newspapers,",
-      "category": "Business",
-      "channel": "Editorial",
-      "format": "read",
-      "difficulty": "Intermediate",
-      "duration": 16,
-      "tags": [
-        "editorial",
-        "jared henderson"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/ClhyXtoneOc",
-      "thumbnail": "https://i.ytimg.com/vi/ClhyXtoneOc/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=ClhyXtoneOc"
-    },
-    {
       "id": "yt-nMiYX_h6pKU",
-      "hook": "Most advice skips the part that actually matters.",
+      "hook": "Worth the argument it'll start in your head.",
       "title": "The Attention Economy Has Lost the Plot",
       "description": "The attention economy has ballooned into a nightmare. Ads are everywhere, short form is unregulated, and global news has us more afraid than ever before. But what would happen if w",
       "category": "Business",
@@ -1153,7 +1113,7 @@
     },
     {
       "id": "yt-cZO1B4fZlOw",
-      "hook": "You've felt this. It turns out it has a name.",
+      "hook": "Most advice skips the part that actually matters.",
       "title": "How The Attention Economy is Devouring Gen Z | The Ezra Klein Show",
       "description": "Donald Trump and Zohran Mamdani are both proof of how the ability to capture attention is power. And the attention economy isn’t reshaping just politics; it’s also reshaping the ac",
       "category": "Business",
@@ -1172,44 +1132,64 @@
       "sourceUrl": "https://www.youtube.com/watch?v=cZO1B4fZlOw"
     },
     {
-      "id": "yt-PUtG4Zmd_AY",
-      "hook": "The comfortable version of this story is wrong.",
-      "title": "The Attention Economy Is Everywhere. Self-Hosting Is the Escape.",
-      "description": "JOIN US on our 30 Day Attention Economy Escape: https://intentionaltech.ca",
+      "id": "yt-D31Ie4HAPSc",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "the attention economy is killing us.",
+      "description": "✨",
       "category": "Business",
       "channel": "Editorial",
       "format": "read",
       "difficulty": "Intermediate",
-      "duration": 21,
+      "duration": 22,
       "tags": [
         "editorial",
-        "nathan laundry"
+        "alice cappelle"
       ],
       "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/PUtG4Zmd_AY",
-      "thumbnail": "https://i.ytimg.com/vi/PUtG4Zmd_AY/hqdefault.jpg",
+      "embedUrl": "https://www.youtube.com/embed/D31Ie4HAPSc",
+      "thumbnail": "https://i.ytimg.com/vi/D31Ie4HAPSc/hqdefault.jpg",
       "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=PUtG4Zmd_AY"
+      "sourceUrl": "https://www.youtube.com/watch?v=D31Ie4HAPSc"
     },
     {
-      "id": "yt-A5ucvNAENjU",
-      "hook": "Reading more isn't about discipline. It's about design.",
-      "title": "How to Read Better",
-      "description": "Many people want to become better readers — but they don't know where to start. I share my thoughts on how we can improve our reading, including some practical tips.",
-      "category": "Creative Writing",
-      "channel": "Print",
-      "format": "video",
+      "id": "yt-ClhyXtoneOc",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "You didn't lose your attention span. It was stolen.",
+      "description": "We're all worried about declining attention spans, but we forget something important: we didn't lose our attention spans, they were stolen. By looking at the history of newspapers,",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
       "difficulty": "Intermediate",
-      "duration": 15,
+      "duration": 16,
       "tags": [
-        "print",
+        "editorial",
         "jared henderson"
       ],
       "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/A5ucvNAENjU",
-      "thumbnail": "https://i.ytimg.com/vi/A5ucvNAENjU/hqdefault.jpg",
+      "embedUrl": "https://www.youtube.com/embed/ClhyXtoneOc",
+      "thumbnail": "https://i.ytimg.com/vi/ClhyXtoneOc/hqdefault.jpg",
       "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=A5ucvNAENjU"
+      "sourceUrl": "https://www.youtube.com/watch?v=ClhyXtoneOc"
+    },
+    {
+      "id": "yt-gT1EExZkzMM",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "Ryan Holiday's 3-Step System for Reading Like a Pro",
+      "description": "Check out the Read To Lead Reading Challenge at: https://dailystoic.com/read",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 8,
+      "tags": [
+        "print",
+        "daily stoic"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/gT1EExZkzMM",
+      "thumbnail": "https://i.ytimg.com/vi/gT1EExZkzMM/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=gT1EExZkzMM"
     },
     {
       "id": "yt-ShdRyZDFx4U",
@@ -1232,48 +1212,8 @@
       "sourceUrl": "https://www.youtube.com/watch?v=ShdRyZDFx4U"
     },
     {
-      "id": "yt-vge9LQIV1bg",
-      "hook": "What people who write every day do differently.",
-      "title": "How to Absorb Books 3x Faster in 7 Days (from a Med Student)",
-      "description": "Reading fast can boost your productivity so that you can study more efficiently at university and medical school. I give tips on how you can triple your reading speed in a very sho",
-      "category": "Creative Writing",
-      "channel": "Print",
-      "format": "video",
-      "difficulty": "Beginner",
-      "duration": 6,
-      "tags": [
-        "print",
-        "dr salim ahmed"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/vge9LQIV1bg",
-      "thumbnail": "https://i.ytimg.com/vi/vge9LQIV1bg/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=vge9LQIV1bg"
-    },
-    {
-      "id": "yt-gT1EExZkzMM",
-      "hook": "Slow down. That's the entire technique.",
-      "title": "Ryan Holiday's 3-Step System for Reading Like a Pro",
-      "description": "Check out the Read To Lead Reading Challenge at: https://dailystoic.com/read",
-      "category": "Creative Writing",
-      "channel": "Print",
-      "format": "video",
-      "difficulty": "Beginner",
-      "duration": 8,
-      "tags": [
-        "print",
-        "daily stoic"
-      ],
-      "mediaKind": "video",
-      "embedUrl": "https://www.youtube.com/embed/gT1EExZkzMM",
-      "thumbnail": "https://i.ytimg.com/vi/gT1EExZkzMM/hqdefault.jpg",
-      "source": "YouTube",
-      "sourceUrl": "https://www.youtube.com/watch?v=gT1EExZkzMM"
-    },
-    {
       "id": "yt-Ls2ynrMv10A",
-      "hook": "Reading more isn't about discipline. It's about design.",
+      "hook": "What people who write every day do differently.",
       "title": "How To Get The Most Out of A Book - Analytical Reading 101",
       "description": "For more reading tips + weekly insights, subscribe to my newsletter: A Mug of Insights here: ",
       "category": "Creative Writing",
@@ -1290,6 +1230,46 @@
       "thumbnail": "https://i.ytimg.com/vi/Ls2ynrMv10A/hqdefault.jpg",
       "source": "YouTube",
       "sourceUrl": "https://www.youtube.com/watch?v=Ls2ynrMv10A"
+    },
+    {
+      "id": "yt-3nLX0CjMO-Q",
+      "hook": "Slow down. That's the entire technique.",
+      "title": "How To Improve Your Reading Comprehension",
+      "description": "🔥 Learn languages like I do with LingQ: https://www.lingq.com/learn-languages-like-steve-kaufmann/?utm_medium=yt&utm_campaign=syt&utm_content=3nLX0CjMO-Q",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 7,
+      "tags": [
+        "print",
+        "steve kaufmann - lingost"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/3nLX0CjMO-Q",
+      "thumbnail": "https://i.ytimg.com/vi/3nLX0CjMO-Q/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=3nLX0CjMO-Q"
+    },
+    {
+      "id": "yt-kEGlJ2tlftU",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "Don't Worry about Reading More Books. Focus on Reading Better.",
+      "description": "There is a lot of content out there about how to read more. Instead, you should focus on reading better.",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 12,
+      "tags": [
+        "print",
+        "jared henderson"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/kEGlJ2tlftU",
+      "thumbnail": "https://i.ytimg.com/vi/kEGlJ2tlftU/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=kEGlJ2tlftU"
     },
     {
       "id": "yt-6EOBjDdsVWY",
@@ -1410,6 +1390,586 @@
       "thumbnail": "https://i.ytimg.com/vi/Ywi4yjiU7IQ/hqdefault.jpg",
       "source": "YouTube",
       "sourceUrl": "https://www.youtube.com/watch?v=Ywi4yjiU7IQ"
+    },
+    {
+      "id": "wz-013c4f0cf6cb",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "The attention economy: Why the loudest brand is not always the strongest",
+      "description": "Every business wants attention . Every entrepreneur wants visibility.... In the attention economy , visibility may open the door, but credibility determines whether people will...",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "3news.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://3news.com/opinion/the-attention-economy-why-the-loudest-brand-is-not-always-the-strongest",
+      "thumbnail": "https://media.3news.com/Akushika%20andoh-3-1200x630.jpg",
+      "source": "Article",
+      "sourceUrl": "https://3news.com/opinion/the-attention-economy-why-the-loudest-brand-is-not-always-the-strongest"
+    },
+    {
+      "id": "wz-2ba817d75ae5",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "What World Cup 2026 Revealed About Retail's Attention Economy | Coresight Research",
+      "description": "Insight ReportCapitalizing on the Moment: What the FIFA World Cup 2026 Reveals About Retail’s Attention Economy Aditya Kaushik, Analyst Sector Lead: John Mercer, Head of Global Res",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "coresight.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://coresight.com/research/capitalizing-on-the-moment-what-the-fifa-world-cup-2026-reveals-about-retails-attention-economy/",
+      "thumbnail": "https://coresight.com/wp-content/uploads/2026/07/FIFA-1.jpg",
+      "source": "Article",
+      "sourceUrl": "https://coresight.com/research/capitalizing-on-the-moment-what-the-fifa-world-cup-2026-reveals-about-retails-attention-economy/"
+    },
+    {
+      "id": "wz-9eb6e19184df",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "All Digital Summit 2026: Exploring Digital Wellbeing for a Competitive Europe, 22-23 September 2026 , Belgrade",
+      "description": "digital future.... Under the theme “ Digital wellbeing for a competitive Europe”, the summit will explore how rapid digital environments that are both competitive and supportive of",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "media-and-learning.eu"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://media-and-learning.eu/subject/higher-education/all-digital-summit-2026-exploring-digital-wellbeing-for-a-competitive-europe-22-23-september-2026-belgrade/",
+      "thumbnail": "https://media-and-learning.eu/files/2026/07/Website-Banner-700-x-200-px-1000-x-300-px-67.png",
+      "source": "Article",
+      "sourceUrl": "https://media-and-learning.eu/subject/higher-education/all-digital-summit-2026-exploring-digital-wellbeing-for-a-competitive-europe-22-23-september-2026-belgrade/"
+    },
+    {
+      "id": "wz-da5fb4790c21",
+      "hook": "Most advice skips the part that actually matters.",
+      "title": "Republican influencers are hemorrhaging viewers and listeners as party feuds on Trump's agenda",
+      "description": "audiences across platforms such as TikTok and Instagram, and a fresh wave of influencers competing in the attention economy , all of which are obstacles for more mainstream outlets",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "yahoo.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://uk.news.yahoo.com/republican-influencers-hemorrhaging-viewers-listeners-151523642.html",
+      "thumbnail": "https://s.yimg.com/lo/mysterio/api/4957bbb8008a9a6c0ddeccc9d5c40bee7af81b22c85a58fc1bac36d33ca719f2/lightyear_networkapi/resizefill_w1200;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fthe_independent_577%2F6f6ca12d45cd75a05c165f5144c4c4ce",
+      "source": "Article",
+      "sourceUrl": "https://uk.news.yahoo.com/republican-influencers-hemorrhaging-viewers-listeners-151523642.html"
+    },
+    {
+      "id": "wz-feee7630b89e",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "Can Andy Burnham turn a flying start into sustained success?",
+      "description": "\"Burnham is absolutely dominating the attention economy . Everything, everywhere, all at once....",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "yahoo.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://uk.news.yahoo.com/andy-burnham-turn-flying-start-110013051.html",
+      "thumbnail": "https://s.yimg.com/lo/mysterio/api/120b862073d18dac223412f9ef4c0c4cae10b36d893abfec06b9a3735a4403c3/lightyear_networkapi/resizefill_w1000_h800;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Ftheguardian_763%2Fcf2014a16186d606e0023716d3182988",
+      "source": "Article",
+      "sourceUrl": "https://uk.news.yahoo.com/andy-burnham-turn-flying-start-110013051.html"
+    },
+    {
+      "id": "wz-c96ce86d76bc",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "'Brand Burnham': How PM's team are selling him as the people's politician",
+      "description": "\"That's been really good – the attention economy is a very difficult thing to master....",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "yahoo.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://uk.news.yahoo.com/brand-burnham-pm-team-selling-191115287.html",
+      "thumbnail": "https://s.yimg.com/lo/mysterio/api/df30d217aeddbbd86c4383dbec01054fea473bdadec9e1e00c564703d60282bf/lightyear_networkapi/resizefill_w1200;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fthe_telegraph_818%2Febcedc8945ee3fbb91058745f14048a9",
+      "source": "Article",
+      "sourceUrl": "https://uk.news.yahoo.com/brand-burnham-pm-team-selling-191115287.html"
+    },
+    {
+      "id": "wz-b2a99bbb7166",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "Republican influencers are hemorrhaging viewers and listeners as party feuds on Trump's agenda",
+      "description": "audiences across platforms such as TikTok and Instagram, and a fresh wave of influencers competing in the attention economy , all of which are obstacles for more mainstream outlets",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "aol.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.aol.com/articles/republican-influencers-hemorrhaging-viewers-listeners-151523000.html",
+      "thumbnail": "https://hermes.media.static.aol.com/media/2026/07/31/78b4e1a4-71dd-3d72-9ac6-89d528735786/e1100de6-5960-43f1-9f1e-563ba51e7df8.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.aol.com/articles/republican-influencers-hemorrhaging-viewers-listeners-151523000.html"
+    },
+    {
+      "id": "wz-169898a9d208",
+      "hook": "Most advice skips the part that actually matters.",
+      "title": "The Attention Economy Runs on Creative Grenades",
+      "description": "Long before social media evolved into today’s attention economy , breweries found ways to create moments...",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "brewersassociation.org"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.brewersassociation.org/brewing-industry-updates/the-attention-economy-runs-on-creative-grenades/",
+      "thumbnail": "https://cdn.brewersassociation.org/wp-content/uploads/2026/07/30103913/creative-grenades_1200x800.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.brewersassociation.org/brewing-industry-updates/the-attention-economy-runs-on-creative-grenades/"
+    },
+    {
+      "id": "wz-7756d7f58472",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "Revitalizing A Spirit: Personal Wellness Rituals for Women",
+      "description": "Spirit: Personal Wellness Rituals for Women Blog Article In today's hectic world, it’s essential for burnout recovery for women women to prioritize the well-being....",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "webdesign96.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://tomaskxet627260.webdesign96.com/42713202/revitalizing-a-spirit-personal-wellness-rituals-for-women",
+      "thumbnail": "https://cloud.webdesign96.com/blog/images/img03.jpg",
+      "source": "Article",
+      "sourceUrl": "https://tomaskxet627260.webdesign96.com/42713202/revitalizing-a-spirit-personal-wellness-rituals-for-women"
+    },
+    {
+      "id": "wz-7d1a9c72c464",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "Quote by Anne Lamott: Almost everything will work again if you unplug it for a few minutes, including you -",
+      "description": "In a piece for Psychology Today on tracking burnout recovery , clinicians note that under stress and depletion...",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "siliconcanals.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://siliconcanals.com/sc-a-quote-by-anne-lamott-almost-everything-will-work-again-if-you-unplug-it-for-a-few-minutes-including-you/",
+      "thumbnail": "https://siliconcanals.com/wp-content/uploads/2026/07/Quote-by-Anne-Lamott-Almost-everything-will-work-again-if-you-unplug-it-for-a-few-minutes-including-you.png",
+      "source": "Article",
+      "sourceUrl": "https://siliconcanals.com/sc-a-quote-by-anne-lamott-almost-everything-will-work-again-if-you-unplug-it-for-a-few-minutes-including-you/"
+    },
+    {
+      "id": "wz-c722673c1e8e",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "How Wellness Is Rewriting the Rules of Selling Travel",
+      "description": "wellness as a side activity in a resort spa, travel brands are now designing entire products around rest , recovery and long-term health....",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "thetraveler.org"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.thetraveler.org/how-wellness-is-rewriting-the-rules-of-selling-travel/",
+      "thumbnail": "https://thetraveler.s3.amazonaws.com/images/hero/wellness-oasis-seatrade-cruise-global-miami.jpg_1200x675.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.thetraveler.org/how-wellness-is-rewriting-the-rules-of-selling-travel/"
+    },
+    {
+      "id": "wz-6b05041922f1",
+      "hook": "Most advice skips the part that actually matters.",
+      "title": "Luxury wellness retreats turn self care into destination gifts",
+      "description": "into destination gifts The best self-care gift is often not a thing at all, but a retreat that matches burnout For burnout recovery , give sleep, quiet, and structure When someone",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "prismnews.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.prismnews.com/gifting/self-care-gifts/luxury-wellness-retreats-turn-self-care-into-destination",
+      "thumbnail": "https://azmbcanwixwqvviqqqol.supabase.co/storage/v1/object/public/images/ai-generated/article-1785583275516-1785583275516.png",
+      "source": "Article",
+      "sourceUrl": "https://www.prismnews.com/gifting/self-care-gifts/luxury-wellness-retreats-turn-self-care-into-destination"
+    },
+    {
+      "id": "wz-797c9dabd86a",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "Caregiver burnout is driving demand for better family support",
+      "description": "Caregiver burnout is rising because unpaid caregivers often manage medical needs, work, bills, and household...",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "wsoctv.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.wsoctv.com/contributor/caregiver-burnout-is/MFK3C7V4XIYSRGDWKF4L2QDCG4/",
+      "thumbnail": "https://cmg-cmg-tv-10030-prod.cdn.arcpublishing.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fcmg%2FXYO3JNWA2UZOJKV4BRS2JI6LVQ.jpg?auth=9931c3ec8851b032c311bf40491c2c79f292666699a0a7da24e00cfdaf49c29d&width=1200&height=630&smart=true",
+      "source": "Article",
+      "sourceUrl": "https://www.wsoctv.com/contributor/caregiver-burnout-is/MFK3C7V4XIYSRGDWKF4L2QDCG4/"
+    },
+    {
+      "id": "wz-b15f150f026d",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "Soccer Teams Boycott FIFA Over World Cup Sale Plan - Archyde",
+      "description": "Adding expanded global tournaments without adequate recovery windows compromises both the product on...",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "archyde.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.archyde.com/soccer-teams-boycott-fifa-over-world-cup-sale-plan/",
+      "thumbnail": "https://images.pexels.com/photos/3684116/pexels-photo-3684116.jpeg?cs=srgb&dl=photo-of-people-playing-soccer-during-daytime-3684116.jpg&fm=jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.archyde.com/soccer-teams-boycott-fifa-over-world-cup-sale-plan/"
+    },
+    {
+      "id": "wz-ccafda3359cf",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "Luxury Wellness Retreats for Professionals Australia: 8 Elite Sanctuaries",
+      "description": "in the workplace research indicates that workplace stress and burnout significantly impact productivity Mental clarity emerges from meditation and cognitive rest Professional-Speci",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "editorial",
+        "organicspa-retreat.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.organicspa-retreat.com/luxury-wellness-retreats-for-professionals-australia-8-elite-sanctuaries/",
+      "thumbnail": "https://cdn.grandranker.com/articles/luxury-wellness-retreats-for-professionals-australia-8-elite-sanctuaries-content-1-1785466730.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.organicspa-retreat.com/luxury-wellness-retreats-for-professionals-australia-8-elite-sanctuaries/"
+    },
+    {
+      "id": "wz-daa7a98589d6",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "The Declining Reading Habit: A Global Challenge",
+      "description": "Yet, the habit of reading books is steadily declining, particularly among students....",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "hillpost.in"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://hillpost.in/2026/07/the-declining-reading-habit-a-global-challenge/169406/",
+      "thumbnail": "https://hillpost.in/wp-content/uploads/2014/06/Books.jpg",
+      "source": "Article",
+      "sourceUrl": "https://hillpost.in/2026/07/the-declining-reading-habit-a-global-challenge/169406/"
+    },
+    {
+      "id": "wz-75dddd3076b6",
+      "hook": "The habit is smaller than you think it is.",
+      "title": "Tips for Establishing a Strong Reading Habit in Your Child",
+      "description": "Children who enjoy reading are far more likely to make a habit out of it, which can make all the difference...",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "lakeforrestprep.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.lakeforrestprep.com/2026/07/31/tips-for-establishing-a-strong-reading-habit-in-your-child/",
+      "thumbnail": "https://www.lakeforrestprep.com/wp-content/uploads/2026/07/reading-habit-in-children.png",
+      "source": "Article",
+      "sourceUrl": "https://www.lakeforrestprep.com/2026/07/31/tips-for-establishing-a-strong-reading-habit-in-your-child/"
+    },
+    {
+      "id": "wz-f84858526af5",
+      "hook": "What people who write every day do differently.",
+      "title": "5 ways to find the time and energy to read more books",
+      "description": "Creating a tech-free reading zone can help eliminate distractions and immerse yourself in a book....",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "yahoo.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.yahoo.com/lifestyle/articles/5-ways-time-energy-read-163940573.html",
+      "thumbnail": "https://s.yimg.com/lo/mysterio/api/60e89bf4a668b13f1836c1a49ac8857b10615454bb70ab836e9c36e2adacecbf/lightyear_networkapi/resizefill_w1200;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Freddit_908%2F0f18f66f26146e35ba47a6abc8401f32",
+      "source": "Article",
+      "sourceUrl": "https://www.yahoo.com/lifestyle/articles/5-ways-time-energy-read-163940573.html"
+    },
+    {
+      "id": "wz-ff9fb9b14092",
+      "hook": "Slow down. That's the entire technique.",
+      "title": "Zoe Salda��a Reveals Her Favorite Books and Reading Habits",
+      "description": "From powerful memoirs to gripping fiction, her reading list is as impressive as her career....",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "womansworld.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.womansworld.com/entertainment/books/zoe-saldana-reveals-her-favorite-books-and-reading-habits",
+      "thumbnail": "https://www.womansworld.com/wp-content/uploads/2026/07/Zoe-Saldana-in-2026-2.jpg?quality=86&strip=all",
+      "source": "Article",
+      "sourceUrl": "https://www.womansworld.com/entertainment/books/zoe-saldana-reveals-her-favorite-books-and-reading-habits"
+    },
+    {
+      "id": "wz-a75e95afb505",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "Reading habit will increase confidence in children, Read-a-thon campaign launched",
+      "description": "Story CJP Protest BJP Ajinkya Rahane Retirement Raja Sonam Raghuvanshi Annu Kapoor Success Story Eating Habits",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "bhaskar.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.bhaskar.com/local/rajasthan/bundi/news/reading-habit-will-increase-confidence-in-children-read-a-thon-campaign-launched-dbp-138587036.html",
+      "thumbnail": "https://images.bhaskarassets.com/thumb/730x0/web2images/521/2026/07/31/app_17854069766a6b2600def31_1002635374.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.bhaskar.com/local/rajasthan/bundi/news/reading-habit-will-increase-confidence-in-children-read-a-thon-campaign-launched-dbp-138587036.html"
+    },
+    {
+      "id": "wz-9842a8870a84",
+      "hook": "The habit is smaller than you think it is.",
+      "title": "Homer, Hollywood, And College Admissions",
+      "description": "More surprising than its commercial success, however, is what it has revealed: audiences remain deeply Advertisement For many of these families, the appeal lies in an educational p",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "yahoo.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.yahoo.com/entertainment/movies/articles/homer-hollywood-college-admissions-110000463.html",
+      "thumbnail": "https://s.yimg.com/lo/mysterio/api/19e6a504c15f05af7e97570f95f8c8e8094fd5010d7d97312527d3d0533a7d5c/lightyear_networkapi/resizefill_w958_h639;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fforbes_contributor_845%2F8f62489e860482d0cf4c9444a0a29ce5",
+      "source": "Article",
+      "sourceUrl": "https://www.yahoo.com/entertainment/movies/articles/homer-hollywood-college-admissions-110000463.html"
+    },
+    {
+      "id": "wz-f47389a19353",
+      "hook": "What people who write every day do differently.",
+      "title": "CJP Protest: IQ Vs EQ",
+      "description": "familiar complaints such as, they are intellectually lazy, with shrinking attention spans, declining reading habits and an inability to engage in nuanced debate....",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "starofmysore.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://starofmysore.com/cjp-protest-iq-vs-eq/",
+      "thumbnail": "https://starofmysore.com/wp-content/uploads/2026/08/feature-7.png",
+      "source": "Article",
+      "sourceUrl": "https://starofmysore.com/cjp-protest-iq-vs-eq/"
+    },
+    {
+      "id": "wz-0ea6cd010a8a",
+      "hook": "Slow down. That's the entire technique.",
+      "title": "Leo Horoscope Today, August 01, 2026: Relationships with friends and partners offer beneficial support and affection",
+      "description": "Revision, writing practice , and concept-based learning will all move nicely.For business people, a new...",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "indiatimes.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://timesofindia.indiatimes.com/astrology/horoscope/leo-horoscope-today-august-01-2026-relationships-with-friends-and-partners-offer-beneficial-support-and-affection/articleshow/132720672.cms",
+      "thumbnail": "https://static.toiimg.com/thumb/msid-132720661,width-1280,height-720,resizemode-6,overlay-toi_sw,pt-32,y_pad-600/photo.jpg",
+      "source": "Article",
+      "sourceUrl": "https://timesofindia.indiatimes.com/astrology/horoscope/leo-horoscope-today-august-01-2026-relationships-with-friends-and-partners-offer-beneficial-support-and-affection/articleshow/132720672.cms"
+    },
+    {
+      "id": "wz-0f083afe2306",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "Top 10 Best IAS Coaching In India",
+      "description": "study, structured mentorship, regular answer- writing practice , and honest feedback along the way....",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "freepressjournal.in"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.freepressjournal.in/focused-view/top-10-best-ias-coaching-in-india",
+      "thumbnail": "https://media.assettype.com/freepressjournal/2026-07-31/2lbdezc6/Untitled-design-2026-07-31T120656.814.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.freepressjournal.in/focused-view/top-10-best-ias-coaching-in-india"
+    },
+    {
+      "id": "wz-3f522f078a74",
+      "hook": "The habit is smaller than you think it is.",
+      "title": "Daily Writing Prompt",
+      "description": "Suggested reading: 7 Plotting Secrets Every Writer Can Learn From Agatha Christie Get a FREE daily writing Sign up here Make the most of your writing prompts....",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "writerswrite.co.za"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.writerswrite.co.za/daily-writing-prompt-lb9ae7/",
+      "thumbnail": "https://www.writerswrite.co.za/wp-content/uploads/2016/04/Lock_Prompt.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.writerswrite.co.za/daily-writing-prompt-lb9ae7/"
+    },
+    {
+      "id": "wz-ce8b6354fa7e",
+      "hook": "What people who write every day do differently.",
+      "title": "Daily Writing Prompt",
+      "description": "Suggested reading: 7 Extraordinary Authors With Extraordinary Word Counts Get a FREE daily writing prompt...",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "writerswrite.co.za"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.writerswrite.co.za/daily-writing-prompt-489/",
+      "thumbnail": "https://www.writerswrite.co.za/wp-content/uploads/2018/04/Daily-Writing-Prompt-2-2.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.writerswrite.co.za/daily-writing-prompt-489/"
+    },
+    {
+      "id": "wz-d92aa29653de",
+      "hook": "Slow down. That's the entire technique.",
+      "title": "World's Most Influential Personalities to Watch in 2026 - Worlds Leaders",
+      "description": "For Hungarian artist Nora Komoroczki, known professionally as Mano, painting is far more than a creative For Lisa Marie Nicole, music is something much deeper – it is a ministry, a",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "worldsleaders.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://worldsleaders.com/worlds-most-influential-personalities-to-watch-in-2026-aug26/",
+      "thumbnail": "https://worldsleaders.com/wp-content/uploads/2026/07/Lisa-Marie-Nicole_Worlds-Most-Influential-Personalities-to-Watch-in-2026-Cover.jpg",
+      "source": "Article",
+      "sourceUrl": "https://worldsleaders.com/worlds-most-influential-personalities-to-watch-in-2026-aug26/"
+    },
+    {
+      "id": "wz-a4a8fe569b36",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "\"U.S.S. Missouri\" 1957 - A. Aubrey Bodine",
+      "description": "Bodine believed that photography could be a creative discipline , and he studied the principles of art...",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "citybiz.co"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://www.citybiz.co/article/882644/u-s-s-missouri-1957-a-aubrey-bodine/",
+      "thumbnail": "https://www.citybiz.co/wp-content/uploads/2026/07/50-713front.jpg",
+      "source": "Article",
+      "sourceUrl": "https://www.citybiz.co/article/882644/u-s-s-missouri-1957-a-aubrey-bodine/"
+    },
+    {
+      "id": "wz-42f04d166e1b",
+      "hook": "The habit is smaller than you think it is.",
+      "title": "WhatsApp Is Fixing Its Channel Storage Problem",
+      "description": "Heavy, repetitive, storage-hungry content is not just bad creative discipline ; it gives users a reason...",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 3,
+      "tags": [
+        "print",
+        "wersm.com"
+      ],
+      "mediaKind": "article",
+      "embedUrl": "https://wersm.com/whatsapp-channel-storage-cleanup-tool/",
+      "thumbnail": "https://wersm.com/wp-content/uploads/2026/07/WhatsApp-channels-storage-tool-on-Android.jpg.webp",
+      "source": "Article",
+      "sourceUrl": "https://wersm.com/whatsapp-channel-storage-cleanup-tool/"
     }
   ]
 }

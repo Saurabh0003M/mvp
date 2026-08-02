@@ -192,9 +192,9 @@ export function RecommendationCard({
                 e.stopPropagation();
                 onPreview();
               }}
-              className="mt-3 w-full rounded-full border border-border py-2 text-caption text-foreground/80 transition-colors hover:bg-accent"
+              className="mt-3 w-full rounded-full bg-foreground py-2.5 text-caption text-background transition-opacity hover:opacity-90"
             >
-              Preview it first
+              Preview it — free, no decision
             </button>
           )}
 

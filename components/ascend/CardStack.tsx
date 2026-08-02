@@ -39,6 +39,10 @@ export function CardStack({
   const [, setIsDragging] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const animatingRef = useRef(false);
+  // Where the pointer went down on the top card. A drag and a tap both end in
+  // a pointerup, so we compare travel distance to tell them apart — under a
+  // few pixels is a tap and should open the preview.
+  const pressRef = useRef<{ x: number; y: number } | null>(null);
   const controlsRef = useRef<{ cancel: () => void } | null>(null);
 
   const triggerSwipe = useCallback(
@@ -160,6 +164,20 @@ export function CardStack({
           onDrag={(_, info) => setDragProgress({ x: info.offset.x, y: info.offset.y })}
           onDragEnd={handleDragEnd}
           whileTap={{ cursor: "grabbing" }}
+          onPointerDown={(e) => {
+            pressRef.current = { x: e.clientX, y: e.clientY };
+          }}
+          onPointerUp={(e) => {
+            const start = pressRef.current;
+            pressRef.current = null;
+            if (!start || !onPreview || animatingRef.current) return;
+            const travelled =
+              Math.abs(e.clientX - start.x) + Math.abs(e.clientY - start.y);
+            if (travelled > 8) return; // it was a drag, not a tap
+            // Let interactive children (buttons, links) handle their own taps.
+            if ((e.target as HTMLElement).closest("button, a")) return;
+            onPreview(topCard);
+          }}
         >
           <RecommendationCard
             card={topCard}

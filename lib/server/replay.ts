@@ -19,7 +19,7 @@
 // only ground truth.
 //
 // One deliberate limitation, documented rather than engineered around: the
-// client engine resolves its corpus from the module-level `RECOMMENDATIONS`
+// client engine resolves its corpus from the module-level `LIVE_CORPUS`
 // constant, so replay is exact as long as the seeded `content_items` rows carry
 // the same slugs as that corpus (which the migration guarantees). Making the
 // corpus fully injectable would mean threading a parameter through the entire
@@ -28,7 +28,7 @@
 // ============================================================================
 
 import {
-  RECOMMENDATIONS,
+  LIVE_CORPUS,
   applySwipe,
   createEngine,
   type EngineState,
@@ -52,7 +52,7 @@ function corpusById(
 export function replayEngineState(
   profile: UserProfile,
   history: Interaction[],
-  corpus: Recommendation[] = RECOMMENDATIONS
+  corpus: Recommendation[] = LIVE_CORPUS
 ): EngineState {
   const byId = corpusById(corpus);
 

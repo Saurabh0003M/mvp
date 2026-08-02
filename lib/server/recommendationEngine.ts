@@ -17,7 +17,7 @@
 //      if the user is struggling, reduce difficulty, never the goal.
 // ============================================================================
 
-import { RECOMMENDATIONS, whyThis } from "../engine";
+import { LIVE_CORPUS, whyThis } from "../engine";
 import {
   detectFriction,
   contentTier,
@@ -45,7 +45,7 @@ export interface RecommendationResult {
 export function getRecommendations(
   profile: UserProfile,
   history: Interaction[],
-  corpus: Recommendation[] = RECOMMENDATIONS,
+  corpus: Recommendation[] = LIVE_CORPUS,
   limit = 20
 ): RecommendationResult {
   const state = replayEngineState(profile, history, corpus);
@@ -71,7 +71,7 @@ export function explainRecommendation(
   profile: UserProfile,
   history: Interaction[],
   cardId: string,
-  corpus: Recommendation[] = RECOMMENDATIONS
+  corpus: Recommendation[] = LIVE_CORPUS
 ): string | null {
   const card = corpus.find((c) => c.id === cardId);
   if (!card) return null;

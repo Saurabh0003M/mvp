@@ -2,13 +2,18 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
+import { Clock } from "lucide-react";
 import {
   type EngineState,
   type UserProfile,
   topWeights,
   type Recommendation,
   type SwipeDirection,
-  RECOMMENDATIONS,
+  type IabtmChannel,
+  CATEGORY_ACCENTS,
+  FORMAT_LABELS,
+  IABTM_CHANNELS,
+  LIVE_CORPUS,
 } from "@/lib/engine";
 import { type CompressedCognitiveState } from "@/lib/cognitive";
 import { type VoiceReading } from "@/lib/voice";
@@ -29,6 +34,7 @@ import { VoiceCoach } from "./VoiceCoach";
 import { Toast } from "./Toast";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+type ExploreChannel = "All" | IabtmChannel;
 
 interface Props {
   state: EngineState;
@@ -60,6 +66,7 @@ export function Discover({
   toast,
 }: Props) {
   const [tab, setTab] = useState<Tab>("home");
+  const [selectedChannel, setSelectedChannel] = useState<ExploreChannel>("All");
   const [questsOpen, setQuestsOpen] = useState(false);
   const [laterOpen, setLaterOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -94,20 +101,16 @@ export function Discover({
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Explore mode = a shuffled shim over state.queue. Same swipe path, same
-  // engine learning — just surfaces cards in a non-relevance order to invite
-  // discovery of things the ranker wouldn't have led with.
-  const exploreState = useMemo<EngineState>(() => {
-    // Fisher–Yates over the unseen corpus, filtered against state.seen.
-    const pool = RECOMMENDATIONS.filter((c) => !state.seen.has(c.id));
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-    return { ...state, queue: pool };
-    // Re-shuffle whenever the seen set grows (i.e. after a swipe), not on
-    // every render — otherwise the deck would reshuffle mid-drag.
-  }, [state, state.seen.size]); // eslint-disable-line react-hooks/exhaustive-deps
+  const exploreCards = useMemo(() => {
+    const unseen = LIVE_CORPUS.filter((card) => !state.seen.has(card.id));
+    if (selectedChannel === "All") return unseen;
+    return unseen.filter((card) => card.channel === selectedChannel);
+  }, [selectedChannel, state.seen]);
+
+  const selfInsight = useMemo(
+    () => buildSelfInsight(state, profile),
+    [state, profile]
+  );
 
   const hasNotifications = Boolean(activeInsight) || Boolean(ccs && ccs.pivot);
 
@@ -161,6 +164,17 @@ export function Discover({
       {/* ── HOME ── */}
       {tab === "home" && (
         <div className="mx-auto flex w-full max-w-[640px] flex-col items-center px-6 py-6">
+          {selfInsight && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: EASE }}
+              className="mb-4 w-full border-b border-border pb-4 text-caption text-muted-foreground"
+            >
+              <span className="font-medium text-foreground">What I noticed about you:</span>{" "}
+              {selfInsight}
+            </motion.div>
+          )}
           <div className="relative w-full" style={{ height: "min(78vh, 680px)" }}>
             <CardStack
               state={state}
@@ -173,9 +187,9 @@ export function Discover({
         </div>
       )}
 
-      {/* ── EXPLORE — shuffled random flashcards ── */}
+      {/* ── EXPLORE — IABTM channel grid ── */}
       {tab === "explore" && (
-        <div className="mx-auto flex w-full max-w-[640px] flex-col items-center px-6 py-6">
+        <div className="mx-auto flex w-full max-w-[920px] flex-col px-4 py-6 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -184,27 +198,27 @@ export function Discover({
           >
             <div className="text-micro text-muted-foreground">Explore</div>
             <h1 className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight">
-              Something you weren&apos;t looking for
+              Curated media
             </h1>
             <p className="mt-1 text-caption text-muted-foreground">
-              A shuffled deck outside your usual pattern. Swipes still teach the engine.
+              Browse IABTM&apos;s six channels. Home stays personalized; Explore stays open.
             </p>
           </motion.div>
 
-          <div className="relative mt-5 w-full" style={{ height: "min(72vh, 640px)" }}>
-            {exploreState.queue.length > 0 ? (
-              <CardStack
-                state={exploreState}
-                profile={profile}
-                ccs={ccs}
-                onSwipe={handleSwipe}
-                showHints={false}
-              />
+          <ChannelFilter selected={selectedChannel} onSelect={setSelectedChannel} />
+
+          <div className="mt-5 w-full">
+            {exploreCards.length > 0 ? (
+              <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+                {exploreCards.map((card) => (
+                  <ExploreTile key={card.id} card={card} onOpen={setViewerCard} />
+                ))}
+              </div>
             ) : (
-              <div className="flex h-full flex-col items-center justify-center rounded-3xl border border-dashed border-border p-8 text-center">
-                <div className="text-title">You&apos;ve seen the deck.</div>
+              <div className="flex min-h-[320px] flex-col items-center justify-center rounded-3xl border border-dashed border-border p-8 text-center">
+                <div className="text-title">No unseen items here.</div>
                 <p className="mt-2 text-caption text-muted-foreground">
-                  Come back after new content is ingested.
+                  Switch channels or come back after new content is ingested.
                 </p>
               </div>
             )}
@@ -263,6 +277,161 @@ export function Discover({
       <Toast message={toast} />
     </AppShell>
   );
+}
+
+function ChannelFilter({
+  selected,
+  onSelect,
+}: {
+  selected: ExploreChannel;
+  onSelect: (channel: ExploreChannel) => void;
+}) {
+  const channels = ["All", ...IABTM_CHANNELS] as const;
+
+  return (
+    <div className="mt-5 flex max-w-full gap-2 overflow-x-auto pb-1">
+      {channels.map((channel) => {
+        const active = selected === channel;
+        return (
+          <button
+            key={channel}
+            type="button"
+            aria-pressed={active}
+            onClick={() => onSelect(channel)}
+            className={`shrink-0 rounded-full px-3.5 py-2 text-caption font-medium transition-colors ${
+              active
+                ? "bg-foreground text-background"
+                : "border border-border bg-card text-foreground hover:bg-accent"
+            }`}
+          >
+            {channel}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+const THUMBNAIL_ASPECT: Record<IabtmChannel, string> = {
+  Film: "aspect-video",
+  Music: "aspect-square",
+  Art: "aspect-[4/5]",
+  Animation: "aspect-[4/3]",
+  Editorial: "aspect-[3/2]",
+  Print: "aspect-[3/4]",
+};
+
+function ExploreTile({
+  card,
+  onOpen,
+}: {
+  card: Recommendation;
+  onOpen: (card: Recommendation) => void;
+}) {
+  const [imgError, setImgError] = useState(false);
+  const accent = CATEGORY_ACCENTS[card.category];
+  const showImage = card.thumbnail && !imgError;
+  const aspect = card.channel ? THUMBNAIL_ASPECT[card.channel] : "aspect-[4/3]";
+
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(card)}
+      className="mb-4 block w-full break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card text-left shadow-soft transition-all hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      <div className={`relative w-full overflow-hidden bg-muted ${aspect}`}>
+        {showImage ? (
+          <img
+            src={card.thumbnail}
+            alt=""
+            loading="lazy"
+            onError={() => setImgError(true)}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div
+            className="flex h-full w-full items-center justify-center px-6 text-center text-subtitle text-background"
+            style={{
+              background: `linear-gradient(150deg, ${accent} 0%, hsl(from ${accent} h s calc(l * 0.65)) 100%)`,
+            }}
+          >
+            {card.channel ?? card.category}
+          </div>
+        )}
+        <div className="absolute left-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-micro text-foreground shadow-soft backdrop-blur-sm">
+          {card.channel ?? "Ascend"}
+        </div>
+      </div>
+
+      <div className="p-4">
+        <div className="flex items-center justify-between gap-3 text-caption text-muted-foreground">
+          <span
+            className="rounded-full px-2 py-0.5 text-micro"
+            style={{ background: `hsl(from ${accent} h s l / 0.1)`, color: accent }}
+          >
+            {FORMAT_LABELS[card.format]}
+          </span>
+          <span className="flex shrink-0 items-center gap-1">
+            <Clock className="h-3.5 w-3.5" />
+            {card.duration} min
+          </span>
+        </div>
+
+        <h2 className="mt-3 text-balance font-display text-lg font-medium leading-snug">
+          {card.hook ?? card.title}
+        </h2>
+        <p className="mt-1.5 text-caption text-muted-foreground line-clamp-2">
+          {card.hook ? card.title : card.description}
+        </p>
+      </div>
+    </button>
+  );
+}
+
+function buildSelfInsight(state: EngineState, profile: UserProfile): string | null {
+  if (state.history.length < 5) return null;
+
+  const byId = new Map(LIVE_CORPUS.map((card) => [card.id, card]));
+  const reviewed = state.history
+    .map((interaction) => ({ interaction, card: byId.get(interaction.recommendationId) }))
+    .filter((entry): entry is { interaction: typeof state.history[number]; card: Recommendation } =>
+      Boolean(entry.card)
+    );
+
+  const overWindow = reviewed.filter((entry) => entry.card.duration > profile.dailyTime);
+  const skippedOverWindow = overWindow.filter((entry) => entry.interaction.direction === "skip").length;
+  const shortAccepted = reviewed.filter(
+    (entry) => entry.interaction.direction === "accept" && entry.card.duration <= 15
+  ).length;
+  if (overWindow.length >= 3 && skippedOverWindow === overWindow.length && shortAccepted >= 2) {
+    return `You skipped ${skippedOverWindow} items longer than your ${profile.dailyTime}-minute window and accepted ${shortAccepted} under 15. That points to calendar fit, not motivation.`;
+  }
+
+  const acceptedByChannel = new Map<IabtmChannel, number>();
+  for (const entry of reviewed) {
+    if (entry.interaction.direction !== "accept" || !entry.card.channel) continue;
+    acceptedByChannel.set(entry.card.channel, (acceptedByChannel.get(entry.card.channel) ?? 0) + 1);
+  }
+  const channelLeaders = Array.from(acceptedByChannel.entries()).sort((a, b) => b[1] - a[1]);
+  if (channelLeaders[0] && channelLeaders[0][1] >= 3 && channelLeaders[0][1] >= (channelLeaders[1]?.[1] ?? 0) + 2) {
+    return `You accepted ${channelLeaders[0][1]} ${channelLeaders[0][0]} pieces. The medium is becoming part of the signal, not just the topic.`;
+  }
+
+  const acceptedFormats = Object.entries(state.counters.formats)
+    .map(([format, counts]) => ({
+      format: format as keyof typeof FORMAT_LABELS,
+      accepts: counts.accept,
+    }))
+    .sort((a, b) => b.accepts - a.accepts);
+  if (
+    acceptedFormats[0] &&
+    acceptedFormats[0].accepts >= 3 &&
+    acceptedFormats[0].accepts >= (acceptedFormats[1]?.accepts ?? 0) + 2
+  ) {
+    return `You accepted ${acceptedFormats[0].accepts} ${FORMAT_LABELS[acceptedFormats[0].format].toLowerCase()} cards. Format is starting to matter as much as topic.`;
+  }
+
+  return null;
 }
 
 function PanelStat({ label, value }: { label: string; value: number }) {

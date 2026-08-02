@@ -20,7 +20,7 @@
 // never switching the goal.
 // ============================================================================
 
-import { RECOMMENDATIONS, detectInsight, type Insight } from "../engine";
+import { LIVE_CORPUS, detectInsight, type Insight } from "../engine";
 import { detectFriction, type FrictionState } from "../friction";
 import type { Interaction, Recommendation, UserProfile } from "../taxonomy";
 import { replayEngineState } from "./replay";
@@ -52,7 +52,7 @@ export function computeInsight(
   history: Interaction[],
   options: InsightOptions = {}
 ): InsightResult {
-  const corpus = options.corpus ?? RECOMMENDATIONS;
+  const corpus = options.corpus ?? LIVE_CORPUS;
   const state = replayEngineState(profile, history, corpus);
 
   // Fold the user's own dismiss/apply decisions into the replayed state. These

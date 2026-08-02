@@ -7,7 +7,7 @@ import {
   type SwipeDirection,
   type Insight,
   type Recommendation,
-  RECOMMENDATIONS,
+  LIVE_CORPUS,
   createEngine,
   applySwipe,
   applyInsight,
@@ -43,7 +43,7 @@ export function useEngine() {
   // appended), so it stays O(1) in session length. Drives the wellbeing radar
   // and the corrective-pivot banner.
   const ccs = useMemo(
-    () => (state && profile ? compressCognitiveState(state.history, profile, RECOMMENDATIONS) : null),
+    () => (state && profile ? compressCognitiveState(state.history, profile, LIVE_CORPUS) : null),
     [state, profile]
   );
 

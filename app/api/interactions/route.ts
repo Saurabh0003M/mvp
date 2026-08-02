@@ -13,7 +13,7 @@
 // or drift out of sync with what we actually recommended.
 // ============================================================================
 
-import { RECOMMENDATIONS } from "@/lib/engine";
+import { LIVE_CORPUS } from "@/lib/engine";
 import { fail, json, loadEngineInputs, resolveContext } from "@/lib/server/context";
 import { recordCompletion, recordSwipe } from "@/lib/services/interaction";
 import type { SwipeDirection } from "@/lib/taxonomy";
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
     return fail("`contentSlug` is required.", 400);
   }
 
-  const card = RECOMMENDATIONS.find((r) => r.id === slug);
+  const card = LIVE_CORPUS.find((r) => r.id === slug);
   if (!card) return fail(`Unknown content slug: ${slug}`, 400);
 
   // `completed` is a distinct verb, not a swipe direction — it arrives as its

@@ -11,13 +11,20 @@
 
 export * from "./taxonomy";
 
+import corpus from "@/data/corpus.json";
 import {
   ALL_CATEGORIES,
   ALL_FORMATS,
   FORMAT_LABELS,
   CATEGORY_ACCENTS,
+  IABTM_CHANNELS,
+  isCategory,
+  isFormat,
   type Category,
+  type Difficulty,
   type Format,
+  type IabtmChannel,
+  type MediaKind,
   type Recommendation,
   type UserProfile,
   type SwipeDirection,
@@ -45,6 +52,56 @@ import {
   contentTier,
   FRICTION_THRESHOLD,
 } from "./friction";
+
+const DIFFICULTIES = ["Beginner", "Intermediate", "Advanced"] as const satisfies readonly Difficulty[];
+const MEDIA_KINDS = ["video", "music", "podcast", "article", "practice", "mentor"] as const satisfies readonly MediaKind[];
+
+function isDifficulty(value: string): value is Difficulty {
+  return (DIFFICULTIES as readonly string[]).includes(value);
+}
+
+function isIabtmChannel(value: string): value is IabtmChannel {
+  return (IABTM_CHANNELS as readonly string[]).includes(value);
+}
+
+function isMediaKind(value: string): value is MediaKind {
+  return (MEDIA_KINDS as readonly string[]).includes(value);
+}
+
+type IngestedCorpusItem = (typeof corpus.items)[number];
+
+function toIngestedRecommendation(item: IngestedCorpusItem): Recommendation | null {
+  if (
+    !isCategory(item.category) ||
+    !isFormat(item.format) ||
+    !isDifficulty(item.difficulty) ||
+    !isIabtmChannel(item.channel)
+  ) {
+    return null;
+  }
+
+  return {
+    id: item.id,
+    hook: item.hook,
+    title: item.title,
+    description: item.description,
+    category: item.category,
+    channel: item.channel,
+    format: item.format,
+    difficulty: item.difficulty,
+    duration: item.duration,
+    tags: item.tags,
+    mediaKind: isMediaKind(item.mediaKind) ? item.mediaKind : undefined,
+    embedUrl: item.embedUrl,
+    thumbnail: item.thumbnail,
+    source: item.source,
+    sourceUrl: item.sourceUrl ?? null,
+  };
+}
+
+export const INGESTED: Recommendation[] = corpus.items
+  .map(toIngestedRecommendation)
+  .filter((card): card is Recommendation => card !== null);
 
 export interface EngineState {
   weights: Weights;
@@ -155,6 +212,8 @@ export const RECOMMENDATIONS: Recommendation[] = [
   { id: "men-2", hook: "The gap between good and hired is usually one conversation.", title: "Portfolio Review with a Designer", description: "Bring one piece of work. Leave with the specific reason it isn't landing yet.", category: "Design", format: "read", difficulty: "Intermediate", duration: 30, tags: ["mentor", "feedback", "iabtm"], mediaKind: "mentor", source: "IABTM", mentor: { name: "IABTM Artist", role: "Product Designer · Artists network" } },
 ];
 
+export const LIVE_CORPUS: Recommendation[] = [...INGESTED, ...RECOMMENDATIONS];
+
 // Set up a fresh engine for a new user.
 
 function emptyCounters(): Counters {
@@ -168,7 +227,7 @@ function emptyCounters(): Counters {
 export function createEngine(profile: UserProfile): EngineState {
   const weights = initialWeights(profile);
   const seen = new Set<string>();
-  const queue = sortedQueue(RECOMMENDATIONS.slice(), weights, profile, seen, []);
+  const queue = sortedQueue(LIVE_CORPUS.slice(), weights, profile, seen, []);
   return {
     weights,
     counters: emptyCounters(),
@@ -221,7 +280,7 @@ function sortedQueue(
   seen: Set<string>,
   history: Interaction[]
 ): Recommendation[] {
-  const ccs = compressCognitiveState(history, profile, RECOMMENDATIONS);
+  const ccs = compressCognitiveState(history, profile, LIVE_CORPUS);
   const scored = cards.map((c) => ({
     card: c,
     score: scoreCard(c, weights, seen, ccs, profile),
@@ -236,7 +295,7 @@ function sortedQueue(
   // forward so difficulty drops while the topic holds. This never injects
   // off-goal content and never lets a non-goal item outrank a goal item, so
   // the "narrow the friction, not the topic" rule is enforced structurally.
-  const friction = detectFriction(history, profile, RECOMMENDATIONS);
+  const friction = detectFriction(history, profile, LIVE_CORPUS);
   return applyFrictionRerank(diversified, friction, profile);
 }
 
@@ -558,7 +617,7 @@ export function detectInsight(state: EngineState, profile: UserProfile): Insight
   // fix is a lighter on-ramp in the same topic. Surfacing this before the
   // "contradiction" check is what stops the app from ever suggesting a topic
   // switch when the real problem is difficulty.
-  const friction = detectFriction(state.history, profile, RECOMMENDATIONS);
+  const friction = detectFriction(state.history, profile, LIVE_CORPUS);
   if (friction.active) {
     for (const topic of friction.topics) {
       const id = `friction-${topic}`;
@@ -667,7 +726,7 @@ function isFrictionDrivenCategory(
 ): boolean {
   let skipped = 0;
   let stretchSkipped = 0;
-  const byId = new Map(RECOMMENDATIONS.map((c) => [c.id, c]));
+  const byId = new Map(LIVE_CORPUS.map((c) => [c.id, c]));
   for (const it of state.history) {
     if (it.category !== cat || it.direction !== "skip") continue;
     skipped++;
@@ -768,7 +827,7 @@ export function topWeights(state: EngineState, profile: UserProfile): { label: s
 
 // TODO: pull from a Supabase `recommendations` table instead of the local list.
 export async function fetchRecommendations(): Promise<Recommendation[]> {
-  return RECOMMENDATIONS;
+  return LIVE_CORPUS;
 }
 
 // TODO: hit Groq (llama-3.3-70b) to write a real explanation grounded in the

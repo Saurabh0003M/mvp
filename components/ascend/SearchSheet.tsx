@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Search, Clock, Signal } from "lucide-react";
 import {
   type Recommendation,
-  RECOMMENDATIONS,
+  LIVE_CORPUS,
   CATEGORY_ACCENTS,
   FORMAT_LABELS,
 } from "@/lib/engine";
@@ -21,7 +21,7 @@ export function SearchSheet({ open, onClose }: Props) {
   const results = useMemo(() => {
     const query = q.trim().toLowerCase();
     if (!query) return [];
-    return RECOMMENDATIONS.filter((r) => {
+    return LIVE_CORPUS.filter((r) => {
       const hay =
         r.title.toLowerCase() +
         " " +
@@ -78,7 +78,7 @@ export function SearchSheet({ open, onClose }: Props) {
             <div className="flex-1 overflow-y-auto p-3">
               {!q.trim() && (
                 <div className="px-4 py-8 text-center text-caption text-muted-foreground">
-                  Type to search across {RECOMMENDATIONS.length} quests.
+                  Type to search across {LIVE_CORPUS.length} quests.
                 </div>
               )}
               {q.trim() && results.length === 0 && (

@@ -17,7 +17,7 @@
 // scoring rules of its own.
 // ============================================================================
 
-import { RECOMMENDATIONS, topWeights, trajectory } from "../engine";
+import { LIVE_CORPUS, topWeights, trajectory } from "../engine";
 import {
   compressCognitiveState,
   describeCcs,
@@ -59,7 +59,7 @@ export interface BeliefState {
 export function computeBeliefState(
   profile: UserProfile,
   history: Interaction[],
-  corpus: Recommendation[] = RECOMMENDATIONS
+  corpus: Recommendation[] = LIVE_CORPUS
 ): BeliefState {
   const state = replayEngineState(profile, history, corpus);
   const ccs = compressCognitiveState(history, profile, corpus);

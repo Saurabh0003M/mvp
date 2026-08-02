@@ -93,6 +93,23 @@ export type MediaKind =
   | "practice"   // a real-world experience     → do-it-now checklist
   | "mentor";    // a person to learn from      → profile + consult
 
+/**
+ * IABTM's own Curated Media channels, verbatim from their platform. Their
+ * library is organised by MEDIUM (and in a culture/human-potential register),
+ * not by developer skill — which is exactly the "media direction" our first
+ * corpus was missing. Ingested items carry one of these.
+ */
+export const IABTM_CHANNELS = [
+  "Film",
+  "Music",
+  "Art",
+  "Animation",
+  "Editorial",
+  "Print",
+] as const;
+
+export type IabtmChannel = (typeof IABTM_CHANNELS)[number];
+
 export const MEDIA_KIND_LABELS: Record<MediaKind, string> = {
   video: "Watch",
   music: "Listen",
@@ -131,6 +148,8 @@ export interface Recommendation {
   hook?: string;
   /** Which player opens on accept. Falls back to a guess from `format`. */
   mediaKind?: MediaKind;
+  /** IABTM Curated Media channel this belongs to (Film/Music/Art/…). */
+  channel?: IabtmChannel;
   /** Embeddable URL (YouTube/Spotify embed src, audio file, article link). */
   embedUrl?: string;
   /** For `mentor` cards: who they are. */

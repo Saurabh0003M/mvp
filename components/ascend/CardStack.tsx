@@ -4,8 +4,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate, type PanInfo } from "framer-motion";
 import { RecommendationCard } from "./RecommendationCard";
 import { type EngineState, type UserProfile, type Recommendation, type SwipeDirection } from "@/lib/engine";
-import { type CompressedCognitiveState } from "@/lib/cognitive";
-import { COOLING_THRESHOLD } from "@/lib/cognitive";
 import { Moon, RotateCcw } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -15,12 +13,20 @@ const FLY_DISTANCE = 600;
 interface Props {
   state: EngineState;
   profile: UserProfile;
-  ccs: CompressedCognitiveState | null;
   onSwipe: (card: Recommendation, dir: SwipeDirection) => void;
   showHints: boolean;
+  showCooldown: boolean;
+  onCooldownDismiss: () => void;
 }
 
-export function CardStack({ state, profile, ccs, onSwipe, showHints }: Props) {
+export function CardStack({
+  state,
+  profile,
+  onSwipe,
+  showHints,
+  showCooldown,
+  onCooldownDismiss,
+}: Props) {
   const stack = state.queue.slice(0, 3);
   const topCard = stack[0];
   const x = useMotionValue(0);
@@ -106,8 +112,6 @@ export function CardStack({ state, profile, ccs, onSwipe, showHints }: Props) {
   };
 
   // Cooldown card — consent gate, not content. Fires when consumption run hits threshold.
-  const showCooldown = ccs ? ccs.consumptionRun >= COOLING_THRESHOLD && state.queue.length > 0 : false;
-
   if (!topCard) {
     return <AlgorithmicCooling />;
   }
@@ -134,7 +138,13 @@ export function CardStack({ state, profile, ccs, onSwipe, showHints }: Props) {
 
       {/* Cooldown card overlays the top content card */}
       {showCooldown ? (
-        <CooldownCard onContinue={() => triggerSwipe("skip")} onRest={() => triggerSwipe("later")} />
+        <CooldownCard
+          onContinue={onCooldownDismiss}
+          onRest={() => {
+            onCooldownDismiss();
+            triggerSwipe("later");
+          }}
+        />
       ) : (
         <motion.div
           key={topCard.id}
@@ -195,15 +205,23 @@ function CooldownCard({ onContinue, onRest }: { onContinue: () => void; onRest: 
       </p>
       <div className="mt-7 flex gap-3">
         <motion.button
+          type="button"
           whileTap={{ scale: 0.96 }}
-          onClick={onRest}
+          onClick={(event) => {
+            event.stopPropagation();
+            onRest();
+          }}
           className="rounded-full border border-border bg-card px-5 py-3 text-subtitle text-foreground/80 shadow-soft transition-all hover:bg-accent"
         >
           Step away
         </motion.button>
         <motion.button
+          type="button"
           whileTap={{ scale: 0.96 }}
-          onClick={onContinue}
+          onClick={(event) => {
+            event.stopPropagation();
+            onContinue();
+          }}
           className="rounded-full bg-foreground px-5 py-3 text-subtitle text-background shadow-soft transition-all hover:shadow-card"
         >
           Keep going

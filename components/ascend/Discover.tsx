@@ -15,7 +15,7 @@ import {
   IABTM_CHANNELS,
   LIVE_CORPUS,
 } from "@/lib/engine";
-import { type CompressedCognitiveState } from "@/lib/cognitive";
+import { COOLING_THRESHOLD, type CompressedCognitiveState } from "@/lib/cognitive";
 import { type VoiceReading } from "@/lib/voice";
 import { type CoachMessage } from "@/hooks/use-engine";
 import { AppShell, type Tab } from "./AppShell";
@@ -74,6 +74,7 @@ export function Discover({
   const [searchOpen, setSearchOpen] = useState(false);
   const [viewerCard, setViewerCard] = useState<Recommendation | null>(null);
   const [showHints, setShowHints] = useState(true);
+  const [dismissedCooldownTurn, setDismissedCooldownTurn] = useState<number | null>(null);
   const [prevWeights, setPrevWeights] = useState(() =>
     topWeights(state, profile).map((w) => ({ label: w.label, value: w.value }))
   );
@@ -113,6 +114,14 @@ export function Discover({
   );
 
   const hasNotifications = Boolean(activeInsight) || Boolean(ccs && ccs.pivot);
+  const cooldownDue = Boolean(
+    ccs && ccs.consumptionRun >= COOLING_THRESHOLD && state.queue.length > 0
+  );
+  const showCooldown = cooldownDue && dismissedCooldownTurn !== ccs?.turn;
+
+  const dismissCooldown = () => {
+    if (ccs) setDismissedCooldownTurn(ccs.turn);
+  };
 
   // Accept is a promise the product has to keep: the media opens immediately.
   // The engine still learns from the swipe exactly as before — we just stop
@@ -132,14 +141,16 @@ export function Discover({
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: EASE }}
-        className="rounded-2xl bg-panel p-5 text-panel-foreground"
+        className="flex min-h-[240px] flex-col justify-between rounded-2xl bg-panel p-5 text-panel-foreground"
       >
-        <div className="text-micro text-panel-foreground/55">You&apos;re currently at</div>
-        <div className="mt-1.5 text-balance font-display text-xl font-medium leading-snug tracking-tight">
-          Becoming {profile.aspiration}
+        <div>
+          <div className="text-micro text-panel-foreground/55">You&apos;re currently at</div>
+          <div className="mt-1.5 text-balance font-display text-xl font-medium leading-snug tracking-tight">
+            Becoming {profile.aspiration}
+          </div>
         </div>
 
-        <div className="mt-4 space-y-2.5 border-t border-white/10 pt-4">
+        <div className="mt-6 space-y-2.5 border-t border-white/10 pt-4">
           <PanelStat label="Cards reviewed" value={state.history.length} />
           <PanelStat label="Quests accepted" value={state.accepted.length} />
           <PanelStat label="Saved for later" value={state.later.length} />
@@ -147,7 +158,7 @@ export function Discover({
       </motion.div>
 
       <TrajectoryStrip state={state} profile={profile} />
-      <PivotBanner ccs={ccs} />
+      <PivotBanner ccs={showCooldown ? null : ccs} compact />
     </div>
   );
 
@@ -175,15 +186,22 @@ export function Discover({
               {selfInsight}
             </motion.div>
           )}
-          <div className="relative w-full" style={{ height: "min(78vh, 680px)" }}>
+          <div
+            className="relative w-full"
+            style={{ height: showCooldown ? "min(52vh, 520px)" : "min(78vh, 680px)" }}
+          >
             <CardStack
               state={state}
               profile={profile}
-              ccs={ccs}
               onSwipe={handleSwipe}
               showHints={showHints}
+              showCooldown={showCooldown}
+              onCooldownDismiss={dismissCooldown}
             />
           </div>
+          {showCooldown && (
+            <PivotBanner ccs={ccs} className="w-full max-w-[520px]" />
+          )}
         </div>
       )}
 

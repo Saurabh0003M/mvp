@@ -407,9 +407,15 @@ export function compressCognitiveState(
   let consumptionRun = 0;
   let executionDebt = 0;
   for (const it of history) {
-    if (it.direction !== "accept") continue;
+    if (it.direction !== "accept") {
+      consumptionRun = 0;
+      continue;
+    }
     const card = byId.get(it.recommendationId);
-    if (!card) continue;
+    if (!card) {
+      consumptionRun = 0;
+      continue;
+    }
     if (card.format === "project") {
       consumptionRun = 0;
       executionDebt = Math.max(0, executionDebt - 1);

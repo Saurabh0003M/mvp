@@ -65,6 +65,7 @@ export function ContentViewer({ card, onClose, onComplete }: Props) {
             onClick={onClose}
             className="fixed inset-0 z-[60] bg-background/70 backdrop-blur-md"
           />
+          <div className="pointer-events-none fixed inset-0 z-[61] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -73,7 +74,11 @@ export function ContentViewer({ card, onClose, onComplete }: Props) {
             role="dialog"
             aria-modal="true"
             data-overlay-open
-            className="fixed left-1/2 top-1/2 z-[61] flex max-h-[88vh] w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-lifted"
+            // Centred by the flex wrapper below, NOT by -translate-*: Framer
+            // Motion writes an inline `transform` for y/scale which overrides
+            // Tailwind's translate utilities, which left the panel anchored at
+            // the viewport centre and overflowing off-screen.
+            className="pointer-events-auto flex max-h-[88vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-lifted"
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4">
@@ -215,6 +220,7 @@ export function ContentViewer({ card, onClose, onComplete }: Props) {
               </button>
             </div>
           </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>

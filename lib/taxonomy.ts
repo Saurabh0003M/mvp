@@ -241,7 +241,13 @@ export function isFormat(value: string): value is Format {
 export function resolveMediaKind(card: Recommendation): MediaKind {
   if (card.mediaKind) return card.mediaKind;
   if (card.format === "video") return "video";
-  if (card.format === "project") return "practice";
+  // Only treat something as a hands-on practice when it actually carries
+  // steps. Inferring "practice" from format alone turned every project card
+  // into a generic checklist ("Set a timer. / Do the thing.") — which reads
+  // as filler on a real item like "Capture the Flag: Web Exploitation 101".
+  if (card.format === "project" && card.steps && card.steps.length > 0) {
+    return "practice";
+  }
   return "article";
 }
 

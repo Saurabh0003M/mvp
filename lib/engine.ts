@@ -20,6 +20,7 @@ import {
   IABTM_CHANNELS,
   isCategory,
   isFormat,
+  resolveMediaKind,
   type Category,
   type Difficulty,
   type Format,
@@ -248,7 +249,60 @@ function sortedQueue(
   // off-goal content and never lets a non-goal item outrank a goal item, so
   // the "narrow the friction, not the topic" rule is enforced structurally.
   const friction = detectFriction(history, profile, LIVE_CORPUS);
-  return applyFrictionRerank(diversified, friction, profile);
+  const ranked = applyFrictionRerank(diversified, friction, profile);
+  return interleaveByMedium(ranked);
+}
+
+/**
+ * Break up runs of the same medium.
+ *
+ * The DPP diversifies over category/format/wellbeing *features*, which stops
+ * the feed collapsing onto one theme — but it happily returns six articles in
+ * a row if each is about something different. Reading six things then watching
+ * six things feels like two separate apps, and it hides half the library
+ * behind a wall of the other half.
+ *
+ * So this is a final, deterministic pass: no more than MAX_RUN consecutive
+ * cards of the same medium. When the run is exceeded we pull the nearest
+ * different-medium card forward.
+ *
+ * The lookahead is deliberately bounded. Scanning the whole queue could drag a
+ * barely-relevant card to the top just because it broke the pattern; a short
+ * window means we only ever reorder among near-equals, so relevance and the
+ * friction layer's goal ordering both survive.
+ */
+const MAX_RUN = 2;
+const LOOKAHEAD = 6;
+
+function interleaveByMedium(cards: Recommendation[]): Recommendation[] {
+  if (cards.length < 4) return cards;
+
+  const pool = cards.slice();
+  const out: Recommendation[] = [];
+  let lastKind: string | null = null;
+  let run = 0;
+
+  while (pool.length > 0) {
+    let pick = 0;
+    if (lastKind !== null && run >= MAX_RUN) {
+      const limit = Math.min(pool.length, LOOKAHEAD);
+      for (let i = 0; i < limit; i++) {
+        if (resolveMediaKind(pool[i]) !== lastKind) {
+          pick = i;
+          break;
+        }
+      }
+      // No different medium nearby — keep relevance order rather than
+      // reaching deep into the queue for variety's sake.
+    }
+    const [chosen] = pool.splice(pick, 1);
+    const kind = resolveMediaKind(chosen);
+    run = kind === lastKind ? run + 1 : 1;
+    lastKind = kind;
+    out.push(chosen);
+  }
+
+  return out;
 }
 
 // ---------------------------------------------------------------------------

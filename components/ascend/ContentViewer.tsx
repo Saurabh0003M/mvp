@@ -131,6 +131,37 @@ export function ContentViewer({ card, onClose, onComplete, decided = false, onDe
                 </div>
               )}
 
+              {/* Articles get a real preview: the publisher's own image, then
+                  the excerpt set as a lede. Without this branch an article
+                  opened to a bare header and a link, which read as broken —
+                  every other media kind had something to look at. */}
+              {kind === "article" && (
+                <div>
+                  {card.thumbnail && (
+                    <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden bg-muted">
+                      <img
+                        src={card.thumbnail}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="px-5 pt-5">
+                    <div className="text-micro text-muted-foreground">
+                      {card.source === "Article" ? "Excerpt" : card.source ?? "Excerpt"}
+                    </div>
+                    <p className="mt-2 text-body leading-relaxed text-foreground/90">
+                      {card.description}
+                    </p>
+                    <p className="mt-3 text-caption text-muted-foreground">
+                      Continue on the publisher&apos;s site — we link out, we don&apos;t
+                      republish.
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {kind === "podcast" && card.embedUrl && (
                 <div className="px-5 py-6">
                   <audio controls src={card.embedUrl} className="w-full">
@@ -193,7 +224,9 @@ export function ContentViewer({ card, onClose, onComplete, decided = false, onDe
 
               {/* Description always shows — it's the context for whatever played */}
               <div className="px-5 pb-5 pt-4">
-                <p className="text-body text-muted-foreground">{card.description}</p>
+                {kind !== "article" && (
+                  <p className="text-body text-muted-foreground">{card.description}</p>
+                )}
                 <div className="mt-3 flex items-center gap-3 text-caption text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Clock className="h-3.5 w-3.5" />

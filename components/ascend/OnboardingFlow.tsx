@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import type { UserProfile, Category, Difficulty, LearningStyle } from "@/lib/engine";
+import type { UserProfile, Category, Difficulty } from "@/lib/engine";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -46,20 +46,6 @@ const EXPERIENCE_LEVELS: { value: Difficulty; desc: string }[] = [
   { value: "Advanced", desc: "Deep, practiced knowledge" },
 ];
 
-const LEARNING_STYLES: { value: LearningStyle; label: string; desc: string }[] = [
-  { value: "project", label: "Project-based", desc: "Learn by building" },
-  { value: "read", label: "Reading", desc: "Articles & papers" },
-  { value: "video", label: "Video", desc: "Watch & absorb" },
-  { value: "bite", label: "Bite-sized", desc: "Short, focused reps" },
-];
-
-const TIME_OPTIONS: { value: 15 | 30 | 45 | 60; label: string; sub: string }[] = [
-  { value: 15, label: "15 min", sub: "A focused coffee break" },
-  { value: 30, label: "30 min", sub: "A deliberate session" },
-  { value: 45, label: "45 min", sub: "A solid deep-work block" },
-  { value: 60, label: "60 min", sub: "Deep work, uninterrupted" },
-];
-
 interface Props {
   onComplete: (profile: UserProfile) => void;
 }
@@ -69,23 +55,20 @@ export function OnboardingFlow({ onComplete }: Props) {
   const [aspiration, setAspiration] = useState("");
   const [interests, setInterests] = useState<Category[]>([]);
   const [experience, setExperience] = useState<Difficulty | null>(null);
-  const [learningStyle, setLearningStyle] = useState<LearningStyle | null>(null);
-  const [dailyTime, setDailyTime] = useState<15 | 30 | 45 | 60 | null>(null);
   const [calibrating, setCalibrating] = useState(false);
   const [showMoreAspirations, setShowMoreAspirations] = useState(false);
 
-  const totalSteps = 4;
+  const totalSteps = 3;
   const advancingRef = useRef(false);
 
   const canProceed = useCallback(() => {
     switch (step) {
       case 0: return aspiration.trim().length > 0;
       case 1: return interests.length > 0;
-      case 2: return experience !== null && learningStyle !== null;
-      case 3: return dailyTime !== null;
+      case 2: return experience !== null;
       default: return false;
     }
-  }, [step, aspiration, interests, experience, learningStyle, dailyTime]);
+  }, [step, aspiration, interests, experience]);
 
   const handleNext = useCallback(() => {
     if (advancingRef.current) return;
@@ -102,12 +85,15 @@ export function OnboardingFlow({ onComplete }: Props) {
           aspiration: aspiration.trim(),
           interests,
           experience: experience!,
-          learningStyle: learningStyle!,
-          dailyTime: dailyTime!,
+          // Learning style and daily window are no longer asked for — the
+          // engine infers format preference from swipes, which is more honest
+          // than a self-report. Permissive defaults keep nothing filtered out.
+          learningStyle: "video",
+          dailyTime: 60,
         });
       }, 1600);
     }
-  }, [step, totalSteps, canProceed, onComplete, aspiration, interests, experience, learningStyle, dailyTime]);
+  }, [step, totalSteps, canProceed, onComplete, aspiration, interests, experience]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -198,7 +184,7 @@ export function OnboardingFlow({ onComplete }: Props) {
                 {step === 0 && (
                   <div className="space-y-6">
                     <div className="space-y-3">
-                      <div className="text-micro text-muted-foreground">Step 1 of 4 — Aspiration</div>
+                      <div className="text-micro text-muted-foreground">Step 1 of 3 — Aspiration</div>
                       <h1 className="text-balance text-display">Who do you want to become?</h1>
                       <p className="text-body text-muted-foreground">
                         Name the person you&apos;re growing toward. This anchors every recommendation.
@@ -259,7 +245,7 @@ export function OnboardingFlow({ onComplete }: Props) {
                 {step === 1 && (
                   <div className="space-y-6">
                     <div className="space-y-3">
-                      <div className="text-micro text-muted-foreground">Step 2 of 4 — Interests</div>
+                      <div className="text-micro text-muted-foreground">Step 2 of 3 — Interests</div>
                       <h1 className="text-balance text-headline">What captures your curiosity?</h1>
                       <p className="text-body text-muted-foreground">
                         Select a few areas. The engine starts here and evolves with every swipe.
@@ -294,8 +280,8 @@ export function OnboardingFlow({ onComplete }: Props) {
                 {step === 2 && (
                   <div className="space-y-5">
                     <div className="space-y-3">
-                      <div className="text-micro text-muted-foreground">Step 3 of 4 — Experience & Style</div>
-                      <h1 className="text-balance text-headline">How do you learn best?</h1>
+                      <div className="text-micro text-muted-foreground">Step 3 of 3 — Experience</div>
+                      <h1 className="text-balance text-headline">How much have you practiced?</h1>
                     </div>
                     <div className="space-y-3">
                       <div className="text-caption text-muted-foreground">Experience level</div>
@@ -319,61 +305,9 @@ export function OnboardingFlow({ onComplete }: Props) {
                         ))}
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      <div className="text-caption text-muted-foreground">Learning style</div>
-                      <div className="grid grid-cols-2 gap-2.5">
-                        {LEARNING_STYLES.map((s) => (
-                          <button
-                            key={s.value}
-                            onClick={() => setLearningStyle(s.value)}
-                            className={cn(
-                              "rounded-2xl border p-3.5 text-left transition-all",
-                              learningStyle === s.value
-                                ? "border-foreground bg-foreground text-background shadow-soft"
-                                : "border-border bg-card hover:border-foreground/30 hover:bg-accent"
-                            )}
-                          >
-                            <div className="text-subtitle">{s.label}</div>
-                            <div className={cn("text-caption mt-0.5", learningStyle === s.value ? "text-background/70" : "text-muted-foreground")}>
-                              {s.desc}
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 )}
 
-                {step === 3 && (
-                  <div className="space-y-6">
-                    <div className="space-y-3">
-                      <div className="text-micro text-muted-foreground">Step 4 of 4 — Daily time</div>
-                      <h1 className="text-balance text-headline">How much time per day?</h1>
-                      <p className="text-body text-muted-foreground">
-                        Quests are filtered to fit this window. You can adjust later.
-                      </p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-                      {TIME_OPTIONS.map((t) => (
-                        <button
-                          key={t.value}
-                          onClick={() => setDailyTime(t.value)}
-                          className={cn(
-                            "rounded-2xl border p-4 text-center transition-all",
-                            dailyTime === t.value
-                              ? "border-foreground bg-foreground text-background shadow-soft"
-                              : "border-border bg-card hover:border-foreground/30 hover:bg-accent"
-                          )}
-                        >
-                          <div className="text-headline leading-none">{t.label}</div>
-                          <div className={cn("text-caption mt-2", dailyTime === t.value ? "text-background/70" : "text-muted-foreground")}>
-                            {t.sub}
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </motion.div>
             </AnimatePresence>
           </div>

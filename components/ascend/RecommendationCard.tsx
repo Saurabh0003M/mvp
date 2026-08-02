@@ -8,9 +8,12 @@ import {
   type UserProfile,
   CATEGORY_ACCENTS,
   FORMAT_LABELS,
+  MEDIA_KIND_LABELS,
+  MEDIA_KIND_ACTION,
+  resolveMediaKind,
   whyThis,
 } from "@/lib/engine";
-import { ChevronDown, Clock, Signal } from "lucide-react";
+import { ChevronDown, Clock } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -49,6 +52,7 @@ export function RecommendationCard({
   const accent = CATEGORY_ACCENTS[card.category];
   const source = card.source ?? "IABTM";
   const showImage = card.thumbnail && !imgError;
+  const kind = resolveMediaKind(card);
 
   const horizontalDrag = Math.abs(dragX) > Math.abs(dragY);
   const isRight = dragX > 40;
@@ -116,7 +120,10 @@ export function RecommendationCard({
         </div>
 
         <div className="flex flex-1 flex-col p-6 sm:p-7">
-          {/* Meta row */}
+          {/* Meta row — deliberately minimal. Duration used to sit here in the
+              corner, which prices the content before you're curious about it
+              and makes a feed read like a syllabus. It now lives with the
+              action, where it helps you plan instead of talking you out. */}
           <div className="flex items-center justify-between">
             <span
               className="rounded-full px-2.5 py-0.5 text-micro"
@@ -124,22 +131,21 @@ export function RecommendationCard({
             >
               {card.category}
             </span>
-            <div className="flex items-center gap-3 text-caption text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Clock className="h-3.5 w-3.5" />
-                {card.duration}m
-              </span>
-              <span className="flex items-center gap-1">
-                <Signal className="h-3.5 w-3.5" />
-                {card.difficulty}
-              </span>
-            </div>
+            <span className="text-micro text-muted-foreground">
+              {MEDIA_KIND_LABELS[kind]}
+            </span>
           </div>
 
-          {/* Title */}
+          {/* THE HOOK — the card leads with an open loop, not a topic label.
+              Curiosity is created by a gap the reader wants closed; the title
+              is only the answer to it, so it drops to a supporting line. */}
           <h2 className="mt-4 text-balance text-title leading-tight">
-            {card.title}
+            {card.hook ?? card.title}
           </h2>
+
+          {card.hook && (
+            <p className="mt-1.5 text-caption text-muted-foreground/80">{card.title}</p>
+          )}
 
           {/* Description */}
           <p className="mt-2.5 text-body text-muted-foreground">
@@ -160,8 +166,21 @@ export function RecommendationCard({
 
           <div className="flex-1" />
 
+          {/* The promise. Says what accepting actually does — and only here,
+              paired with the payoff, does the time cost appear. */}
+          <div className="mt-5 flex items-center gap-2 text-caption text-muted-foreground">
+            <span className="font-medium text-foreground/80">
+              Swipe right → {MEDIA_KIND_ACTION[kind]}
+            </span>
+            <span aria-hidden>·</span>
+            <span className="flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5" />
+              {card.duration} min
+            </span>
+          </div>
+
           {/* Why this */}
-          <div className="mt-5 border-t border-border pt-3.5">
+          <div className="mt-4 border-t border-border pt-3.5">
             <button
               onClick={(e) => {
                 e.stopPropagation();

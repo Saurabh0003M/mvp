@@ -20,6 +20,7 @@ import { WellbeingRadar } from "./WellbeingRadar";
 import { TrajectoryStrip } from "./TrajectoryStrip";
 import { PivotBanner } from "./PivotBanner";
 import { QuestsShelf } from "./QuestsShelf";
+import { ContentViewer } from "./ContentViewer";
 import { ProfileSheet } from "./ProfileSheet";
 import { NotificationsSheet } from "./NotificationsSheet";
 import { SearchSheet } from "./SearchSheet";
@@ -64,6 +65,7 @@ export function Discover({
   const [profileOpen, setProfileOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [viewerCard, setViewerCard] = useState<Recommendation | null>(null);
   const [showHints, setShowHints] = useState(true);
   const [prevWeights, setPrevWeights] = useState(() =>
     topWeights(state, profile).map((w) => ({ label: w.label, value: w.value }))
@@ -108,6 +110,14 @@ export function Discover({
   }, [state, state.seen.size]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const hasNotifications = Boolean(activeInsight) || Boolean(ccs && ccs.pivot);
+
+  // Accept is a promise the product has to keep: the media opens immediately.
+  // The engine still learns from the swipe exactly as before — we just stop
+  // leaving the user holding a card that does nothing.
+  const handleSwipe = (card: Recommendation, dir: SwipeDirection) => {
+    onSwipe(card, dir);
+    if (dir === "accept") setViewerCard(card);
+  };
 
   // Right-rail context — always shows the aspiration + trajectory + pivot,
   // even on the Explore/Taste tabs, so identity stays anchored.
@@ -156,7 +166,7 @@ export function Discover({
               state={state}
               profile={profile}
               ccs={ccs}
-              onSwipe={onSwipe}
+              onSwipe={handleSwipe}
               showHints={showHints}
             />
           </div>
@@ -187,7 +197,7 @@ export function Discover({
                 state={exploreState}
                 profile={profile}
                 ccs={ccs}
-                onSwipe={onSwipe}
+                onSwipe={handleSwipe}
                 showHints={false}
               />
             ) : (
@@ -241,6 +251,11 @@ export function Discover({
         onApplyInsight={onApplyInsight}
       />
       <SearchSheet open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <ContentViewer
+        card={viewerCard}
+        onClose={() => setViewerCard(null)}
+        onComplete={() => {}}
+      />
       <QuestsShelf open={questsOpen} onClose={() => setQuestsOpen(false)} state={state} mode="accepted" />
       <QuestsShelf open={laterOpen} onClose={() => setLaterOpen(false)} state={state} onResurface={onResurface} mode="later" />
       <InsightSheet insight={activeInsight} onApply={onApplyInsight} onDismiss={onDismissInsight} />

@@ -77,6 +77,41 @@ export const CONTENT_TYPE_TO_FORMAT: Record<ContentType, Format> = {
   flashcard: "bite",
 };
 
+/**
+ * What kind of *media* this actually is — not how hard it is, but what
+ * happens when you accept it. The problem statement asks for "media,
+ * knowledge and experiences", so the curator has to be able to hand you a
+ * track to work to, a mentor to talk to, or a thing to go do — not only
+ * something to read. `format`/`difficulty` describe cognitive shape;
+ * `mediaKind` decides which player opens.
+ */
+export type MediaKind =
+  | "video"      // YouTube / talk / explainer  → embedded player
+  | "music"      // focus / recovery audio      → embedded player
+  | "podcast"    // long-form audio, incl. BeU  → audio player
+  | "article"    // read                        → reader / source link
+  | "practice"   // a real-world experience     → do-it-now checklist
+  | "mentor";    // a person to learn from      → profile + consult
+
+export const MEDIA_KIND_LABELS: Record<MediaKind, string> = {
+  video: "Watch",
+  music: "Listen",
+  podcast: "Listen",
+  article: "Read",
+  practice: "Do",
+  mentor: "Meet",
+};
+
+/** Verb shown on the accept button, so the payoff is promised before the tap. */
+export const MEDIA_KIND_ACTION: Record<MediaKind, string> = {
+  video: "Play it",
+  music: "Play it",
+  podcast: "Play it",
+  article: "Read it",
+  practice: "Start it",
+  mentor: "Meet them",
+};
+
 export interface Recommendation {
   id: string;
   title: string;
@@ -86,6 +121,22 @@ export interface Recommendation {
   difficulty: Difficulty;
   duration: number; // minutes
   tags: string[];
+  /**
+   * The curiosity hook. This is what the card leads with — an open loop the
+   * user wants closed. Stating the topic ("Habit Formation · 30 min") prices
+   * the content and reads as homework; opening a gap ("Why does day 4 break
+   * most people?") creates the pull. Information-gap theory, applied to a
+   * card. Falls back to `title` when absent.
+   */
+  hook?: string;
+  /** Which player opens on accept. Falls back to a guess from `format`. */
+  mediaKind?: MediaKind;
+  /** Embeddable URL (YouTube/Spotify embed src, audio file, article link). */
+  embedUrl?: string;
+  /** For `mentor` cards: who they are. */
+  mentor?: { name: string; role: string; avatar?: string };
+  /** For `practice` cards: the concrete steps of the experience. */
+  steps?: string[];
   // --- Optional backend-backed fields (additive, ignored by current UI) ---
   // Present when the item comes from the Supabase `content_items` corpus. The
   // existing components never read these, so adding them changes nothing
@@ -161,6 +212,18 @@ export function isCategory(value: string): value is Category {
 
 export function isFormat(value: string): value is Format {
   return (ALL_FORMATS as string[]).includes(value);
+}
+
+/**
+ * Which player a card opens. Explicit `mediaKind` wins; otherwise we infer a
+ * sensible default from the cognitive format so every legacy corpus item
+ * still opens something rather than nothing.
+ */
+export function resolveMediaKind(card: Recommendation): MediaKind {
+  if (card.mediaKind) return card.mediaKind;
+  if (card.format === "video") return "video";
+  if (card.format === "project") return "practice";
+  return "article";
 }
 
 export const FORMAT_LABELS: Record<Format, string> = {

@@ -77,52 +77,82 @@ export interface Insight {
 
 export const RECOMMENDATIONS: Recommendation[] = [
   // AI/ML
-  { id: "ai-1", title: "Build a RAG Chatbot with LangChain", description: "Construct a retrieval-augmented generation pipeline over your own documents and ship a working chatbot.", category: "AI/ML", format: "project", difficulty: "Intermediate", duration: 60, tags: ["llm", "rag", "python"] },
+  { id: "ai-1", hook: "Everyone talks about RAG. Almost nobody has built one.", title: "Build a RAG Chatbot with LangChain", description: "Construct a retrieval-augmented generation pipeline over your own documents and ship a working chatbot.", category: "AI/ML", format: "project", difficulty: "Intermediate", duration: 60, tags: ["llm", "rag", "python"] },
   { id: "ai-2", title: "Train a Small Transformer from Scratch", description: "Implement a minimal transformer in PyTorch and train it on a toy dataset to demystify attention.", category: "AI/ML", format: "project", difficulty: "Advanced", duration: 60, tags: ["transformer", "pytorch"] },
   { id: "ai-3", title: "Read: Attention Is All You Need", description: "The landmark paper that introduced the transformer. Annotated guides make it approachable.", category: "AI/ML", format: "read", difficulty: "Advanced", duration: 30, tags: ["paper", "transformer"] },
-  { id: "ai-4", title: "Watch: How GPT Models Work in 15 Min", description: "A crisp visual explainer on tokenization, embeddings, and next-token prediction.", category: "AI/ML", format: "video", difficulty: "Beginner", duration: 15, tags: ["gpt", "explainer"] },
+  { id: "ai-4", hook: "It predicts one word at a time. So why does it feel like it thinks?", title: "Watch: How GPT Models Work in 15 Min", description: "A crisp visual explainer on tokenization, embeddings, and next-token prediction.", category: "AI/ML", format: "video", difficulty: "Beginner", duration: 15, tags: ["gpt", "explainer"] },
   { id: "ai-5", title: "Fine-tune an Open-Source LLM", description: "Take a small open model and fine-tune it on a custom dataset using LoRA.", category: "AI/ML", format: "project", difficulty: "Advanced", duration: 60, tags: ["fine-tuning", "lora"] },
 
   // Cybersecurity
-  { id: "sec-1", title: "Capture the Flag: Web Exploitation 101", description: "Solve a guided set of web vulnerability challenges on a legal CTF platform.", category: "Cybersecurity", format: "project", difficulty: "Beginner", duration: 30, tags: ["ctf", "web", "owasp"] },
+  { id: "sec-1", hook: "The fastest way to learn defence is to break something first.", title: "Capture the Flag: Web Exploitation 101", description: "Solve a guided set of web vulnerability challenges on a legal CTF platform.", category: "Cybersecurity", format: "project", difficulty: "Beginner", duration: 30, tags: ["ctf", "web", "owasp"] },
   { id: "sec-2", title: "Read: The TAO of Network Security", description: "A practical primer on packet inspection, firewalls, and zero-trust architecture.", category: "Cybersecurity", format: "read", difficulty: "Intermediate", duration: 30, tags: ["network", "zero-trust"] },
   { id: "sec-3", title: "Set Up a Home Lab with Suricata IDS", description: "Spin up an intrusion-detection system and analyze real traffic captures.", category: "Cybersecurity", format: "project", difficulty: "Advanced", duration: 60, tags: ["ids", "suricata", "lab"] },
   { id: "sec-4", title: "Watch: How Buffer Overflows Actually Work", description: "A visual walkthrough of stack memory and a classic exploitation primitive.", category: "Cybersecurity", format: "video", difficulty: "Intermediate", duration: 15, tags: ["binary", "exploitation"] },
-  { id: "sec-5", title: "Threat Modeling in 15 Minutes", description: "Learn the STRIDE framework and threat-model a small app you already use.", category: "Cybersecurity", format: "bite", difficulty: "Beginner", duration: 15, tags: ["stride", "modeling"] },
+  { id: "sec-5", hook: "Name five ways someone could abuse the app on your phone.", title: "Threat Modeling in 15 Minutes", description: "Learn the STRIDE framework and threat-model a small app you already use.", category: "Cybersecurity", format: "bite", difficulty: "Beginner", duration: 15, tags: ["stride", "modeling"] },
 
   // Web Dev
   { id: "web-1", title: "Build a Realtime Synced Todo App", description: "Use CRDTs or WebSockets to build a multi-user todo list with live updates.", category: "Web Dev", format: "project", difficulty: "Intermediate", duration: 60, tags: ["realtime", "websockets"] },
-  { id: "web-2", title: "Read: Rendering Patterns on the Modern Web", description: "A deep dive on SSR, SSG, ISR, and streaming — when to reach for each.", category: "Web Dev", format: "read", difficulty: "Intermediate", duration: 30, tags: ["ssr", "rendering"] },
+  { id: "web-2", hook: "Four rendering strategies. Most developers can only defend one.", title: "Read: Rendering Patterns on the Modern Web", description: "A deep dive on SSR, SSG, ISR, and streaming — when to reach for each.", category: "Web Dev", format: "read", difficulty: "Intermediate", duration: 30, tags: ["ssr", "rendering"] },
   { id: "web-3", title: "Ship a Full-Stack App with Server Actions", description: "Build a small CRUD app using a modern framework's server actions and forms.", category: "Web Dev", format: "project", difficulty: "Intermediate", duration: 60, tags: ["fullstack", "server-actions"] },
   { id: "web-4", title: "Watch: CSS Container Queries in 12 Min", description: "A focused tour of container queries and where they beat media queries.", category: "Web Dev", format: "video", difficulty: "Beginner", duration: 15, tags: ["css", "responsive"] },
 
   // Basketball
   { id: "bball-1", title: "Footwork Series: The Jab Step", description: "A 15-minute drill progression to make your jab step a real threat.", category: "Basketball", format: "video", difficulty: "Beginner", duration: 15, tags: ["footwork", "scoring"] },
-  { id: "bball-2", title: "Read: The Physics of the Jump Shot", description: "Understand arc, release angle, and backspin to diagnose your own shot.", category: "Basketball", format: "read", difficulty: "Intermediate", duration: 15, tags: ["shooting", "mechanics"] },
+  { id: "bball-2", hook: "Your shot has a physics problem, not a confidence problem.", title: "Read: The Physics of the Jump Shot", description: "Understand arc, release angle, and backspin to diagnose your own shot.", category: "Basketball", format: "read", difficulty: "Intermediate", duration: 15, tags: ["shooting", "mechanics"] },
   { id: "bball-3", title: "30-Minute Scoring Workout", description: "A structured solo workout: form shooting, pull-ups, and finishing at the rim.", category: "Basketball", format: "project", difficulty: "Intermediate", duration: 30, tags: ["workout", "scoring"] },
   { id: "bball-4", title: "Watch: How to Read a Pick & Roll", description: "A film breakdown of guard-big interactions and defensive counters.", category: "Basketball", format: "video", difficulty: "Advanced", duration: 15, tags: ["film", "bball-iq"] },
 
   // Design
   { id: "design-1", title: "Redesign a Screen You Hate", description: "Pick one frustrating app screen and redesign it with a clear rationale.", category: "Design", format: "project", difficulty: "Intermediate", duration: 30, tags: ["ui", "redesign"] },
-  { id: "design-2", title: "Read: Refactoring UI, Ch. 1–2", description: "The foundational chapters on hierarchy, spacing, and visual design as engineering.", category: "Design", format: "read", difficulty: "Beginner", duration: 30, tags: ["visual-design", "hierarchy"] },
+  { id: "design-2", hook: "Good design is mostly deciding what to remove.", title: "Read: Refactoring UI, Ch. 1–2", description: "The foundational chapters on hierarchy, spacing, and visual design as engineering.", category: "Design", format: "read", difficulty: "Beginner", duration: 30, tags: ["visual-design", "hierarchy"] },
   { id: "design-3", title: "Watch: The Principles of Animation", description: "A concise explainer on easing, timing, and choreography for interface motion.", category: "Design", format: "video", difficulty: "Beginner", duration: 15, tags: ["motion", "animation"] },
   { id: "design-4", title: "Build a Tiny Design System", description: "Define tokens, primitives, and a few components for a fictional product.", category: "Design", format: "project", difficulty: "Advanced", duration: 60, tags: ["design-system", "tokens"] },
 
   // Business
-  { id: "biz-1", title: "Read: The Mom Test, Ch. 1–3", description: "Learn to run customer interviews that surface truth instead of flattery.", category: "Business", format: "read", difficulty: "Beginner", duration: 15, tags: ["customer-dev", "interviews"] },
+  { id: "biz-1", hook: "Your friends lied about your idea. Politely.", title: "Read: The Mom Test, Ch. 1–3", description: "Learn to run customer interviews that surface truth instead of flattery.", category: "Business", format: "read", difficulty: "Beginner", duration: 15, tags: ["customer-dev", "interviews"] },
   { id: "biz-2", title: "Write a One-Page Lean Canvas", description: "Sketch the business model for an idea you have in a single structured page.", category: "Business", format: "project", difficulty: "Beginner", duration: 30, tags: ["lean", "model"] },
   { id: "biz-3", title: "Watch: Pricing Strategy Fundamentals", description: "A primer on value-based vs cost-plus pricing and how to choose.", category: "Business", format: "video", difficulty: "Intermediate", duration: 15, tags: ["pricing", "strategy"] },
   { id: "biz-4", title: "Read: Good Strategy / Bad Strategy, Intro", description: "The kernel of strategy: diagnosis, guiding policy, and coherent action.", category: "Business", format: "read", difficulty: "Intermediate", duration: 30, tags: ["strategy"] },
 
   // Data Science
-  { id: "ds-1", title: "Analyze a Kaggle Dataset End-to-End", description: "Pick a dataset, clean it, explore it, and tell a story with one chart.", category: "Data Science", format: "project", difficulty: "Intermediate", duration: 60, tags: ["eda", "pandas"] },
+  { id: "ds-1", hook: "A chart that changes someone's mind beats a model that doesn't ship.", title: "Analyze a Kaggle Dataset End-to-End", description: "Pick a dataset, clean it, explore it, and tell a story with one chart.", category: "Data Science", format: "project", difficulty: "Intermediate", duration: 60, tags: ["eda", "pandas"] },
   { id: "ds-2", title: "Read: Tidy Data by Hadley Wickham", description: "The canonical paper on structuring datasets for analysis.", category: "Data Science", format: "read", difficulty: "Intermediate", duration: 30, tags: ["tidy-data", "paper"] },
   { id: "ds-3", title: "Watch: SQL Window Functions in 15 Min", description: "Master the most powerful SQL feature with clear examples.", category: "Data Science", format: "video", difficulty: "Intermediate", duration: 15, tags: ["sql", "window-functions"] },
 
   // Creative Writing
-  { id: "cw-1", title: "Write a 500-Word Flash Fiction", description: "A constrained daily prompt to build narrative instinct under pressure.", category: "Creative Writing", format: "project", difficulty: "Beginner", duration: 15, tags: ["fiction", "prompt"] },
+  { id: "cw-1", hook: "500 words. One sitting. No editing until it's done.", title: "Write a 500-Word Flash Fiction", description: "A constrained daily prompt to build narrative instinct under pressure.", category: "Creative Writing", format: "project", difficulty: "Beginner", duration: 15, tags: ["fiction", "prompt"] },
   { id: "cw-2", title: "Read: On Writing, Ch. Toolbox", description: "Stephen King's practical toolkit on vocabulary, grammar, and dialogue.", category: "Creative Writing", format: "read", difficulty: "Beginner", duration: 30, tags: ["craft", "toolkit"] },
   { id: "cw-3", title: "Watch: The Shape of a Good Sentence", description: "A short study of rhythm, cadence, and sentence-level revision.", category: "Creative Writing", format: "video", difficulty: "Intermediate", duration: 15, tags: ["style", "revision"] },
+
+  // ==========================================================================
+  // Media, knowledge AND experiences.
+  // --------------------------------------------------------------------------
+  // The problem statement asks for all three, and IABTM's own platform has
+  // Artists, a podcast and Experts — not just reading lists. These items cover
+  // the other media kinds: something to work to, someone to learn from, and
+  // something to go and do. Each leads with a curiosity hook rather than a
+  // topic label, because a feed of labels is a syllabus, not a curator.
+  // ==========================================================================
+
+  // Music / audio — state regulation. This is what the coach reaches for when
+  // it hears "Burnt Out": you don't hand a burnt-out person a 60-minute lecture.
+  { id: "mus-1", hook: "The sound engineers use to make a room disappear.", title: "Deep Focus: Brown Noise for Flow", description: "A 45-minute unbroken bed of brown noise — no melody to follow, so attention has nothing to chase.", category: "AI/ML", format: "bite", difficulty: "Beginner", duration: 45, tags: ["focus", "audio", "flow"], mediaKind: "music", embedUrl: "https://www.youtube.com/embed/RqzGzwTY-6w" },
+  { id: "mus-2", hook: "Why do so many producers write to music with no words?", title: "Instrumental Study Session", description: "Lyric-free instrumental music. Language competes with language — remove the words and the writing gets easier.", category: "Creative Writing", format: "bite", difficulty: "Beginner", duration: 30, tags: ["focus", "audio", "writing"], mediaKind: "music", embedUrl: "https://www.youtube.com/embed/jfKfPfyJRdk" },
+  { id: "mus-3", hook: "Ten minutes that reset a nervous system.", title: "Downshift: Recovery Audio", description: "Slow, low-tempo audio for the gap between finishing work and being a person again.", category: "Business", format: "bite", difficulty: "Beginner", duration: 10, tags: ["recovery", "audio", "rest"], mediaKind: "music", embedUrl: "https://www.youtube.com/embed/lTRiuFIWV54" },
+
+  // Podcast — IABTM's own BeU Podcast is the integration hook here.
+  { id: "pod-1", hook: "He left the US at 24 and never moved back. What did he see?", title: "BeU Podcast — The Departure to Japan", description: "Ashley Wallace on leaving everything familiar, learning a language from zero, and what courage actually costs.", category: "Business", format: "read", difficulty: "Beginner", duration: 40, tags: ["story", "courage", "iabtm"], mediaKind: "podcast", source: "IABTM" },
+  { id: "pod-2", hook: "The Japanese repair broken pottery with gold. Why?", title: "BeU Podcast — Kintsugi (金継ぎ)", description: "The art of mending with gold, and what it argues about your own cracks. From IABTM's own podcast.", category: "Creative Writing", format: "read", difficulty: "Beginner", duration: 35, tags: ["resilience", "story", "iabtm"], mediaKind: "podcast", source: "IABTM" },
+
+  // Experiences — the "go and do it" tier. Knowledge you can't get by consuming.
+  { id: "exp-1", hook: "You've read enough. What breaks if you ship it today?", title: "Ship One Thing, Badly, In 60 Minutes", description: "Pick the smallest version of the thing you've been researching and put it in front of one real person.", category: "Business", format: "project", difficulty: "Intermediate", duration: 60, tags: ["execution", "shipping"], mediaKind: "practice", steps: ["Pick the smallest shippable slice — one screen, one paragraph, one function.", "Set a 45-minute timer. Build only that.", "Send it to exactly one person who will be honest.", "Write one sentence on what surprised you."] },
+  { id: "exp-2", hook: "Your best ideas don't arrive at a desk.", title: "The Phoneless Walk", description: "Twenty minutes outside with no headphones and no phone. Diffuse-mode thinking is where insight is generated.", category: "Design", format: "bite", difficulty: "Beginner", duration: 20, tags: ["reflection", "walk", "wellbeing"], mediaKind: "practice", steps: ["Leave the phone. Actually leave it.", "Walk for 20 minutes with no destination.", "When you get back, write the first thing that surfaced."] },
+  { id: "exp-3", hook: "Explain it to someone who doesn't care. Can you?", title: "The Feynman Hour", description: "Teach the thing you're learning to one person out loud. The place you stumble is the place you don't know it.", category: "AI/ML", format: "project", difficulty: "Beginner", duration: 30, tags: ["teaching", "retention"], mediaKind: "practice", steps: ["Choose a concept you think you understand.", "Explain it out loud to a person or a camera, no notes.", "Mark every sentence where you hesitated — that's your gap.", "Go read only about the gaps."] },
+
+  // Mentors — "the right mentors at the right moment" is in the brief, and
+  // IABTM already ships Experts and Artists tabs to plug into.
+  { id: "men-1", hook: "Someone two years ahead of you has already solved this.", title: "Talk to a Security Researcher", description: "A 30-minute consultation with a working practitioner instead of another article about the field.", category: "Cybersecurity", format: "read", difficulty: "Intermediate", duration: 30, tags: ["mentor", "career", "iabtm"], mediaKind: "mentor", source: "IABTM", mentor: { name: "IABTM Expert", role: "Security Researcher · Expert consultation" } },
+  { id: "men-2", hook: "The gap between good and hired is usually one conversation.", title: "Portfolio Review with a Designer", description: "Bring one piece of work. Leave with the specific reason it isn't landing yet.", category: "Design", format: "read", difficulty: "Intermediate", duration: 30, tags: ["mentor", "feedback", "iabtm"], mediaKind: "mentor", source: "IABTM", mentor: { name: "IABTM Artist", role: "Product Designer · Artists network" } },
 ];
 
 // Set up a fresh engine for a new user.

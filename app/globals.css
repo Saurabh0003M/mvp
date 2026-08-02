@@ -4,77 +4,94 @@
 
 @layer base {
   :root {
-    /* Recolored to match ascend-redesign's indigo/violet palette */
-    --background: 245 50% 98%;
-    --foreground: 240 16% 12%;
+    /* ---------------------------------------------------------------------
+     * IABTM platform palette. Sampled from the live iambetterthanme
+     * dashboard: pure white canvas, near-black ink, hairline grey borders,
+     * light-grey active states, and a near-black panel as the one high-
+     * contrast surface. Colour appears only as small functional accents
+     * (streak flame, unread badge, online dot) — never as page chrome.
+     * Matching this makes Ascend read as a native IABTM module rather than
+     * a third-party app bolted on.
+     * ------------------------------------------------------------------- */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
     --card: 0 0% 100%;
-    --card-foreground: 240 16% 12%;
+    --card-foreground: 0 0% 7%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 16% 12%;
-    --primary: 240 16% 12%;
-    --primary-foreground: 245 50% 98%;
-    --secondary: 240 20% 96%;
-    --secondary-foreground: 240 16% 12%;
-    --muted: 240 18% 95%;
-    --muted-foreground: 240 10% 48%;
-    --accent: 245 40% 95%;
-    --accent-foreground: 240 16% 12%;
-    --destructive: 0 84% 60%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 0 0% 7%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 7%;
+    --destructive: 4 78% 52%;
     --destructive-foreground: 0 0% 100%;
-    --border: 240 16% 91%;
-    --input: 240 16% 91%;
-    --ring: 245 75% 60%;
-    --radius: 0.75rem;
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 0 0% 7%;
+    --radius: 0.875rem;
 
-    --success: 158 75% 38%;
-    --success-soft: 158 70% 95%;
-    --warning: 38 95% 52%;
-    --warning-soft: 38 85% 95%;
-    --danger: 350 85% 58%;
-    --danger-soft: 350 80% 96%;
+    /* Functional accents — IABTM uses these sparingly and only for state. */
+    --success: 145 63% 42%;
+    --success-soft: 145 50% 96%;
+    --warning: 36 100% 50%;
+    --warning-soft: 36 90% 96%;
+    --danger: 4 78% 52%;
+    --danger-soft: 4 70% 97%;
 
-    /* Category accents — matched to redesign's saturation/hue */
-    --accent-ai: 168 75% 42%;
-    --accent-sec: 200 75% 50%;
-    --accent-web: 262 70% 62%;
-    --accent-bball: 28 88% 56%;
-    --accent-design: 330 80% 60%;
-    --accent-biz: 142 65% 44%;
-    --accent-ds: 190 75% 46%;
-    --accent-cw: 0 75% 58%;
+    /* The signature near-black panel (right rail / progress surface). */
+    --panel: 240 6% 11%;
+    --panel-foreground: 0 0% 98%;
 
-    --paper-tint: 245 40% 95%;
+    /* Category accents stay chromatic — they are wayfinding, not decoration,
+     * and mirror the pastel icon chips inside IABTM's own dark panel. */
+    --accent-ai: 168 62% 38%;
+    --accent-sec: 205 70% 46%;
+    --accent-web: 258 58% 58%;
+    --accent-bball: 28 84% 52%;
+    --accent-design: 330 66% 55%;
+    --accent-biz: 145 55% 40%;
+    --accent-ds: 192 66% 42%;
+    --accent-cw: 4 70% 55%;
+
+    --paper-tint: 0 0% 96%;
   }
 
   .dark {
-    --background: 240 18% 6%;
-    --foreground: 245 40% 96%;
-    --card: 240 14% 10%;
-    --card-foreground: 245 40% 96%;
-    --popover: 240 14% 10%;
-    --popover-foreground: 245 40% 96%;
-    --primary: 245 40% 96%;
-    --primary-foreground: 240 16% 12%;
-    --secondary: 240 12% 16%;
-    --secondary-foreground: 245 40% 96%;
-    --muted: 240 12% 16%;
-    --muted-foreground: 240 10% 65%;
-    --accent: 240 12% 18%;
-    --accent-foreground: 245 40% 96%;
-    --destructive: 0 84% 60%;
+    --background: 240 6% 7%;
+    --foreground: 0 0% 98%;
+    --card: 240 6% 11%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 6% 11%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 6% 7%;
+    --secondary: 240 5% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 5% 16%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 240 5% 18%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 4 78% 58%;
     --destructive-foreground: 0 0% 100%;
-    --border: 240 12% 20%;
-    --input: 240 12% 20%;
-    --ring: 245 75% 60%;
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 0 0% 90%;
 
-    --success: 158 75% 48%;
-    --success-soft: 158 50% 16%;
-    --warning: 38 95% 60%;
-    --warning-soft: 38 60% 16%;
-    --danger: 350 85% 64%;
-    --danger-soft: 350 50% 16%;
+    --success: 145 55% 50%;
+    --success-soft: 145 35% 15%;
+    --warning: 36 100% 58%;
+    --warning-soft: 36 50% 15%;
+    --danger: 4 78% 60%;
+    --danger-soft: 4 45% 15%;
 
-    --paper-tint: 240 12% 18%;
+    --panel: 240 5% 16%;
+    --panel-foreground: 0 0% 98%;
+
+    --paper-tint: 240 5% 18%;
   }
 }
 
@@ -165,39 +182,39 @@
     -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
 
+  /* Neutral, low-spread shadows — IABTM cards read as hairline-bordered
+   * surfaces, not floating material. Shadow does the minimum work. */
   .shadow-soft {
-    box-shadow: 0 1px 3px rgba(99, 102, 241, 0.03),
-      0 10px 30px rgba(99, 102, 241, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03),
+      0 4px 12px rgba(0, 0, 0, 0.04);
   }
   .shadow-card {
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04),
-      0 16px 40px rgba(99, 102, 241, 0.08),
-      0 32px 72px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+      0 8px 24px rgba(0, 0, 0, 0.06);
   }
   .shadow-lifted {
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06),
-      0 24px 64px rgba(99, 102, 241, 0.14),
-      0 60px 120px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06),
+      0 16px 48px rgba(0, 0, 0, 0.10);
   }
   .shadow-inset-hairline {
     box-shadow: inset 0 0 0 1px hsl(var(--border));
   }
 
-  /* Grain texture, recolored to the indigo palette */
-  .bg-grain {
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.05) 1px, transparent 0);
-    background-size: 24px 24px;
+  /* The near-black panel IABTM uses for progress/state surfaces. */
+  .bg-panel {
+    background: hsl(var(--panel));
+    color: hsl(var(--panel-foreground));
   }
 
-  /* Sunfaded gradient, recolored to indigo/violet */
+  /* Grain is effectively off — IABTM's canvas is flat white. Kept as a
+   * no-op-ish hook so existing class usages don't need touching. */
+  .bg-grain {
+    background-image: none;
+  }
+
+  /* Flat white canvas (name kept for compatibility with existing markup). */
   .bg-sunfade {
-    background: linear-gradient(
-      160deg,
-      hsl(245 50% 99%) 0%,
-      hsl(245 40% 96%) 45%,
-      hsl(245 30% 93%) 100%
-    );
+    background: hsl(var(--background));
   }
 
   .text-balance {

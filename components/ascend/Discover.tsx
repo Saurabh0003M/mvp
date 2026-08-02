@@ -111,25 +111,30 @@ export function Discover({
 
   // Right-rail context — always shows the aspiration + trajectory + pivot,
   // even on the Explore/Taste tabs, so identity stays anchored.
+  // IABTM renders its progress surface as a single near-black panel in the
+  // right rail. Mirroring that makes Ascend read as a native module.
   const rightRail = (
     <div className="space-y-4">
       <motion.div
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: EASE }}
-        className="rounded-2xl border border-border bg-card p-5 shadow-soft"
+        className="rounded-2xl bg-panel p-5 text-panel-foreground"
       >
-        <div className="text-micro text-muted-foreground">Becoming</div>
-        <div className="mt-1 text-balance font-display text-2xl font-medium leading-tight tracking-tight">
-          {profile.aspiration}
+        <div className="text-micro text-panel-foreground/55">You&apos;re currently at</div>
+        <div className="mt-1.5 text-balance font-display text-xl font-medium leading-snug tracking-tight">
+          Becoming {profile.aspiration}
         </div>
-        <div className="mt-3">
-          <TrajectoryStrip state={state} profile={profile} />
-        </div>
-        <div className="mt-2">
-          <PivotBanner ccs={ccs} />
+
+        <div className="mt-4 space-y-2.5 border-t border-white/10 pt-4">
+          <PanelStat label="Cards reviewed" value={state.history.length} />
+          <PanelStat label="Quests accepted" value={state.accepted.length} />
+          <PanelStat label="Saved for later" value={state.later.length} />
         </div>
       </motion.div>
+
+      <TrajectoryStrip state={state} profile={profile} />
+      <PivotBanner ccs={ccs} />
     </div>
   );
 
@@ -242,5 +247,14 @@ export function Discover({
       <VoiceCoach messages={messages} reading={reading} onConverse={onConverse} />
       <Toast message={toast} />
     </AppShell>
+  );
+}
+
+function PanelStat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-caption text-panel-foreground/60">{label}</span>
+      <span className="text-subtitle tabular-nums">{value}</span>
+    </div>
   );
 }

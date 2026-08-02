@@ -104,18 +104,48 @@ const CHANNELS = [
   },
 ];
 
-const HOOK_TEMPLATES = [
-  (t) => `Most people never ask this: ${lower(t)}?`,
-  (t) => `There's a reason this keeps coming back.`,
-  (t) => `You've felt this. It has a name.`,
-  (t) => `The part nobody explains about ${lower(t)}.`,
-  (t) => `Worth 12 minutes of your attention.`,
-];
-
-function lower(s) {
-  const clean = s.replace(/[|].*$/, "").replace(/["“”]/g, "").trim();
-  return clean.charAt(0).toLowerCase() + clean.slice(1);
-}
+// Curiosity hooks, per channel. Deliberately NOT spliced from the title —
+// interpolating a headline mid-sentence mangles capitalisation and reads
+// machine-made. These open a loop the title then answers, which is the whole
+// point: the card sells the gap, not the label.
+const HOOKS = {
+  Film: [
+    "Every story you love uses this. Most people never notice.",
+    "The edit is where the meaning actually gets made.",
+    "Watch how they hold the shot one beat too long.",
+    "Craft you can steal, in about ten minutes.",
+  ],
+  Music: [
+    "Put this on. Come back in an hour and see what changed.",
+    "Sound engineers use this to make a room disappear.",
+    "No lyrics. Your brain stops competing for language.",
+    "For the part of the day where thinking is hard.",
+  ],
+  Art: [
+    "Style isn't found. It's the residue of a thousand decisions.",
+    "How the work actually gets made, without the mythology.",
+    "The blank page problem, solved by people who face it daily.",
+    "Ten minutes inside somebody else's process.",
+  ],
+  Animation: [
+    "Twelve rules explain almost every frame you've ever loved.",
+    "Movement is timing. Timing is a decision.",
+    "Why some motion feels alive and some feels dead.",
+    "The craft hiding inside three seconds of screen time.",
+  ],
+  Editorial: [
+    "You've felt this. It turns out it has a name.",
+    "The comfortable version of this story is wrong.",
+    "Worth the argument it'll start in your head.",
+    "Most advice skips the part that actually matters.",
+  ],
+  Print: [
+    "Reading more isn't about discipline. It's about design.",
+    "The habit is smaller than you think it is.",
+    "What people who write every day do differently.",
+    "Slow down. That's the entire technique.",
+  ],
+};
 
 /** ISO-8601 PT#M#S -> minutes (rounded up, min 1). */
 function isoToMinutes(iso) {
@@ -169,7 +199,8 @@ async function ingestChannel({ channel, category, queries }) {
       if (views < 1000) continue;                     // weak but real trust signal
 
       const title = v.snippet.title;
-      const hook = HOOK_TEMPLATES[items.length % HOOK_TEMPLATES.length](title);
+      const pool = HOOKS[channel];
+      const hook = pool[items.length % pool.length];
       const isMusic = channel === "Music";
 
       items.push({

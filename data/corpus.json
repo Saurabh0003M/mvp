@@ -1,0 +1,1415 @@
+{
+  "generatedAt": "2026-08-02T01:15:56.949Z",
+  "source": "YouTube Data API v3",
+  "note": "Metadata only. Playback uses YouTube's embedded player; nothing is re-hosted.",
+  "counts": {
+    "Film": 12,
+    "Music": 7,
+    "Art": 12,
+    "Animation": 14,
+    "Editorial": 14,
+    "Print": 11
+  },
+  "items": [
+    {
+      "id": "yt-t5Z-Q1bg1tU",
+      "hook": "Every story you love uses this. Most people never notice.",
+      "title": "How To Become A Master Storyteller",
+      "description": "Get my free guide on how to build a winning content system (1B+ views, 1M+ followers): https://shortformsystem.co ",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 11,
+      "tags": [
+        "film",
+        "kallaway"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/t5Z-Q1bg1tU",
+      "thumbnail": "https://i.ytimg.com/vi/t5Z-Q1bg1tU/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=t5Z-Q1bg1tU"
+    },
+    {
+      "id": "yt-PZ9JCZececc",
+      "hook": "The edit is where the meaning actually gets made.",
+      "title": "How To Make A Video Essay",
+      "description": "How do you make a good video essay? In this video I give my two cents on the topic, as well as start drama and slag off my peers.",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 22,
+      "tags": [
+        "film",
+        "the closer look"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/PZ9JCZececc",
+      "thumbnail": "https://i.ytimg.com/vi/PZ9JCZececc/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=PZ9JCZececc"
+    },
+    {
+      "id": "yt-3zJEC91rdto",
+      "hook": "Watch how they hold the shot one beat too long.",
+      "title": "The White Lotus: Crafting a Story World",
+      "description": "Honestly, I’d watch Aubrey Plaza and Michael Imperioli wear nice clothes and stroll around Sicily even if the show were complete garbage…but it’s not! Turns out artistic thought an",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "read",
+      "difficulty": "Advanced",
+      "duration": 44,
+      "tags": [
+        "film",
+        "j.r.r. talkin'"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/3zJEC91rdto",
+      "thumbnail": "https://i.ytimg.com/vi/3zJEC91rdto/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=3zJEC91rdto"
+    },
+    {
+      "id": "yt-4PqGPZtyFtw",
+      "hook": "Craft you can steal, in about ten minutes.",
+      "title": "I tried Nelson’s 9 Steps for Story Writing (and it's brilliant)",
+      "description": "Join my coaching program, BOOKFOX LAB.",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 15,
+      "tags": [
+        "film",
+        "bookfox"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/4PqGPZtyFtw",
+      "thumbnail": "https://i.ytimg.com/vi/4PqGPZtyFtw/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=4PqGPZtyFtw"
+    },
+    {
+      "id": "yt-WYHrDyCMUmg",
+      "hook": "Every story you love uses this. Most people never notice.",
+      "title": "How To Write Any Story - Why Pacing Is Everything",
+      "description": "Should you avoid formulas when writing a story? In this video I talk about why I think you should avoid formulas and what you should do instead to construct a good plot.",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 25,
+      "tags": [
+        "film",
+        "the second story"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/WYHrDyCMUmg",
+      "thumbnail": "https://i.ytimg.com/vi/WYHrDyCMUmg/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=WYHrDyCMUmg"
+    },
+    {
+      "id": "yt-CvLQJReDhic",
+      "hook": "The edit is where the meaning actually gets made.",
+      "title": "Composition In Storytelling",
+      "description": "Support The House of Tabula: ",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 15,
+      "tags": [
+        "film",
+        "the house of tabula"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/CvLQJReDhic",
+      "thumbnail": "https://i.ytimg.com/vi/CvLQJReDhic/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=CvLQJReDhic"
+    },
+    {
+      "id": "yt-iWQQgZh9EyE",
+      "hook": "Watch how they hold the shot one beat too long.",
+      "title": "Visual Storytelling 101",
+      "description": "Get Philip Bloom's Class: http://bit.ly/PBloomfr",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 14,
+      "tags": [
+        "film",
+        "film riot"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/iWQQgZh9EyE",
+      "thumbnail": "https://i.ytimg.com/vi/iWQQgZh9EyE/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=iWQQgZh9EyE"
+    },
+    {
+      "id": "yt-OrG3kHkLJyo",
+      "hook": "Craft you can steal, in about ten minutes.",
+      "title": "BETTER Visual Storytelling With This Simple Technique",
+      "description": "Script powerful stories for your videos in 30 minutes ⬇️",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 3,
+      "tags": [
+        "film",
+        "by almén"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/OrG3kHkLJyo",
+      "thumbnail": "https://i.ytimg.com/vi/OrG3kHkLJyo/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=OrG3kHkLJyo"
+    },
+    {
+      "id": "yt-hUmZldt0DTg",
+      "hook": "Every story you love uses this. Most people never notice.",
+      "title": "Ultimate Guide to Film Composition & Framing — Key Elements Explained [Shot List Ep. 11]",
+      "description": "In this episode of The Shot List, we break down of the elements of film composition and framing — how they work together to create depth, meaning, and aesthetics in cinematography.",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 18,
+      "tags": [
+        "film",
+        "studiobinder"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/hUmZldt0DTg",
+      "thumbnail": "https://i.ytimg.com/vi/hUmZldt0DTg/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=hUmZldt0DTg"
+    },
+    {
+      "id": "yt-f-ig5uV-Ylw",
+      "hook": "The edit is where the meaning actually gets made.",
+      "title": "Film Blocking: The SECRET to Visual Storytelling",
+      "description": "Documentary Filmmaking Course: https://www.documentaryfilmmaker.co/",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 9,
+      "tags": [
+        "film",
+        "alex zarfati"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/f-ig5uV-Ylw",
+      "thumbnail": "https://i.ytimg.com/vi/f-ig5uV-Ylw/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=f-ig5uV-Ylw"
+    },
+    {
+      "id": "yt-UFz_qyMOwsA",
+      "hook": "Watch how they hold the shot one beat too long.",
+      "title": "This is How You Practice Cinematography (All By Yourself)",
+      "description": "Cinematography is the art of creating motion pictures and I want to show you how to practice cinematography to enhance your visual storytelling abilities. If you want more videos l",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 11,
+      "tags": [
+        "film",
+        "dylan batista"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/UFz_qyMOwsA",
+      "thumbnail": "https://i.ytimg.com/vi/UFz_qyMOwsA/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=UFz_qyMOwsA"
+    },
+    {
+      "id": "yt-WMcWLFtGnAs",
+      "hook": "Craft you can steal, in about ten minutes.",
+      "title": "Directing Without Words: Visual Storytelling in Film",
+      "description": "In this video, we break down how filmmakers tell powerful stories without relying on dialogue.",
+      "category": "Creative Writing",
+      "channel": "Film",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 9,
+      "tags": [
+        "film",
+        "studiobinder"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/WMcWLFtGnAs",
+      "thumbnail": "https://i.ytimg.com/vi/WMcWLFtGnAs/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=WMcWLFtGnAs"
+    },
+    {
+      "id": "yt-0rZ-SRGfeWg",
+      "hook": "Put this on. Come back in an hour and see what changed.",
+      "title": "DEEP FOCUS | Mystical Music to Support Concentration and Inner Immersion | 174Hz",
+      "description": "This immersive composition unfolds with deep, enveloping sounds where resonant basses blend seamlessly with slow, undulating pads, creating a hypnotic mantra-like atmosphere. Each ",
+      "category": "Design",
+      "channel": "Music",
+      "format": "bite",
+      "difficulty": "Advanced",
+      "duration": 60,
+      "tags": [
+        "music",
+        "zen celesta"
+      ],
+      "mediaKind": "music",
+      "embedUrl": "https://www.youtube.com/embed/0rZ-SRGfeWg",
+      "thumbnail": "https://i.ytimg.com/vi/0rZ-SRGfeWg/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=0rZ-SRGfeWg"
+    },
+    {
+      "id": "yt-a8ATfWx4N0w",
+      "hook": "Sound engineers use this to make a room disappear.",
+      "title": "10 Minute Meditation Music • \"Deep Focus\" Brain Power, Focus Concentration Music",
+      "description": "Enjoy this free 10 minute Meditation Music by Deep Breath - Relaxing Music!",
+      "category": "Design",
+      "channel": "Music",
+      "format": "bite",
+      "difficulty": "Beginner",
+      "duration": 10,
+      "tags": [
+        "music",
+        "deep breath - relaxing m"
+      ],
+      "mediaKind": "music",
+      "embedUrl": "https://www.youtube.com/embed/a8ATfWx4N0w",
+      "thumbnail": "https://i.ytimg.com/vi/a8ATfWx4N0w/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=a8ATfWx4N0w"
+    },
+    {
+      "id": "yt-s19Fr-_WaXo",
+      "hook": "No lyrics. Your brain stops competing for language.",
+      "title": "How Music Affects Your Brain",
+      "description": "You may want to consider learning an instrument.",
+      "category": "Design",
+      "channel": "Music",
+      "format": "bite",
+      "difficulty": "Beginner",
+      "duration": 2,
+      "tags": [
+        "music",
+        "buzzfeedvideo"
+      ],
+      "mediaKind": "music",
+      "embedUrl": "https://www.youtube.com/embed/s19Fr-_WaXo",
+      "thumbnail": "https://i.ytimg.com/vi/s19Fr-_WaXo/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=s19Fr-_WaXo"
+    },
+    {
+      "id": "yt-wAafVviGxhk",
+      "hook": "For the part of the day where thinking is hard.",
+      "title": "Music’s power over your brain, explained | Michael Spitzer",
+      "description": "Humans are musical animals 4 million years in the making, explained by music expert Michael Spitzer.",
+      "category": "Design",
+      "channel": "Music",
+      "format": "bite",
+      "difficulty": "Beginner",
+      "duration": 8,
+      "tags": [
+        "music",
+        "big think"
+      ],
+      "mediaKind": "music",
+      "embedUrl": "https://www.youtube.com/embed/wAafVviGxhk",
+      "thumbnail": "https://i.ytimg.com/vi/wAafVviGxhk/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=wAafVviGxhk"
+    },
+    {
+      "id": "yt-W6GI2vpCrbM",
+      "hook": "Put this on. Come back in an hour and see what changed.",
+      "title": "Neuroscientist Talks Music's Effects on the Brain",
+      "description": "The way you perceive and understand a movie is influenced by the soundtrack playing (or in some cases, not playing) during particular scenes. Tufts University neuroscientist Anirud",
+      "category": "Design",
+      "channel": "Music",
+      "format": "bite",
+      "difficulty": "Beginner",
+      "duration": 3,
+      "tags": [
+        "music",
+        "world science festival"
+      ],
+      "mediaKind": "music",
+      "embedUrl": "https://www.youtube.com/embed/W6GI2vpCrbM",
+      "thumbnail": "https://i.ytimg.com/vi/W6GI2vpCrbM/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=W6GI2vpCrbM"
+    },
+    {
+      "id": "yt-j8L6IvuYGOQ",
+      "hook": "Sound engineers use this to make a room disappear.",
+      "title": "WORK MUSIC - 1 Hour of Ultimate Work Music for Deep Focus and Efficiency #3",
+      "description": "WORK MUSIC - 1 Hour of Ultimate Work Music for Deep Focus and Efficiency",
+      "category": "Design",
+      "channel": "Music",
+      "format": "bite",
+      "difficulty": "Advanced",
+      "duration": 71,
+      "tags": [
+        "music",
+        "deep chill music"
+      ],
+      "mediaKind": "music",
+      "embedUrl": "https://www.youtube.com/embed/j8L6IvuYGOQ",
+      "thumbnail": "https://i.ytimg.com/vi/j8L6IvuYGOQ/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=j8L6IvuYGOQ"
+    },
+    {
+      "id": "yt-5sZrduupw4Y",
+      "hook": "No lyrics. Your brain stops competing for language.",
+      "title": "Deep Work Music – Hyperfocus Performance Environment | High Level Night Coding & Deep Productivity",
+      "description": "🎧 Deep work music for hyperfocus, night coding and high level productivity.",
+      "category": "Design",
+      "channel": "Music",
+      "format": "bite",
+      "difficulty": "Advanced",
+      "duration": 87,
+      "tags": [
+        "music",
+        "deep idle room"
+      ],
+      "mediaKind": "music",
+      "embedUrl": "https://www.youtube.com/embed/5sZrduupw4Y",
+      "thumbnail": "https://i.ytimg.com/vi/5sZrduupw4Y/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=5sZrduupw4Y"
+    },
+    {
+      "id": "yt-AT7jKNlgbBI",
+      "hook": "Style isn't found. It's the residue of a thousand decisions.",
+      "title": "Kiki Smith – 'I Make Things to Experience the Process' | TateShots",
+      "description": "'I don't question my impetus...I just do it and see what happens,' says artist Kiki Smith.",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 4,
+      "tags": [
+        "art",
+        "tate"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/AT7jKNlgbBI",
+      "thumbnail": "https://i.ytimg.com/vi/AT7jKNlgbBI/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=AT7jKNlgbBI"
+    },
+    {
+      "id": "yt-Nu9jTzLcees",
+      "hook": "How the work actually gets made, without the mythology.",
+      "title": "Behind the Art - A Short Documentary",
+      "description": "I recently had the opportunity to film this Short Documentary featuring Chicago-based painter Joe Miller. Joe's work was very inspiring when I first saw it and so I decided that I ",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 6,
+      "tags": [
+        "art",
+        "emilio - afaq films"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/Nu9jTzLcees",
+      "thumbnail": "https://i.ytimg.com/vi/Nu9jTzLcees/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=Nu9jTzLcees"
+    },
+    {
+      "id": "yt-2kupvmR9hyQ",
+      "hook": "The blank page problem, solved by people who face it daily.",
+      "title": "Unintentional ASMR 🧙‍♀️ How Animes are Made in Japan (Relaxing Documentary, Subtitles)",
+      "description": "Full source video: https://youtu.be/7LgHOUTZ8Gc ",
+      "category": "Design",
+      "channel": "Art",
+      "format": "read",
+      "difficulty": "Advanced",
+      "duration": 41,
+      "tags": [
+        "art",
+        "best unintentional asmr"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/2kupvmR9hyQ",
+      "thumbnail": "https://i.ytimg.com/vi/2kupvmR9hyQ/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=2kupvmR9hyQ"
+    },
+    {
+      "id": "yt-SLfH9yOGs3o",
+      "hook": "Ten minutes inside somebody else's process.",
+      "title": "How to find your art style FAST in 3 easy steps (yeah, really)",
+      "description": "Your art style is the product of thousands of little decisions you make about your art while going along your journey-- but what if it was possible to deliberately craft it?",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 8,
+      "tags": [
+        "art",
+        "kelsey rodriguez"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/SLfH9yOGs3o",
+      "thumbnail": "https://i.ytimg.com/vi/SLfH9yOGs3o/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=SLfH9yOGs3o"
+    },
+    {
+      "id": "yt-VQxI59BQC9Y",
+      "hook": "Style isn't found. It's the residue of a thousand decisions.",
+      "title": "The Link Between Personal Style and Identity | Molly Bingaman | TEDxUMKC",
+      "description": "Molly Bingaman has a passion for helping people see their true beauty. She founded Ladybird Styling in 2010 with the bold intent of changing the way people see themselves, their st",
+      "category": "Design",
+      "channel": "Art",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 18,
+      "tags": [
+        "art",
+        "tedx talks"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/VQxI59BQC9Y",
+      "thumbnail": "https://i.ytimg.com/vi/VQxI59BQC9Y/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=VQxI59BQC9Y"
+    },
+    {
+      "id": "yt-A3kyKh44EbY",
+      "hook": "How the work actually gets made, without the mythology.",
+      "title": "How To Develop A Consistent Art Style: 6 Proven Strategies (including examples)",
+      "description": "Complete article: https://www.contemporaryartissue.com/how-to-develop-a-consistent-art-style/",
+      "category": "Design",
+      "channel": "Art",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 28,
+      "tags": [
+        "art",
+        "contemporary art issue"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/A3kyKh44EbY",
+      "thumbnail": "https://i.ytimg.com/vi/A3kyKh44EbY/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=A3kyKh44EbY"
+    },
+    {
+      "id": "yt-h2CSJfqkSSI",
+      "hook": "The blank page problem, solved by people who face it daily.",
+      "title": "How to ACTUALLY Find Your ART STYLE!! 👀🎨",
+      "description": "Going to therapy is a sign of strength, not weakness. My paid partner BetterHelp makes therapy simple, with 10% off your first month to help you get started: https://betterhelp.com",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 13,
+      "tags": [
+        "art",
+        "shrimpy"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/h2CSJfqkSSI",
+      "thumbnail": "https://i.ytimg.com/vi/h2CSJfqkSSI/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=h2CSJfqkSSI"
+    },
+    {
+      "id": "yt-gjKQKYz5ZtM",
+      "hook": "Ten minutes inside somebody else's process.",
+      "title": "How To Find Your Art Style (Using this 1 Exercise & 6 Possible Strategies)",
+      "description": "Watch the video discussing the 6 strategies & 12 case studies here: https://youtu.be/A3kyKh44EbY or find more advice for artists at https://www.contemporaryartissue.com/advice-for-",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 12,
+      "tags": [
+        "art",
+        "contemporary art issue"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/gjKQKYz5ZtM",
+      "thumbnail": "https://i.ytimg.com/vi/gjKQKYz5ZtM/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=gjKQKYz5ZtM"
+    },
+    {
+      "id": "yt-cq3QBKbHUro",
+      "hook": "Style isn't found. It's the residue of a thousand decisions.",
+      "title": "How to Overcome Creative Blocks and Fuel Inspiration",
+      "description": "How to overcome creative block and fuel inspiration. ",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 12,
+      "tags": [
+        "art",
+        "david choe"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/cq3QBKbHUro",
+      "thumbnail": "https://i.ytimg.com/vi/cq3QBKbHUro/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=cq3QBKbHUro"
+    },
+    {
+      "id": "yt-gTWOgEIV61Q",
+      "hook": "How the work actually gets made, without the mythology.",
+      "title": "How To Unlock Your Creativity When You’re Feeling Blocked 🎨🔑",
+      "description": "Struggling with creative block? In this video, I’ll share 5 things that could be giving you a creative block and how to overcome creative block for good. Whether you're an artist, ",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 7,
+      "tags": [
+        "art",
+        "frankii"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/gTWOgEIV61Q",
+      "thumbnail": "https://i.ytimg.com/vi/gTWOgEIV61Q/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=gTWOgEIV61Q"
+    },
+    {
+      "id": "yt-squjhcFh7sA",
+      "hook": "The blank page problem, solved by people who face it daily.",
+      "title": "How To Overcome Creative Block (Music Producers)",
+      "description": "Do you find yourself struggling to produce music because of writer's block? Check out this video for 5 helpful tips on how to overcome writer's block and creative block as a music ",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 11,
+      "tags": [
+        "art",
+        "thecosmicacademy"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/squjhcFh7sA",
+      "thumbnail": "https://i.ytimg.com/vi/squjhcFh7sA/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=squjhcFh7sA"
+    },
+    {
+      "id": "yt-YjfMgUMDer8",
+      "hook": "Ten minutes inside somebody else's process.",
+      "title": "I fixed my art block forever",
+      "description": "✨ worldofcreatives.com/links",
+      "category": "Design",
+      "channel": "Art",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 10,
+      "tags": [
+        "art",
+        "world of creatives"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/YjfMgUMDer8",
+      "thumbnail": "https://i.ytimg.com/vi/YjfMgUMDer8/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=YjfMgUMDer8"
+    },
+    {
+      "id": "yt-uDqjIdI4bF4",
+      "hook": "Twelve rules explain almost every frame you've ever loved.",
+      "title": "12 Principles of Animation (Official Full Series)",
+      "description": "Further Animation Learning: http://bit.ly/2dleXfH",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 24,
+      "tags": [
+        "animation",
+        "alanbeckertutorials"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/uDqjIdI4bF4",
+      "thumbnail": "https://i.ytimg.com/vi/uDqjIdI4bF4/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=uDqjIdI4bF4"
+    },
+    {
+      "id": "yt-tYc1yUt0IeA",
+      "hook": "Movement is timing. Timing is a decision.",
+      "title": "The 12 Principles of Animation Explained — The Most Important Rules for Animating",
+      "description": "12 Principles of Animation — In this episode of the Shot List, we look at the rules of animation that most animators continue to follow today.",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 27,
+      "tags": [
+        "animation",
+        "studiobinder"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/tYc1yUt0IeA",
+      "thumbnail": "https://i.ytimg.com/vi/tYc1yUt0IeA/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=tYc1yUt0IeA"
+    },
+    {
+      "id": "yt-eaCjdgXQ3nM",
+      "hook": "Why some motion feels alive and some feels dead.",
+      "title": "12 Principles Of Animation In Hindi || Episode - 04 || Op Animation",
+      "description": "12 Principles Of Animation In Hindi || Episode - 04 || Op Animation",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 12,
+      "tags": [
+        "animation",
+        "op animation"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/eaCjdgXQ3nM",
+      "thumbnail": "https://i.ytimg.com/vi/eaCjdgXQ3nM/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=eaCjdgXQ3nM"
+    },
+    {
+      "id": "yt-AjwnQqINn9Y",
+      "hook": "The craft hiding inside three seconds of screen time.",
+      "title": "12 Principles of Animation in Hindi ft. @Artwingstudio.",
+      "description": "join me :",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 13,
+      "tags": [
+        "animation",
+        "art wing studio"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/AjwnQqINn9Y",
+      "thumbnail": "https://i.ytimg.com/vi/AjwnQqINn9Y/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=AjwnQqINn9Y"
+    },
+    {
+      "id": "yt-2BERE-IytcU",
+      "hook": "Twelve rules explain almost every frame you've ever loved.",
+      "title": "How to make a short film | MAKING OF MISMATCHED",
+      "description": "You might have seen the process of making my short animated film 'mismatched' on tiktok. Well, here they are all together so you can see the entire process of creating a short film",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 19,
+      "tags": [
+        "animation",
+        "jackie droujko"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/2BERE-IytcU",
+      "thumbnail": "https://i.ytimg.com/vi/2BERE-IytcU/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=2BERE-IytcU"
+    },
+    {
+      "id": "yt-v61KznXXEj4",
+      "hook": "Movement is timing. Timing is a decision.",
+      "title": "How I wrote, directed & animated a solo feature film",
+      "description": "ORDER TICKETS: https://watch.eventive.org/wd/play/68b1ee1e31b6ef52d6501852",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 13,
+      "tags": [
+        "animation",
+        "cloudrise pictures"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/v61KznXXEj4",
+      "thumbnail": "https://i.ytimg.com/vi/v61KznXXEj4/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=v61KznXXEj4"
+    },
+    {
+      "id": "yt-I-zvS2fJTm8",
+      "hook": "Why some motion feels alive and some feels dead.",
+      "title": "How to Make an Animated Short Film",
+      "description": "Learn all the different steps I took when making my latest animated short film.",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 9,
+      "tags": [
+        "animation",
+        "bloop animation"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/I-zvS2fJTm8",
+      "thumbnail": "https://i.ytimg.com/vi/I-zvS2fJTm8/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=I-zvS2fJTm8"
+    },
+    {
+      "id": "yt-1a8a_a5qORY",
+      "hook": "The craft hiding inside three seconds of screen time.",
+      "title": "Making A Short Animated Film in 2 Weeks | SPACE DATE",
+      "description": "I vlogged my entire process of making my latest short film, Space Date 3: a lunch date in space! pls enjoy, hope you like it cuz it took forever to make!",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 18,
+      "tags": [
+        "animation",
+        "jackie droujko"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/1a8a_a5qORY",
+      "thumbnail": "https://i.ytimg.com/vi/1a8a_a5qORY/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=1a8a_a5qORY"
+    },
+    {
+      "id": "yt-uxgrUx9HkdE",
+      "hook": "Twelve rules explain almost every frame you've ever loved.",
+      "title": "(Step-by-Step) How I Made My Short Film (and how you can make one too)",
+      "description": "After many requests, it's finally been done! Guides, designs, speedpaints, tips and advice, life stories - a full look behind the scenes of my most recent BFA2 short film, Blood Bo",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 22,
+      "tags": [
+        "animation",
+        "zaccr.9"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/uxgrUx9HkdE",
+      "thumbnail": "https://i.ytimg.com/vi/uxgrUx9HkdE/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=uxgrUx9HkdE"
+    },
+    {
+      "id": "yt-Cz-GcIITNrs",
+      "hook": "Movement is timing. Timing is a decision.",
+      "title": "10 Motion Design Principles Every Animator Needs",
+      "description": "🎥 10 Principles of Motion Design – Defined & Visualized (After Effects)",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 5,
+      "tags": [
+        "animation",
+        "joshua craigie"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/Cz-GcIITNrs",
+      "thumbnail": "https://i.ytimg.com/vi/Cz-GcIITNrs/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=Cz-GcIITNrs"
+    },
+    {
+      "id": "yt-0N0NHlvMEWs",
+      "hook": "Why some motion feels alive and some feels dead.",
+      "title": "The Principles of Motion Design",
+      "description": "Without good graphic design, there is no good motion design! Learn the key principles of graphic design and animation principles and bring that into your motion design workflow wit",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 10,
+      "tags": [
+        "animation",
+        "envato tuts+"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/0N0NHlvMEWs",
+      "thumbnail": "https://i.ytimg.com/vi/0N0NHlvMEWs/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=0N0NHlvMEWs"
+    },
+    {
+      "id": "yt-N5ABKYrMlT8",
+      "hook": "The craft hiding inside three seconds of screen time.",
+      "title": "Learn Motion Design In After Effects| Day 103 | Learn Video Editing",
+      "description": "From Aevy Video School.",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 2,
+      "tags": [
+        "animation",
+        "aevy video school"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/N5ABKYrMlT8",
+      "thumbnail": "https://i.ytimg.com/vi/N5ABKYrMlT8/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=N5ABKYrMlT8"
+    },
+    {
+      "id": "yt-CF2xAa8Wujg",
+      "hook": "Twelve rules explain almost every frame you've ever loved.",
+      "title": "IF You ONLY Watch One Motion Design Video, Make It This...",
+      "description": "Try The Luma Agents: https://lumalabs.ai/somrat-dutta",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 12,
+      "tags": [
+        "animation",
+        "somrat dutta"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/CF2xAa8Wujg",
+      "thumbnail": "https://i.ytimg.com/vi/CF2xAa8Wujg/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=CF2xAa8Wujg"
+    },
+    {
+      "id": "yt-9DhC0QYij5I",
+      "hook": "Movement is timing. Timing is a decision.",
+      "title": "5 Tips I Wish I Knew Before I Started Motion Design",
+      "description": "Today we're going over 5 things I wish I knew before I started learning motion design and animation. We'll cover universal tips, principles, and resources for anyone looking to get",
+      "category": "Design",
+      "channel": "Animation",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 4,
+      "tags": [
+        "animation",
+        "nowack design"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/9DhC0QYij5I",
+      "thumbnail": "https://i.ytimg.com/vi/9DhC0QYij5I/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=9DhC0QYij5I"
+    },
+    {
+      "id": "yt-Scwsg9Ai3rg",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "The Myth of Self Improvement",
+      "description": "To try everything Brilliant has to offer—free—for a full 30 days, visit https://brilliant.org/Sisyphus55/ . The first 200 of you will get 20% off Brilliant’s annual premium subscri",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 13,
+      "tags": [
+        "editorial",
+        "sisyphus 55"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/Scwsg9Ai3rg",
+      "thumbnail": "https://i.ytimg.com/vi/Scwsg9Ai3rg/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=Scwsg9Ai3rg"
+    },
+    {
+      "id": "yt-DEz7oJy37lI",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "Why self improvement is ruining your life",
+      "description": "Get 1 audiobook, 2 Audible originals, and a free 30-day trial by going to: https://www.audible.com/betterideas or text \"betterideas\" to 500 500",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 9,
+      "tags": [
+        "editorial",
+        "better ideas"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/DEz7oJy37lI",
+      "thumbnail": "https://i.ytimg.com/vi/DEz7oJy37lI/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=DEz7oJy37lI"
+    },
+    {
+      "id": "yt-U4px3OG3aUU",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "The Problem With Self Improvement",
+      "description": "Let's be honest, we're all guilty of doing this in our self improvement journey.",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 5,
+      "tags": [
+        "editorial",
+        "kenny bender"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/U4px3OG3aUU",
+      "thumbnail": "https://i.ytimg.com/vi/U4px3OG3aUU/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=U4px3OG3aUU"
+    },
+    {
+      "id": "yt-_wVuCGG2qFs",
+      "hook": "Most advice skips the part that actually matters.",
+      "title": "Self Improvement is beautiful and I wish that for you",
+      "description": "Look good, feel good, get girls: https://www.skool.com/library-of-adonis",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 6,
+      "tags": [
+        "editorial",
+        "hamza"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/_wVuCGG2qFs",
+      "thumbnail": "https://i.ytimg.com/vi/_wVuCGG2qFs/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=_wVuCGG2qFs"
+    },
+    {
+      "id": "yt-cYncTRlVT-A",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "How Habits Shape Identity | Identity Driven Habits | Identity Based Habits",
+      "description": "How Habits Shape Identity | Identity Driven Habits | Identity Based Habits",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 2,
+      "tags": [
+        "editorial",
+        "simplify and succeed"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/cYncTRlVT-A",
+      "thumbnail": "https://i.ytimg.com/vi/cYncTRlVT-A/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=cYncTRlVT-A"
+    },
+    {
+      "id": "yt-mBDULN6Jtn0",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "Social Identity Theory - Definition + 3 Components",
+      "description": "Learn more about Henri Tajfel's Social Identity Theory: https://practicalpie.com/social-identity-theory/",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 7,
+      "tags": [
+        "editorial",
+        "practical psychology"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/mBDULN6Jtn0",
+      "thumbnail": "https://i.ytimg.com/vi/mBDULN6Jtn0/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=mBDULN6Jtn0"
+    },
+    {
+      "id": "yt-qYvXk_bqlBk",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "Who are you, really? The puzzle of personality | Brian Little | TED",
+      "description": "Visit http://TED.com to get our entire library of TED Talks, transcripts, translations, personalized talk recommendations and more.",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 15,
+      "tags": [
+        "editorial",
+        "ted"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/qYvXk_bqlBk",
+      "thumbnail": "https://i.ytimg.com/vi/qYvXk_bqlBk/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=qYvXk_bqlBk"
+    },
+    {
+      "id": "yt-vFhKYIXgxM0",
+      "hook": "Most advice skips the part that actually matters.",
+      "title": "How Identity Shapes Personality",
+      "description": "An overview of how personality and identity interact to influence each other. My website: https://chrisgpsych.carrd.co",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 16,
+      "tags": [
+        "editorial",
+        "chris g psych"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/vFhKYIXgxM0",
+      "thumbnail": "https://i.ytimg.com/vi/vFhKYIXgxM0/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=vFhKYIXgxM0"
+    },
+    {
+      "id": "yt-50R21mblLb0",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "The Attention Economy - How They Addict Us",
+      "description": "Please visit Tristan Harris' project Time Well Spent: http://www.timewellspent.io/ (He is, more than anyone I know, fighting against the unethical practices of Silicon Valley).",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 11,
+      "tags": [
+        "editorial",
+        "will schoder"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/50R21mblLb0",
+      "thumbnail": "https://i.ytimg.com/vi/50R21mblLb0/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=50R21mblLb0"
+    },
+    {
+      "id": "yt-sFtemZVFFBw",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "Attention Economy: You Are the Product",
+      "description": "In this video, I have explored the untold truth of the attention economy where our attention functions as currency - Money. ",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 4,
+      "tags": [
+        "editorial",
+        "shin shen"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/sFtemZVFFBw",
+      "thumbnail": "https://i.ytimg.com/vi/sFtemZVFFBw/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=sFtemZVFFBw"
+    },
+    {
+      "id": "yt-ClhyXtoneOc",
+      "hook": "Worth the argument it'll start in your head.",
+      "title": "You didn't lose your attention span. It was stolen.",
+      "description": "We're all worried about declining attention spans, but we forget something important: we didn't lose our attention spans, they were stolen. By looking at the history of newspapers,",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 16,
+      "tags": [
+        "editorial",
+        "jared henderson"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/ClhyXtoneOc",
+      "thumbnail": "https://i.ytimg.com/vi/ClhyXtoneOc/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=ClhyXtoneOc"
+    },
+    {
+      "id": "yt-nMiYX_h6pKU",
+      "hook": "Most advice skips the part that actually matters.",
+      "title": "The Attention Economy Has Lost the Plot",
+      "description": "The attention economy has ballooned into a nightmare. Ads are everywhere, short form is unregulated, and global news has us more afraid than ever before. But what would happen if w",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 17,
+      "tags": [
+        "editorial",
+        "chon digital"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/nMiYX_h6pKU",
+      "thumbnail": "https://i.ytimg.com/vi/nMiYX_h6pKU/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=nMiYX_h6pKU"
+    },
+    {
+      "id": "yt-cZO1B4fZlOw",
+      "hook": "You've felt this. It turns out it has a name.",
+      "title": "How The Attention Economy is Devouring Gen Z | The Ezra Klein Show",
+      "description": "Donald Trump and Zohran Mamdani are both proof of how the ability to capture attention is power. And the attention economy isn’t reshaping just politics; it’s also reshaping the ac",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Advanced",
+      "duration": 66,
+      "tags": [
+        "editorial",
+        "the ezra klein show"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/cZO1B4fZlOw",
+      "thumbnail": "https://i.ytimg.com/vi/cZO1B4fZlOw/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=cZO1B4fZlOw"
+    },
+    {
+      "id": "yt-PUtG4Zmd_AY",
+      "hook": "The comfortable version of this story is wrong.",
+      "title": "The Attention Economy Is Everywhere. Self-Hosting Is the Escape.",
+      "description": "JOIN US on our 30 Day Attention Economy Escape: https://intentionaltech.ca",
+      "category": "Business",
+      "channel": "Editorial",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 21,
+      "tags": [
+        "editorial",
+        "nathan laundry"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/PUtG4Zmd_AY",
+      "thumbnail": "https://i.ytimg.com/vi/PUtG4Zmd_AY/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=PUtG4Zmd_AY"
+    },
+    {
+      "id": "yt-A5ucvNAENjU",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "How to Read Better",
+      "description": "Many people want to become better readers — but they don't know where to start. I share my thoughts on how we can improve our reading, including some practical tips.",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 15,
+      "tags": [
+        "print",
+        "jared henderson"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/A5ucvNAENjU",
+      "thumbnail": "https://i.ytimg.com/vi/A5ucvNAENjU/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=A5ucvNAENjU"
+    },
+    {
+      "id": "yt-ShdRyZDFx4U",
+      "hook": "The habit is smaller than you think it is.",
+      "title": "How to Read When You Hate Reading - 5 Tips and Tricks",
+      "description": "Here's how to read when you hate reading. and when you don't want to.",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 4,
+      "tags": [
+        "print",
+        "better ideas"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/ShdRyZDFx4U",
+      "thumbnail": "https://i.ytimg.com/vi/ShdRyZDFx4U/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=ShdRyZDFx4U"
+    },
+    {
+      "id": "yt-vge9LQIV1bg",
+      "hook": "What people who write every day do differently.",
+      "title": "How to Absorb Books 3x Faster in 7 Days (from a Med Student)",
+      "description": "Reading fast can boost your productivity so that you can study more efficiently at university and medical school. I give tips on how you can triple your reading speed in a very sho",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 6,
+      "tags": [
+        "print",
+        "dr salim ahmed"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/vge9LQIV1bg",
+      "thumbnail": "https://i.ytimg.com/vi/vge9LQIV1bg/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=vge9LQIV1bg"
+    },
+    {
+      "id": "yt-gT1EExZkzMM",
+      "hook": "Slow down. That's the entire technique.",
+      "title": "Ryan Holiday's 3-Step System for Reading Like a Pro",
+      "description": "Check out the Read To Lead Reading Challenge at: https://dailystoic.com/read",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 8,
+      "tags": [
+        "print",
+        "daily stoic"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/gT1EExZkzMM",
+      "thumbnail": "https://i.ytimg.com/vi/gT1EExZkzMM/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=gT1EExZkzMM"
+    },
+    {
+      "id": "yt-Ls2ynrMv10A",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "How To Get The Most Out of A Book - Analytical Reading 101",
+      "description": "For more reading tips + weekly insights, subscribe to my newsletter: A Mug of Insights here: ",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 7,
+      "tags": [
+        "print",
+        "robin waldun"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/Ls2ynrMv10A",
+      "thumbnail": "https://i.ytimg.com/vi/Ls2ynrMv10A/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=Ls2ynrMv10A"
+    },
+    {
+      "id": "yt-6EOBjDdsVWY",
+      "hook": "The habit is smaller than you think it is.",
+      "title": "I tried 13 authors’ writing routines ✨ here's the BEST one",
+      "description": "Get started on Notion for free and create your portrait at https://ntn.so/ChristyAnn ☁️",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 25,
+      "tags": [
+        "print",
+        "christy anne jones"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/6EOBjDdsVWY",
+      "thumbnail": "https://i.ytimg.com/vi/6EOBjDdsVWY/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=6EOBjDdsVWY"
+    },
+    {
+      "id": "yt-n1go2ynbKSk",
+      "hook": "What people who write every day do differently.",
+      "title": "Build a Productive Writing Habit with Freewriting",
+      "description": "New writers can often get caught up in all the things they feel like they're supposed to do that they can get stuck before they even get started. By practicing freewriting, though,",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 19,
+      "tags": [
+        "print",
+        "writing with andrew"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/n1go2ynbKSk",
+      "thumbnail": "https://i.ytimg.com/vi/n1go2ynbKSk/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=n1go2ynbKSk"
+    },
+    {
+      "id": "yt-a-0tOOiQ1mc",
+      "hook": "Slow down. That's the entire technique.",
+      "title": "How to Create a Writing Habit 👉 The 3-Step Process",
+      "description": "✍️ Join our next Scene Writing Workshop: https://store.storygrid.com/scene-workshop/?utm_source=youtube&utm_medium=social&utm_content=How+to+Create+a+Writing+Habit",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Intermediate",
+      "duration": 13,
+      "tags": [
+        "print",
+        "story grid"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/a-0tOOiQ1mc",
+      "thumbnail": "https://i.ytimg.com/vi/a-0tOOiQ1mc/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=a-0tOOiQ1mc"
+    },
+    {
+      "id": "yt-mFq1LDH62Jc",
+      "hook": "Reading more isn't about discipline. It's about design.",
+      "title": "you're finally going to build a consistent writing habit. here's how.",
+      "description": "#writingabook #writing #howtowriteabook #writingadvice #authortube ",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "read",
+      "difficulty": "Intermediate",
+      "duration": 23,
+      "tags": [
+        "print",
+        "brielle writes"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/mFq1LDH62Jc",
+      "thumbnail": "https://i.ytimg.com/vi/mFq1LDH62Jc/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=mFq1LDH62Jc"
+    },
+    {
+      "id": "yt-NjwEVFtbzx4",
+      "hook": "The habit is smaller than you think it is.",
+      "title": "The SIMPLE WAY to Build a Writing Habit",
+      "description": "Learn how to build a strong writing habit with these simple tips. Great for NaNoWriMo!",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 4,
+      "tags": [
+        "print",
+        "writer brandon mcnulty"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/NjwEVFtbzx4",
+      "thumbnail": "https://i.ytimg.com/vi/NjwEVFtbzx4/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=NjwEVFtbzx4"
+    },
+    {
+      "id": "yt-Ywi4yjiU7IQ",
+      "hook": "What people who write every day do differently.",
+      "title": "Typography Design Tutorial in Canva",
+      "description": "Master the art of typography with your designs! This Canva tutorial dives deep into Typography Design, showing you how to create stunning visuals using text.  Learn font selection,",
+      "category": "Creative Writing",
+      "channel": "Print",
+      "format": "video",
+      "difficulty": "Beginner",
+      "duration": 3,
+      "tags": [
+        "print",
+        "webon"
+      ],
+      "mediaKind": "video",
+      "embedUrl": "https://www.youtube.com/embed/Ywi4yjiU7IQ",
+      "thumbnail": "https://i.ytimg.com/vi/Ywi4yjiU7IQ/hqdefault.jpg",
+      "source": "YouTube",
+      "sourceUrl": "https://www.youtube.com/watch?v=Ywi4yjiU7IQ"
+    }
+  ]
+}

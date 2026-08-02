@@ -16,13 +16,14 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { type SwipeDirection } from "@/lib/engine";
 import {
   type Recommendation,
   CATEGORY_ACCENTS,
   MEDIA_KIND_LABELS,
   resolveMediaKind,
 } from "@/lib/engine";
-import { X, ExternalLink, Check, Clock, Sparkles } from "lucide-react";
+import { X, ExternalLink, Check, Clock, Sparkles, ThumbsDown, Bookmark } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -30,11 +31,24 @@ interface Props {
   card: Recommendation | null;
   onClose: () => void;
   onComplete: (card: Recommendation) => void;
+  /**
+   * True when the card is already in the user's list (opened by accepting it).
+   * Preview mode (false) means no decision has been recorded yet, so the
+   * viewer offers all three, and closing costs nothing.
+   */
+  decided?: boolean;
+  /** Records a decision made after actually seeing the content. */
+  onDecide?: (card: Recommendation, dir: SwipeDirection) => void;
 }
 
-export function ContentViewer({ card, onClose, onComplete }: Props) {
+export function ContentViewer({ card, onClose, onComplete, decided = false, onDecide }: Props) {
   const [done, setDone] = useState(false);
   const [checked, setChecked] = useState<Record<number, boolean>>({});
+
+  function decide(dir: SwipeDirection) {
+    if (card && onDecide) onDecide(card, dir);
+    onClose();
+  }
 
   useEffect(() => {
     if (card) {
@@ -201,23 +215,60 @@ export function ContentViewer({ card, onClose, onComplete }: Props) {
               </div>
             </div>
 
-            {/* Footer — completion is the strongest signal we can collect */}
-            <div className="flex items-center justify-between gap-3 border-t border-border px-5 py-4">
+            {/* Footer — every exit is a decision.
+                Seeing the real thing is when you actually know whether you
+                want it, so the viewer has to offer the same three answers the
+                deck does. Closing with an X used to be the only way out,
+                which threw away the highest-quality signal in the product:
+                what you decided *after* looking. */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-5 py-4">
               <span className="text-caption text-muted-foreground">
-                {done ? "Logged. That shapes what comes next." : "Finished it?"}
+                {done ? "Logged. That shapes what comes next." : "What do you want to do with it?"}
               </span>
-              <button
-                onClick={() => {
-                  setDone(true);
-                  onComplete(card);
-                  window.setTimeout(onClose, 900);
-                }}
-                disabled={done}
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-caption text-background transition-opacity disabled:opacity-60"
-              >
-                {done ? <Sparkles className="h-4 w-4" /> : <Check className="h-4 w-4" />}
-                {done ? "Nice" : "Mark done"}
-              </button>
+
+              <div className="flex flex-wrap items-center gap-2">
+                {!done && (
+                  <>
+                    <button
+                      onClick={() => decide("skip")}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-caption text-muted-foreground transition-colors hover:border-danger/40 hover:text-foreground"
+                    >
+                      <ThumbsDown className="h-3.5 w-3.5" />
+                      Not for me
+                    </button>
+                    <button
+                      onClick={() => decide("later")}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-caption text-foreground/80 transition-colors hover:bg-accent"
+                    >
+                      <Bookmark className="h-3.5 w-3.5" />
+                      Save for later
+                    </button>
+                  </>
+                )}
+
+                {decided ? (
+                  <button
+                    onClick={() => {
+                      setDone(true);
+                      onComplete(card);
+                      window.setTimeout(onClose, 900);
+                    }}
+                    disabled={done}
+                    className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-caption text-background transition-opacity disabled:opacity-60"
+                  >
+                    {done ? <Sparkles className="h-4 w-4" /> : <Check className="h-4 w-4" />}
+                    {done ? "Nice" : "Mark done"}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => decide("accept")}
+                    className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-caption text-background transition-opacity hover:opacity-90"
+                  >
+                    <Check className="h-4 w-4" />
+                    Add to my list
+                  </button>
+                )}
+              </div>
             </div>
           </motion.div>
           </div>

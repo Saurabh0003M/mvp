@@ -73,6 +73,9 @@ export function Discover({
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [viewerCard, setViewerCard] = useState<Recommendation | null>(null);
+  // Whether the open card already carries a recorded decision. Preview (false)
+  // means looking is free; the decision is made from inside the viewer.
+  const [viewerDecided, setViewerDecided] = useState(false);
   const [showHints, setShowHints] = useState(true);
   const [dismissedCooldownTurn, setDismissedCooldownTurn] = useState<number | null>(null);
   const [prevWeights, setPrevWeights] = useState(() =>
@@ -128,7 +131,23 @@ export function Discover({
   // leaving the user holding a card that does nothing.
   const handleSwipe = (card: Recommendation, dir: SwipeDirection) => {
     onSwipe(card, dir);
-    if (dir === "accept") setViewerCard(card);
+    if (dir === "accept") {
+      setViewerDecided(true);
+      setViewerCard(card);
+    }
+  };
+
+  // Looking is free. Opening a card from the deck or the grid records nothing —
+  // the decision happens inside the viewer, once you actually know.
+  const handlePreview = (card: Recommendation) => {
+    setViewerDecided(false);
+    setViewerCard(card);
+  };
+
+  // A decision made after seeing the real thing is the highest-quality signal
+  // in the product, so it flows through the same engine path as a swipe.
+  const handleDecide = (card: Recommendation, dir: SwipeDirection) => {
+    onSwipe(card, dir);
   };
 
   // Right-rail context — always shows the aspiration + trajectory + pivot,
@@ -194,6 +213,7 @@ export function Discover({
               state={state}
               profile={profile}
               onSwipe={handleSwipe}
+              onPreview={handlePreview}
               showHints={showHints}
               showCooldown={showCooldown}
               onCooldownDismiss={dismissCooldown}
@@ -207,7 +227,7 @@ export function Discover({
 
       {/* ── EXPLORE — IABTM channel grid ── */}
       {tab === "explore" && (
-        <div className="mx-auto flex w-full max-w-[920px] flex-col px-4 py-6 sm:px-6">
+        <div className="mx-auto flex w-full max-w-[1120px] flex-col px-5 py-6 sm:px-8">
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -227,9 +247,9 @@ export function Discover({
 
           <div className="mt-5 w-full">
             {exploreCards.length > 0 ? (
-              <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-3">
                 {exploreCards.map((card) => (
-                  <ExploreTile key={card.id} card={card} onOpen={setViewerCard} />
+                  <ExploreTile key={card.id} card={card} onOpen={handlePreview} />
                 ))}
               </div>
             ) : (
@@ -287,6 +307,8 @@ export function Discover({
         card={viewerCard}
         onClose={() => setViewerCard(null)}
         onComplete={() => {}}
+        decided={viewerDecided}
+        onDecide={handleDecide}
       />
       <QuestsShelf open={questsOpen} onClose={() => setQuestsOpen(false)} state={state} mode="accepted" />
       <QuestsShelf open={laterOpen} onClose={() => setLaterOpen(false)} state={state} onResurface={onResurface} mode="later" />
@@ -330,15 +352,6 @@ function ChannelFilter({
   );
 }
 
-const THUMBNAIL_ASPECT: Record<IabtmChannel, string> = {
-  Film: "aspect-video",
-  Music: "aspect-square",
-  Art: "aspect-[4/5]",
-  Animation: "aspect-[4/3]",
-  Editorial: "aspect-[3/2]",
-  Print: "aspect-[3/4]",
-};
-
 function ExploreTile({
   card,
   onOpen,
@@ -349,15 +362,14 @@ function ExploreTile({
   const [imgError, setImgError] = useState(false);
   const accent = CATEGORY_ACCENTS[card.category];
   const showImage = card.thumbnail && !imgError;
-  const aspect = card.channel ? THUMBNAIL_ASPECT[card.channel] : "aspect-[4/3]";
 
   return (
     <button
       type="button"
       onClick={() => onOpen(card)}
-      className="mb-4 block w-full break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card text-left shadow-soft transition-all hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="block w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-soft transition-all hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
-      <div className={`relative w-full overflow-hidden bg-muted ${aspect}`}>
+      <div className="relative aspect-square w-full overflow-hidden bg-muted">
         {showImage ? (
           <img
             src={card.thumbnail}

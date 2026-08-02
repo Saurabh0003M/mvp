@@ -25,6 +25,8 @@ interface Props {
   dragY: number;
   isTop: boolean;
   onExpandWhy: () => void;
+  /** Tap the card body to preview the media without deciding. */
+  onPreview?: () => void;
 }
 
 const SOURCE_ICONS: Record<string, string> = {
@@ -46,6 +48,7 @@ export function RecommendationCard({
   dragY,
   isTop,
   onExpandWhy,
+  onPreview,
 }: Props) {
   const [whyOpen, setWhyOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -85,7 +88,11 @@ export function RecommendationCard({
 
       <div className="flex h-full w-full flex-col overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-card">
         {/* Thumbnail / gradient fallback — fixed aspect ratio */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden">
+        {/* shrink-0 is load-bearing: this sits in a fixed-height flex column,
+            so without it the image is the first thing the browser compresses
+            when the text below is long — which is why some cards showed a
+            sliver of thumbnail and some showed none at all. */}
+        <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden">
           {showImage ? (
             <img
               src={card.thumbnail}
@@ -178,6 +185,18 @@ export function RecommendationCard({
               {card.duration} min
             </span>
           </div>
+
+          {onPreview && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onPreview();
+              }}
+              className="mt-3 w-full rounded-full border border-border py-2 text-caption text-foreground/80 transition-colors hover:bg-accent"
+            >
+              Preview it first
+            </button>
+          )}
 
           {/* Why this */}
           <div className="mt-4 border-t border-border pt-3.5">

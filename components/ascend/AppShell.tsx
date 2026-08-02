@@ -28,7 +28,7 @@ export function AppShell({
 }: Props) {
   return (
     <div className="min-h-screen bg-sunfade bg-grain">
-      <div className="mx-auto grid min-h-screen w-full max-w-[1360px] grid-cols-[72px_1fr] gap-0 lg:grid-cols-[240px_1fr] xl:grid-cols-[240px_1fr_340px]">
+      <div className="mx-auto grid min-h-screen w-full max-w-[1760px] grid-cols-[72px_minmax(0,1fr)] gap-0 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_340px] 2xl:grid-cols-[240px_minmax(0,1fr)_360px]">
         {/* ── LEFT RAIL — Twitter/Reddit-style persistent nav ─── */}
         <aside className="sticky top-0 flex h-screen flex-col border-r border-border/60 bg-background/60 px-3 py-6 backdrop-blur-xl lg:px-5">
           {/* Brand */}
@@ -95,7 +95,7 @@ export function AppShell({
         <main className="min-w-0 border-r border-border/60 xl:border-r">{children}</main>
 
         {/* ── RIGHT RAIL — Twitter's "What's happening" pattern ─ */}
-        <aside className="sticky top-0 hidden h-screen flex-col overflow-y-auto px-5 py-6 xl:flex">
+        <aside className="sticky top-0 hidden h-screen flex-col overflow-y-auto px-5 py-6 2xl:px-6 xl:flex">
           {right}
         </aside>
       </div>

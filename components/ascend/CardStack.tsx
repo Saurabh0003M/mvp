@@ -17,12 +17,15 @@ interface Props {
   showHints: boolean;
   showCooldown: boolean;
   onCooldownDismiss: () => void;
+  /** Open the card's media without recording a decision. */
+  onPreview?: (card: Recommendation) => void;
 }
 
 export function CardStack({
   state,
   profile,
   onSwipe,
+  onPreview,
   showHints,
   showCooldown,
   onCooldownDismiss,
@@ -166,6 +169,7 @@ export function CardStack({
             dragY={dragProgress.y}
             isTop
             onExpandWhy={() => {}}
+            onPreview={onPreview ? () => onPreview(topCard) : undefined}
           />
         </motion.div>
       )}

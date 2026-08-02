@@ -1,8 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { type UserProfile, type EngineState, CATEGORY_ACCENTS } from "@/lib/engine";
-import { X, Check, Bookmark, ChevronRight } from "lucide-react";
+import { type UserProfile, type EngineState, type IabtmChannel, CATEGORY_ACCENTS } from "@/lib/engine";
+import { X, Check, Bookmark, ChevronRight, ArrowRight } from "lucide-react";
+
+const ARTIFACT_ACCEPTED_THRESHOLD = 5;
 
 interface Props {
   open: boolean;
@@ -73,6 +75,10 @@ export function ProfileSheet({ open, onClose, profile, state, onOpenQuests, onOp
                 </div>
               </div>
 
+              {state.accepted.length >= ARTIFACT_ACCEPTED_THRESHOLD && (
+                <IdentityArtifactCard profile={profile} state={state} />
+              )}
+
               <div className="space-y-2 border-t border-border pt-5">
                 <button
                   onClick={() => { onClose(); onOpenQuests(); }}
@@ -112,4 +118,154 @@ export function ProfileSheet({ open, onClose, profile, state, onOpenQuests, onOp
       )}
     </AnimatePresence>
   );
+}
+
+function IdentityArtifactCard({
+  profile,
+  state,
+}: {
+  profile: UserProfile;
+  state: EngineState;
+}) {
+  const channelSummary = getAcceptedChannelSummary(state);
+  const attributeShift = getAttributeShift(state);
+  const artifactLine = buildArtifactLine({
+    acceptedCount: state.accepted.length,
+    savedCount: state.later.length,
+    reviewedCount: state.history.length,
+    channelCount: channelSummary.totalChannels,
+  });
+
+  return (
+    <section className="rounded-2xl border border-white/10 bg-panel p-5 text-panel-foreground">
+      <div>
+        <div className="text-micro text-panel-foreground/55">Your artifact</div>
+        <h3 className="mt-1 font-display text-xl font-medium leading-snug">
+          Becoming {profile.aspiration}
+        </h3>
+      </div>
+
+      <div className="mt-4 border-t border-white/10 pt-4">
+        <div className="text-micro text-panel-foreground/55">Top channels</div>
+        {channelSummary.topChannels.length > 0 ? (
+          <div className="mt-2 flex flex-wrap gap-2">
+            {channelSummary.topChannels.map(({ channel, count }) => (
+              <span
+                key={channel}
+                className="rounded-full bg-white/10 px-2.5 py-1 text-micro text-panel-foreground/90"
+              >
+                {channel} {count}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-2 text-caption text-panel-foreground/60">
+            No channel data in accepted quests.
+          </p>
+        )}
+      </div>
+
+      {attributeShift && (
+        <div className="mt-4 border-t border-white/10 pt-4">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="rounded-full border border-white/20 px-2.5 py-1 text-caption text-panel-foreground">
+              {attributeShift.current}
+            </span>
+            <ArrowRight className="h-3.5 w-3.5 shrink-0 text-panel-foreground/50" />
+            <span className="rounded-full bg-foreground px-2.5 py-1 text-caption text-background">
+              {attributeShift.imagined}
+            </span>
+          </div>
+        </div>
+      )}
+
+      <div className="mt-4 grid grid-cols-3 gap-3 border-t border-white/10 pt-4">
+        <ArtifactStat label="Accepted" value={state.accepted.length} />
+        <ArtifactStat label="Saved" value={state.later.length} />
+        <ArtifactStat label="Reviewed" value={state.history.length} />
+      </div>
+
+      <p className="mt-4 border-t border-white/10 pt-4 text-caption text-panel-foreground/70">
+        {artifactLine}
+      </p>
+
+      <div className="mt-4 border-t border-white/10 pt-4">
+        <a
+          href="https://iambetterthanme.com/shop"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex rounded-full bg-background px-5 py-2.5 text-caption font-medium text-foreground transition-opacity hover:opacity-90"
+        >
+          Make it wearable&nbsp;&rarr;
+        </a>
+        <p className="mt-2 text-caption text-panel-foreground/55">
+          Opens IABTM&apos;s shop in a new tab.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ArtifactStat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="min-w-0">
+      <div className="text-micro text-panel-foreground/45">{label}</div>
+      <div className="mt-1 text-subtitle tabular-nums text-panel-foreground">{value}</div>
+    </div>
+  );
+}
+
+function getAcceptedChannelSummary(state: EngineState): {
+  topChannels: { channel: IabtmChannel; count: number }[];
+  totalChannels: number;
+} {
+  const counts = new Map<IabtmChannel, { count: number; order: number }>();
+
+  state.accepted.forEach((card, index) => {
+    if (!card.channel) return;
+    const existing = counts.get(card.channel);
+    if (existing) {
+      existing.count += 1;
+      return;
+    }
+    counts.set(card.channel, { count: 1, order: index });
+  });
+
+  const ranked = Array.from(counts.entries())
+    .map(([channel, value]) => ({ channel, ...value }))
+    .sort((a, b) => b.count - a.count || a.order - b.order);
+
+  return {
+    topChannels: ranked.slice(0, 3).map(({ channel, count }) => ({ channel, count })),
+    totalChannels: ranked.length,
+  };
+}
+
+function getAttributeShift(state: EngineState): { current: string; imagined: string } | null {
+  const current = state.lastReading?.currentSelf[0];
+  const imagined = state.lastReading?.imaginedSelf[0];
+  if (!current || !imagined) return null;
+  return { current, imagined };
+}
+
+function buildArtifactLine({
+  acceptedCount,
+  savedCount,
+  reviewedCount,
+  channelCount,
+}: {
+  acceptedCount: number;
+  savedCount: number;
+  reviewedCount: number;
+  channelCount: number;
+}): string {
+  if (channelCount > 0) {
+    return `${formatCount(acceptedCount, "accepted quest")}. ${formatCount(channelCount, "channel")}. This is what you actually chose.`;
+  }
+
+  return `${formatCount(acceptedCount, "accepted quest")}. ${formatCount(savedCount, "saved item")}. ${formatCount(reviewedCount, "reviewed card")}.`;
+}
+
+function formatCount(count: number, singular: string): string {
+  return `${count} ${count === 1 ? singular : `${singular}s`}`;
 }

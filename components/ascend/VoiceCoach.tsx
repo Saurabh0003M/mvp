@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, X, ArrowUp, Sparkles } from "lucide-react";
+import { Mic, X, ArrowUp, Sparkles, ArrowRight } from "lucide-react";
 import { type CoachMessage } from "@/hooks/use-engine";
 import { type VoiceReading } from "@/lib/voice";
+import { useSpeech } from "@/hooks/use-speech";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -23,12 +24,21 @@ interface Props {
 
 export function VoiceCoach({ messages, reading, onConverse }: Props) {
   const [open, setOpen] = useState(false);
-  const [listening, setListening] = useState(false);
   const [extracting, setExtracting] = useState(false);
   const [text, setText] = useState("");
   const [pill, setPill] = useState<VoiceReading | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const threadRef = useRef<HTMLDivElement>(null);
+
+  // Real speech capture — whisper-flow when it's running, Web Speech otherwise.
+  const speech = useSpeech();
+  const listening = speech.listening;
+
+  // Recognised words flow straight into the composer, so the user can correct
+  // a misheard word before sending rather than losing the whole utterance.
+  useEffect(() => {
+    if (speech.finalText) setText(speech.finalText);
+  }, [speech.finalText]);
 
   // Surface the detected Current -> Imagined state as a transient pill.
   useEffect(() => {
@@ -48,7 +58,7 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setListening(false);
+        speech.stop();
         setOpen(false);
       }
     };
@@ -57,21 +67,28 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
   }, [open]);
 
   function startListening() {
-    setListening(true);
-    requestAnimationFrame(() => inputRef.current?.focus());
+    if (speech.supported) {
+      speech.reset();
+      setText("");
+      speech.start();
+    } else {
+      requestAnimationFrame(() => inputRef.current?.focus());
+    }
   }
 
   function stopListening() {
     if (!listening) return;
-    setListening(false);
-    submit();
+    speech.stop();
+    // Let the last final result land before reading the composer.
+    window.setTimeout(submit, 220);
   }
 
   function submit() {
-    const value = text.trim();
+    const value = (speech.finalText || text).trim();
     if (!value) return;
     setExtracting(true);
     setText("");
+    speech.reset();
     window.setTimeout(() => {
       onConverse(value);
       setExtracting(false);
@@ -79,8 +96,8 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
   }
 
   const currentLabel =
-    pill?.currentSelf[0] ?? (pill?.energy === "high" ? "Energized" : "Exploring");
-  const imaginedLabel = pill?.imaginedSelf[0] ?? "Recharged";
+    pill?.currentSelf[0] ?? (pill?.energy === "high" ? "Active" : "Analytical");
+  const imaginedLabel = pill?.imaginedSelf[0] ?? "Balanced";
 
   return (
     <>
@@ -128,7 +145,7 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
               variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
               transition={{ duration: 0.3 }}
               onClick={() => {
-                setListening(false);
+                speech.stop();
                 setOpen(false);
               }}
               className={`absolute inset-0 bg-background/60 backdrop-blur-md transition-opacity ${
@@ -169,7 +186,7 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
                 {messages.length === 0 && (
                   <div className="mt-2">
                     <p className="text-body text-foreground/80">
-                      What&apos;s on your mind right now? Hold the mic and just talk — no need to
+                      What&apos;s on your mind right now? Tap the mic and just talk — no need to
                       know what you want. I&apos;ll listen for how you&apos;re feeling and quietly
                       re-tune your recommendations.
                     </p>
@@ -203,38 +220,82 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
                 )}
               </div>
 
-              {/* Detected-state pill */}
+              {/* Live transcript while the mic is hot */}
               <AnimatePresence>
-                {pill && (
+                {listening && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.25, ease: EASE }}
+                    className="mx-5 mb-1 rounded-xl border border-border bg-accent/50 px-3 py-2"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-1.5 w-1.5 shrink-0 rounded-full bg-danger">
+                        <motion.span
+                          className="h-full w-full rounded-full bg-danger"
+                          animate={{ opacity: [1, 0.2, 1] }}
+                          transition={{ duration: 1.4, repeat: Infinity }}
+                        />
+                      </span>
+                      <span className="text-micro text-muted-foreground">
+                        {speech.engine === "whisper" ? "Whisper · on-device" : "Listening"}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-caption leading-relaxed text-foreground">
+                      {speech.finalText}{" "}
+                      <span className="text-muted-foreground">{speech.interimText}</span>
+                      {!speech.finalText && !speech.interimText && (
+                        <span className="text-muted-foreground">Say how you&apos;re doing…</span>
+                      )}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* The money shot: Current Self → Self You Imagine, in IABTM's
+                  own attribute vocabulary, with the topic it steered toward. */}
+              <AnimatePresence>
+                {pill && !listening && (
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.35, ease: EASE }}
-                    className="mx-5 mb-1 flex items-center gap-2 rounded-xl border border-border bg-accent/60 px-3 py-2"
+                    className="mx-5 mb-1 rounded-xl border border-border bg-accent/50 px-3 py-2.5"
                   >
-                    <span className="text-micro text-muted-foreground">State detected</span>
-                    <span className="text-caption font-medium text-foreground">{currentLabel}</span>
-                    <ArrowUp className="h-3 w-3 rotate-45 text-muted-foreground" />
-                    <span className="text-caption font-medium text-foreground">{imaginedLabel}</span>
-                    {pill.categories[0] && (
-                      <span className="ml-auto rounded-full bg-background px-2 py-0.5 text-micro text-muted-foreground">
-                        {pill.categories[0]}
+                    <div className="text-micro text-muted-foreground">
+                      Attributes detected
+                    </div>
+                    <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                      <span className="rounded-full border border-border bg-background px-2.5 py-1 text-caption text-foreground">
+                        {currentLabel}
                       </span>
-                    )}
+                      <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                      <span className="rounded-full bg-foreground px-2.5 py-1 text-caption text-background">
+                        {imaginedLabel}
+                      </span>
+                      {pill.categories[0] && (
+                        <span className="ml-auto rounded-full bg-background px-2 py-0.5 text-micro text-muted-foreground">
+                          {pill.categories[0]}
+                        </span>
+                      )}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              {speech.error && (
+                <div className="mx-5 mb-1 text-micro text-muted-foreground">{speech.error}</div>
+              )}
 
               {/* Composer */}
               <div className="border-t border-border p-3">
                 <div className="flex items-end gap-2">
                   <button
-                    onPointerDown={startListening}
-                    onPointerUp={stopListening}
-                    onPointerLeave={stopListening}
+                    onClick={() => (listening ? stopListening() : startListening())}
                     className="relative flex h-11 w-11 shrink-0 select-none items-center justify-center rounded-full bg-foreground text-background transition-transform active:scale-95"
-                    aria-label="Hold to think out loud"
+                    aria-label={listening ? "Stop and send" : "Tap to talk"}
                   >
                     <Mic className="h-4 w-4" />
                     <AnimatePresence>
@@ -271,7 +332,13 @@ export function VoiceCoach({ messages, reading, onConverse }: Props) {
                         }
                       }}
                       rows={1}
-                      placeholder={listening ? "Listening… (Ctrl+Win dictates via Wispr)" : "Hold the mic, or type…"}
+                      placeholder={
+                        listening
+                          ? "Listening… tap the mic again when you're done"
+                          : speech.supported
+                          ? "Tap the mic to talk, or type…"
+                          : "Type what's on your mind…"
+                      }
                       className="max-h-24 flex-1 resize-none bg-transparent text-caption text-foreground outline-none placeholder:text-muted-foreground"
                     />
                     <button

@@ -35,8 +35,8 @@ The MVP runs without accounts, API keys, or a database. Supabase persistence, Yo
 **Prerequisite:** Node.js 18 or newer.
 
 ```bash
-git clone https://github.com/ishikakestwal/mvp.git
-cd mvp
+git clone https://github.com/Saurabh0003M/ascend.git
+cd ascend
 npm install
 npm run dev
 ```
@@ -236,3 +236,7 @@ npm.cmd run build
 ## License
 
 MIT
+
+## Acknowledgements
+
+Built as a team project. A parallel copy of this work lives at [ishikakestwal/mvp](https://github.com/ishikakestwal/mvp).
